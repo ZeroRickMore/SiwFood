@@ -34,9 +34,9 @@ public class Ricetta {
 	//Map handling annotations
 	@ElementCollection
 	@CollectionTable(name = "RicettaIngrediente2Quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
-    @MapKeyColumn(name = "ingrediente")
+    @MapKeyColumn(name = "ingrediente_id")
     @Column(name = "quantità")
-	private Map<String, Integer> ingrediente2quantity;
+	private Map<Ingrediente, Integer> ingrediente2quantity;
 	
 	@ManyToOne
 	private Cuoco cuoco;
@@ -57,7 +57,7 @@ public class Ricetta {
 	public List<String> getTuttiPathDelleImmagini() {
 		return tuttiPathDelleImmagini;
 	}
-	public Map<String, Integer> getIngrediente2quantity() {
+	public Map<Ingrediente, Integer> getIngrediente2quantity() {
 		return ingrediente2quantity;
 	}
 	public void setId(Long id) {
@@ -72,7 +72,7 @@ public class Ricetta {
 	public void setTuttiPathDelleImmagini(List<String> tuttiPathDelleImmagini) {
 		this.tuttiPathDelleImmagini = tuttiPathDelleImmagini;
 	}
-	public void setIngrediente2quantity(Map<String, Integer> ingrediente2quantity) {
+	public void setIngrediente2quantity(Map<Ingrediente, Integer> ingrediente2quantity) {
 		this.ingrediente2quantity = ingrediente2quantity;
 	}
 
