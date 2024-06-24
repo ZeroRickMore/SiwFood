@@ -13,6 +13,7 @@
             @MapKeyColumn(name = "ingrediente")
             @Column(name = "quantità")
 	        private Map<String, Integer> ingrediente2quantity;
-            ```
+        
+```
             Questo codice genera una nuova tabella RicettaIngrediente2Quantità, con identificatore ricetta_id 
             (identificatore della classe in cui mi trovo) + ingrediente(chiave di Map<>), e un'ultima colonna quantità.
