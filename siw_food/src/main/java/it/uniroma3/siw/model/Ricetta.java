@@ -17,6 +17,11 @@ import jakarta.persistence.MapKeyColumn;
 
 @Entity
 public class Ricetta {
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -90,4 +95,11 @@ public class Ricetta {
 		Ricetta other = (Ricetta) obj;
 		return Objects.equals(cuoco, other.cuoco) && Objects.equals(nome, other.nome);
 	}
+	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
+	
+	
+	
 }

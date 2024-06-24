@@ -12,6 +12,11 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Cuoco {
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
