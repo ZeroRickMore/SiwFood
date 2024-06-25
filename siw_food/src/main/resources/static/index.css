@@ -1,0 +1,121 @@
+body {
+    background-color: #be9b7b; /* Quella sorta di marrone rosato di sfondo */
+    color: #222; /* Colore grigio tendente al nero */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Voglio elementi impilati */
+    align-items: center; /* Voglio elementi centrati */
+    background-image: url('https://st3.idealista.it/news/archivie/styles/fullwidth_xl/public/2022-10/media/image/aurelien-lemasson-theobald-x00czbt4dfk-unsplash.jpg?VersionId=V5HNX7jAzvpmOwawvIKLGNATTI3v_m09&itok=KeH-F7_2');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+nav {
+    background-color: #44291a; /* Marrone */
+    height: 7vh;
+    width: 100vw;
+    font-family: 'Dancing Script', cursive; /* Font corsivo */
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    overflow: hidden; /* Just in case... */
+}
+
+nav .text {
+    margin-right: 2vw; /* Lo voglio un po' staccato da destra */
+    color: #d3d3d3;
+    font-size: min(10vw, 3.5vh);
+}
+
+#header {
+    background-color: #f0e7d4; /* Quella sorta di beige */
+    height: 30vh;
+    width: 96.5vw;
+    font-family: 'Dancing Script', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: min(17vw, 17vh);
+    border-radius: 10px; /* Smussa gli angoli */
+    overflow: hidden; /* Just in case... */
+    background-image: url('https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3JtNDUxLWJnLTA2LmpwZw.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#menu_container {
+    height: 53vh;
+    width: 73vw;
+    margin-top: 5vh; /* Un po' distanti da sopra e sotto, visually pleasing */
+    margin-bottom: 5vh;
+    display: flex;
+    justify-content: space-around; /* Voglio i menu di scelta equidistanti */
+    align-items: center; /* Li voglio centrati nel riquadro del menu_container */
+}
+
+#menu_container .choice_menu {
+    background-color: #855d37;
+    border-radius: 10px; /* Smussa gli angoli */
+    height: 100%;
+    width: 18vw;
+    overflow: hidden; /* This time it's needed! */
+    display: flex;
+    align-items: space-around;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#menu_container .choice_menu .titolo_choice_menu {
+    background-color: #f0e7d4;
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Just in case... */
+    font-family: 'Dancing Script', cursive; /* Font corsivo */
+    font-size: min(4.3vw, 4.3vh);
+    background-image: url('https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3JtNDUxLWJnLTA2LmpwZw.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#menu_container .choice_menu .split_half {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#menu_container .choice_menu .split_half img {
+    width: 100%;
+    height: 26.5vh;
+}
+
+#menu_container .choice_menu .split_half .text {
+    margin: 2%;
+}
+
+#menu_container .choice_menu .split_half .text ul {
+    margin: 6% 3%;
+    padding: 0;
+    list-style-type: none;
+}
+
+#menu_container .choice_menu .split_half .text ul li {
+    margin-bottom: 2%;
+}
+
+/* Cambia colore dei link */
+#menu_container .choice_menu .split_half .text a {
+    font-size: 1.2vw;
+    color: black;
+}
+
+#menu_container .choice_menu .split_half .text a:hover {
+    font-size: 1.2vw;
+    color: #1a237e;
+}

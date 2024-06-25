@@ -8,11 +8,9 @@
 .springBeans
 .factorypath
 
-<<<<<<< Updated upstream
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
-=======
 # BlueJ files
 *.ctxt
 
@@ -32,4 +30,3 @@ Thumbs.db
 hs_err_pid*
 replay_pid*
 /.metadata/
->>>>>>> Stashed changes
