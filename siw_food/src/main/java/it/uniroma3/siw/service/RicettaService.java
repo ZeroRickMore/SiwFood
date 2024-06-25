@@ -12,6 +12,4 @@ public class RicettaService {
 	private RicettaRepository ricettaRepository;
 	
 	
-	
-	
 }
