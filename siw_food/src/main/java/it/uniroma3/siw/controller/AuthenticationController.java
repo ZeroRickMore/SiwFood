@@ -63,7 +63,7 @@ public class AuthenticationController {
 			if(credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
 				return "admin/index.html";
 			}
-			return "placeholder.html";
+			return "index.html";
 		}
 		
 	}
