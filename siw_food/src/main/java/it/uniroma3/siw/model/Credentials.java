@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,8 +17,8 @@ public class Credentials {
 	/*##############################################################*/
 	/*######################RUOLI STATICI###########################*/
 	/*##############################################################*/
-	
-	public static final String EDITORE_ROLE = "EDITORE";
+
+	public static final String CUOCO_ROLE = "CUOCO";
 	public static final String ADMIN_ROLE = "ADMIN";
 	
 	/*##############################################################*/
@@ -75,7 +76,8 @@ public class Credentials {
 		this.user = user;
 	}
 	public static String getEditoreRole() {
-		return EDITORE_ROLE;
+		return CUOCO_ROLE;
+
 	}
 	public static String getAdminRole() {
 		return ADMIN_ROLE;

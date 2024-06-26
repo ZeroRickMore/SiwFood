@@ -17,3 +17,10 @@
 ```
             Questo codice genera una nuova tabella RicettaIngrediente2Quantità, con identificatore ricetta_id 
             (identificatore della classe in cui mi trovo) + ingrediente(chiave di Map<>), e un'ultima colonna quantità.
+
+
+## Gestione controller
+
+    Per form di immissione dati:
+        Faccio un getmapping per mostrare la form, e in quel metodo con addAttribute metto nella view html il nuovo oggetto che devo creare
+        Poi faccio un postmapping allo stesso url per inviare i dati, e dentro il postmapping ho @ModelAttribute per prendere dati dalla view e metterli nel codice per salvare
