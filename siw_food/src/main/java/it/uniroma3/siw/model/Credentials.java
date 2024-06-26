@@ -8,13 +8,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 @Entity
 public class Credentials {
 	
 	/*##############################################################*/
 	/*######################RUOLI STATICI###########################*/
 	/*##############################################################*/
-	
+
 	public static final String CUOCO_ROLE = "CUOCO";
 	public static final String ADMIN_ROLE = "ADMIN";
 	
@@ -25,9 +28,16 @@ public class Credentials {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	@NotBlank
 	private String username;
+	
+	@NotBlank
 	private String password;
+	
 	private String role;
+	
+	@NotNull
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private User user;
 	
@@ -67,6 +77,7 @@ public class Credentials {
 	}
 	public static String getEditoreRole() {
 		return CUOCO_ROLE;
+
 	}
 	public static String getAdminRole() {
 		return ADMIN_ROLE;
