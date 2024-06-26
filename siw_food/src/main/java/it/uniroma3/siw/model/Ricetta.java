@@ -14,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKeyColumn;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Ricetta {
@@ -26,18 +28,22 @@ public class Ricetta {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank
 	private String nome;
+	
 	private String descrizione;
 	
 	private List<String> tuttiPathDelleImmagini;
 	
 	//Map handling annotations
+	//@NotNull
 	@ElementCollection
 	@CollectionTable(name = "RicettaIngrediente2Quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
     @MapKeyColumn(name = "ingrediente_id")
     @Column(name = "quantità")
 	private Map<Ingrediente, Integer> ingrediente2quantity;
 	
+	@NotNull
 	@ManyToOne
 	private Cuoco cuoco;
 	
