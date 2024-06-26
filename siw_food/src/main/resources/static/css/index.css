@@ -127,10 +127,9 @@ nav .text {
     height: min(1.6vw, 4.9vh);
 }
 
-/* Cambia colore dei link */
 #menu_container .choice_menu .split_half .text a {
     font-size: min(1.2vw, 4vh);
-    color: black;
+	color: #0000EE;
 }
 
 #menu_container .choice_menu .split_half .text a:hover {
