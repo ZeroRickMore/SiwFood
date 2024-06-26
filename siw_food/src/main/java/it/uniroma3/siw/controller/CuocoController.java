@@ -8,6 +8,10 @@ import it.uniroma3.siw.service.CuocoService;
 @Controller
 public class CuocoController {
 	
+	/*##############################################################*/
+	/*##########################SERVICES############################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private CuocoService cuocoService;
 	

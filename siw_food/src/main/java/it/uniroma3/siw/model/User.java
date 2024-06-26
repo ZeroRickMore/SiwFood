@@ -23,7 +23,6 @@ public class User {
 	private String nome;
 	
 	@NotBlank
-
 	private String cognome;
 	
 	/*##############################################################*/

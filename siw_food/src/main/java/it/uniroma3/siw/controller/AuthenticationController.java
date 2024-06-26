@@ -19,12 +19,20 @@ import it.uniroma3.siw.service.UserService;
 @Controller
 public class AuthenticationController {
 
+	/*##############################################################*/
+	/*##########################SERVICES############################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private CredentialsService credentialsService;
 
 	@Autowired
 	private UserService userService;
 
+	/*##############################################################*/
+	/*##########################REGISTER############################*/
+	/*##############################################################*/
+	
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
 		model.addAttribute("user", new User());
@@ -39,6 +47,10 @@ public class AuthenticationController {
 		return "redirect:login"; //finito di registrare redirecto a /
 	}
 
+	/*##############################################################*/
+	/*############################INDEX#############################*/
+	/*##############################################################*/
+	
 	@GetMapping("/")
 	public String showIndex(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -55,6 +67,10 @@ public class AuthenticationController {
 		}
 		
 	}
+	
+	/*##############################################################*/
+	/*###########################LOGIN##############################*/
+	/*##############################################################*/
 	
 	@GetMapping("/login")
 	public String showLoginForm(Model model) {
