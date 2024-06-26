@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwFood - Pagina Ingrediente</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+    <div th:if="${ingrediente}">
+         <h1 th:text="${ingrediente.nome}">Nome ingrediente </h1>
+         <br>
+         <div th:if="${ingrediente.image_path}">
+			 <img th:src="${ingrediente.image_path}">
+         </div>
+    </div>
+    <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
+</body>
+
+</html>

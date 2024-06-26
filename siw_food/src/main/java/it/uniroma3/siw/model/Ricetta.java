@@ -51,6 +51,12 @@ public class Ricetta {
 	/*####################GETTERS AND SETTERS#######################*/
 	/*##############################################################*/
 	
+	public Cuoco getCuoco() {
+		return cuoco;
+	}
+	public void setCuoco(Cuoco cuoco) {
+		this.cuoco = cuoco;
+	}
 	public Long getId() {
 		return id;
 	}

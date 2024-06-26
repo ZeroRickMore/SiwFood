@@ -74,7 +74,13 @@ public class Cuoco {
 	public void setFotografia_path(String fotografia_path) {
 		this.fotografia_path = fotografia_path;
 	}
-	
+	public List<Ricetta> getRicette() {
+		return ricette;
+	}
+	public void setRicette(List<Ricetta> ricette) {
+		this.ricette = ricette;
+	}
+
 	/*##############################################################*/
 	/*#####################EQUALS, HASHCODE#########################*/
 	/*##############################################################*/

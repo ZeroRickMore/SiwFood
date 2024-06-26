@@ -45,8 +45,13 @@ public class RicettaController {
 
 	@GetMapping("/ricetta/{id}")
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("ricetta", this.ricettaService.findById(id));
+		Ricetta ricetta = this.ricettaService.findById(id);
+		model.addAttribute("ricetta", ricetta);
+		
+		model.addAttribute("listaRicette", ricetta.getIngrediente2quantity().keySet()); 
+		//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
+		
 		return "ricetta.html";
 	}
-	
+
 }

@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,12 @@ public class CuocoService {
 	}
 
 	public Cuoco findById(Long id) {
-		return this.cuocoRepository.findById(id).get();
+		try {
+			return this.cuocoRepository.findById(id).get();
+		}
+		catch (NoSuchElementException e) {
+			return null;
+		}
 	}
-	
+
 }
