@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,11 @@ public class RicettaService {
 	}
 
 	public Ricetta findById(Long id) {
-		return this.ricettaRepository.findById(id).get();
+		try {
+			return this.ricettaRepository.findById(id).get();
+		}
+		catch (NoSuchElementException e) {
+			return null;
+		}
 	}
 }
