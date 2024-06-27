@@ -1,6 +1,6 @@
 body {
     background-color: #be9b7b; /* Quella sorta di marrone rosato di sfondo */
-    color: #222; /* Colore grigio tendente al nero */
+    color: rgb(58, 35, 22); /* Colore grigio tendente al nero */
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,15 +10,15 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+	font-family: 'Dancing Script', cursive;
 }
 
 nav {
     background-color: #44291a; /* Marrone */
     height: 7vh;
-    width: 100vw;
-    font-family: 'Dancing Script', cursive; /* Font corsivo */
+    width: 100%;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     align-items: center;
     overflow: hidden; /* Just in case... */
 	background-image: url('dark_wood_upscayl.jpg');
@@ -27,20 +27,45 @@ nav {
 	background-repeat: no-repeat;
 }
 
+nav .buttons {
+    display:flex;
+}
+
+nav .button {
+    background-color: #f0e7d4; /* Quella sorta di beige */
+    margin-right: 2vw; /* Lo voglio un po' staccato da destra */
+    margin-left: 2vw; /* Lo voglio un po' staccato da destra */
+    color: #d3d3d3;
+    font-size: min(10vw, 3.5vh);
+    border-radius: 10px; /* Smussa gli angoli */
+    overflow: hidden; /* Just in case... */
+    background-image: url('wood_light_upscay.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: min(11vw, 4.5vh);
+    width: 7vw;
+    margin-right: -5px;
+}
+
 nav .text {
     margin-right: 2vw; /* Lo voglio un po' staccato da destra */
+    margin-left: 2vw; /* Lo voglio un po' staccato da destra */
     color: #d3d3d3;
     font-size: min(10vw, 3.5vh);
 }
 
+
 #header {
     background-color: #f0e7d4; /* Quella sorta di beige */
-    height: 30vh;
+    height: 22vh;
     width: 96.5vw;
-    font-family: 'Dancing Script', cursive;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    align-items: space-around;
     font-size: min(17vw, 17vh);
     border-radius: 10px; /* Smussa gli angoli */
     overflow: hidden; /* Just in case... */
@@ -51,9 +76,9 @@ nav .text {
 }
 
 #menu_container {
-    height: 53vh;
+    height: 58vh;
     width: 73vw;
-    margin-top: 5vh; /* Un po' distanti da sopra e sotto, visually pleasing */
+    margin-top: 6vh; /* Un po' distanti da sopra e sotto, visually pleasing */
     margin-bottom: 5vh;
     display: flex;
     justify-content: space-around; /* Voglio i menu di scelta equidistanti */
@@ -64,7 +89,7 @@ nav .text {
     background-color: #855d37;
     border-radius: 10px; /* Smussa gli angoli */
     height: 100%;
-    width: 18vw;
+    width: 20vw;
     overflow: hidden; /* This time it's needed! */
     display: flex;
     align-items: space-around;
@@ -80,7 +105,6 @@ nav .text {
     justify-content: center;
     align-items: center;
     overflow: hidden; /* Just in case... */
-    font-family: 'Dancing Script', cursive; /* Font corsivo */
     font-size: min(4.3vw, 4.3vh);
     background-image: url('wood_light_upscay.jpg');
     background-size: cover;
@@ -104,6 +128,7 @@ nav .text {
 }
 
 #menu_container .choice_menu .split_half .text {
+    font-size: min(1.2vw, 4vh);
     margin: 2%;
 }
 
@@ -122,17 +147,20 @@ nav .text {
     background-color: #f0e7d4;
     border-radius: 10px;
     display: flex;
-    align-items: space-around;
-    justify-content: space-around;
-    height: min(1.6vw, 4.9vh);
+    align-items: center;
+    justify-content: center;
+    height: min(1.4vw, 4.7vh);
+    
 }
 
-#menu_container .choice_menu .split_half .text a {
+a {
     font-size: min(1.2vw, 4vh);
-	color: #0000EE;
+	color: rgb(1, 66, 237);
+	text-decoration: none;
 }
 
-#menu_container .choice_menu .split_half .text a:hover {
+a:hover {
     font-size: 1.2vw;
-    color: #1a237e;
+    color: rgb(0, 0, 255);
+	text-decoration: underline;
 }
