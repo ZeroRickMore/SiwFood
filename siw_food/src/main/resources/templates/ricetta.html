@@ -19,7 +19,12 @@
          </div>
          <br>
          <div>
-			 Qui la roba delle immagini
+			 Immagini:
+			 <ul>
+			  <li th:each="pathImmagine : ${ricetta.tuttiPathDelleImmagini}">
+			 	 <img th:src="'/' + ${pathImmagine}" width="20%">	 	
+			  </li>
+			 </ul>
          </div>
           <div>
 			 Ingredienti:

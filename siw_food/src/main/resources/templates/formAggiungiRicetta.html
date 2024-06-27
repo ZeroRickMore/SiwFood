@@ -32,7 +32,7 @@
 			Data di nascita cuoco: <input required type="date" th:field="${cuoco.dataNascita}">
 			<span th:if="${#fields.hasErrors('cuoco.dataNascita')}" th:errors="${cuoco.dataNascita}"></span>
 			<br><br>
-			Percorso dei file immagine: <input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmagini}">
+			Percorso dei file immagine: <input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmaginiString}">
         </div>
         <div>
 			<span><button type="submit">Conferma</button></span>

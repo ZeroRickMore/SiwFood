@@ -29,6 +29,8 @@
 				 </li>
 			 </ul>
          </div>
+		 	 Immagine:
+			 <img th:src="'/' + ${cuoco.fotografia_path}" width="20%">
     </div>
     <div th:unless="${cuoco}">Questo cuoco non è presente nel sistema!</div>
 </body>

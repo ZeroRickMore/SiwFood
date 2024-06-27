@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +32,11 @@ public class Ricetta {
 	@NotBlank
 	private String nomeRicetta;
 	
+	@Column(length=2000)
 	private String descrizione;
+	
+	@Column(length=2000)
+	private String tuttiPathDelleImmaginiString; //Contiene la lista dei path ma tutta di fila e con le virgole
 	
 	private List<String> tuttiPathDelleImmagini;
 	
@@ -44,6 +49,8 @@ public class Ricetta {
 	
 	@ManyToOne
 	private Cuoco cuoco;
+	
+	
 	
 	/*##############################################################*/
 	/*####################GETTERS AND SETTERS#######################*/
@@ -85,7 +92,13 @@ public class Ricetta {
 	public void setIngrediente2quantity(Map<Ingrediente, Integer> ingrediente2quantity) {
 		this.ingrediente2quantity = ingrediente2quantity;
 	}
-
+	public String getTuttiPathDelleImmaginiString() {
+		return tuttiPathDelleImmaginiString;
+	}
+	public void setTuttiPathDelleImmaginiString(String tuttiPathDelleImmaginiString) {
+		this.tuttiPathDelleImmaginiString = tuttiPathDelleImmaginiString.replace(" ", "");
+	}
+	
 	/*##############################################################*/
 	/*#####################EQUALS, HASHCODE#########################*/
 	/*##############################################################*/
@@ -114,6 +127,10 @@ public class Ricetta {
 	public String toString() {
 		return "Ricetta [id=" + id + ", nome=" + nomeRicetta + ", descrizione=" + descrizione + ", tuttiPathDelleImmagini="
 				+ tuttiPathDelleImmagini + ", ingrediente2quantity=" + ingrediente2quantity + ", cuoco=" + cuoco + "]";
+	}
+	public void setTuttiPathDelleImmaginiFromOwnString() {
+		this.tuttiPathDelleImmaginiString = this.tuttiPathDelleImmaginiString.replace(" ", "");
+		this.setTuttiPathDelleImmagini(Arrays.asList(this.tuttiPathDelleImmaginiString.split(",")));
 	}
 	
 }

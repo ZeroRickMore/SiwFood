@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,8 +60,8 @@ public class RicettaController {
 	@GetMapping("/ricetta/{id}")
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(id);
+		ricetta.setTuttiPathDelleImmaginiFromOwnString();
 		model.addAttribute("ricetta", ricetta);
-		
 		model.addAttribute("listaRicette", ricetta.getIngrediente2quantity().keySet()); 
 		//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
 		
@@ -84,7 +86,6 @@ public class RicettaController {
 		//Ricerca del cuoco relativo sulla base di nome, cognome e data di nascita, e assegnazione alla ricetta
 		Cuoco cuocoRelativo =  this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		ricetta.setCuoco(cuocoRelativo);
-		
 		this.ricettaValidator.validate(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors().toString());

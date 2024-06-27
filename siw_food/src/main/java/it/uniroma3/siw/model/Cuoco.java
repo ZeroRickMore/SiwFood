@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +35,7 @@ public class Cuoco {
 	@Past
 	private LocalDate dataNascita;
 	
+	@Column(length=300)
 	private String fotografia_path;
 	
 	@OneToMany(mappedBy="cuoco")

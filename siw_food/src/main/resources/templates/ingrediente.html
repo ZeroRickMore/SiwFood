@@ -14,7 +14,7 @@
          <h1 th:text="${ingrediente.nome}">Nome ingrediente </h1>
          <br>
          <div th:if="${ingrediente.image_path}">
-			 <img th:src="${ingrediente.image_path}">
+			 <img th:src="'/' + ${ingrediente.image_path}" width="20%">
          </div>
     </div>
     <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
