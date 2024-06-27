@@ -1,5 +1,7 @@
 package it.uniroma3.siw.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.siw.model.Cuoco;
@@ -10,5 +12,7 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 	public Ricetta findByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco);
 
 	public boolean existsByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco);
+	
+	public List<Ricetta> findAllByOrderByNomeRicettaAsc();
 
 }

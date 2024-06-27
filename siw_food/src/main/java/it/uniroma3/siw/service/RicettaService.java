@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class RicettaService {
 	public Iterable<Ricetta> findAll() {
 		return this.ricettaRepository.findAll();
 	}
+	
+	public List<Ricetta> findAllByOrderByNomeRicettaAsc() {
+		return this.ricettaRepository.findAllByOrderByNomeRicettaAsc();
+	}
 
 	public Ricetta findById(Long id) {
 		try {
@@ -48,4 +53,6 @@ public class RicettaService {
 	public boolean existsByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
 		return this.ricettaRepository.existsByNomeRicettaAndCuoco(nomeRicetta, cuoco);
 	}
+	
+	
 }

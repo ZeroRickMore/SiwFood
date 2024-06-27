@@ -52,7 +52,7 @@ public class RicettaController {
 
 	@GetMapping("/elencoRicette")
 	public String showelencoRicette(Model model) {
-		Iterable<Ricetta> allRicette = this.ricettaService.findAll();
+		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
 		model.addAttribute("allRicette", allRicette);
 		return "elencoRicette.html";
 	}
