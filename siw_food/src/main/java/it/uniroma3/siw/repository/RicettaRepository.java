@@ -7,8 +7,8 @@ import it.uniroma3.siw.model.Ricetta;
 
 public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 
-	public Ricetta findByNomeAndCuoco(String nome, Cuoco cuoco);
+	public Ricetta findByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco);
 
-	public boolean existsByNomeAndCuoco(String nome, Cuoco cuoco);
+	public boolean existsByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco);
 
 }

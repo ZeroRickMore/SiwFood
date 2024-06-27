@@ -37,15 +37,15 @@ public class RicettaService {
 		}
 	}
 
-	public Ricetta findByNomeAndCuoco(String nome, Cuoco cuoco) {
-		return this.ricettaRepository.findByNomeAndCuoco(nome, cuoco);
+	public Ricetta findByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
+		return this.ricettaRepository.findByNomeRicettaAndCuoco(nomeRicetta, cuoco);
 	}
 
 	public Ricetta save(Ricetta ricetta) {
 		return this.ricettaRepository.save(ricetta);	
 	}
 
-	public boolean existsByNomeAndCuoco(String nome, Cuoco cuoco) {
-		return this.ricettaRepository.existsByNomeAndCuoco(nome, cuoco);
+	public boolean existsByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
+		return this.ricettaRepository.existsByNomeRicettaAndCuoco(nomeRicetta, cuoco);
 	}
 }

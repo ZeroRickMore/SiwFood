@@ -29,7 +29,7 @@ public class Ricetta {
 	private Long id;
 	
 	@NotBlank
-	private String nome;
+	private String nomeRicetta;
 	
 	private String descrizione;
 	
@@ -42,7 +42,6 @@ public class Ricetta {
     @Column(name = "quantità")
 	private Map<Ingrediente, Integer> ingrediente2quantity;
 	
-	@NotNull
 	@ManyToOne
 	private Cuoco cuoco;
 	
@@ -59,8 +58,8 @@ public class Ricetta {
 	public Long getId() {
 		return id;
 	}
-	public String getNome() {
-		return nome;
+	public String getNomeRicetta() {
+		return nomeRicetta;
 	}
 	public String getDescrizione() {
 		return descrizione;
@@ -74,8 +73,8 @@ public class Ricetta {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeRicetta(String nome) {
+		this.nomeRicetta = nome;
 	}
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
@@ -93,7 +92,7 @@ public class Ricetta {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cuoco, nome);
+		return Objects.hash(cuoco, nomeRicetta);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -104,7 +103,7 @@ public class Ricetta {
 		if (getClass() != obj.getClass())
 			return false;
 		Ricetta other = (Ricetta) obj;
-		return Objects.equals(cuoco, other.cuoco) && Objects.equals(nome, other.nome);
+		return Objects.equals(cuoco, other.cuoco) && Objects.equals(nomeRicetta, other.nomeRicetta);
 	}
 
 	/*##############################################################*/
@@ -113,7 +112,7 @@ public class Ricetta {
 	
 	@Override
 	public String toString() {
-		return "Ricetta [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", tuttiPathDelleImmagini="
+		return "Ricetta [id=" + id + ", nome=" + nomeRicetta + ", descrizione=" + descrizione + ", tuttiPathDelleImmagini="
 				+ tuttiPathDelleImmagini + ", ingrediente2quantity=" + ingrediente2quantity + ", cuoco=" + cuoco + "]";
 	}
 	

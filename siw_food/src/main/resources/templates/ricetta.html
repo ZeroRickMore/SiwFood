@@ -11,7 +11,7 @@
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
     <div th:if="${ricetta}">
-         <h1 th:text="${ricetta.nome}">Nome ricetta</h1>
+         <h1 th:text="${ricetta.nomeRicetta}">Nome ricetta</h1>
          <br>
 		 <h2 th:href="'/cuoco' + '/' + ${ricetta.cuoco.id}" th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome e cognome cuoco</h2>
          <div>

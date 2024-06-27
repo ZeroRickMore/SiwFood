@@ -10,27 +10,27 @@
 			<p th:each="err : ${#fields.globalErrors()}">
 				<span th:text="${err}"></span>
 					<span th:if="${err=='Ricetta già presente nel sistema:'}">
-						<a th:href="@{'/ricetta' + '/' + ${vecchiaRicetta.id}}" th:text="' ' + ${vecchiaRicetta.nome}"> bho?</a>
+						<a th:href="@{'/ricetta' + '/' + ${vecchiaRicetta.id}}" th:text="' ' + ${vecchiaRicetta.nomeRicetta}"> bho?</a>
 					</span>
 			</p>
 		</div>
 		<div>
-        	Nome: <input required type="text" th:field="${nuovaRicetta.nome}">
-        	<span th:if="${#fields.hasErrors('nome')}" th:errors="${nuovaRicetta.nome}"></span>
+        	Nome: <input required type="text" th:field="${nuovaRicetta.nomeRicetta}">
+        	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${nuovaRicetta.nomeRicetta}"></span>
 			<br><br>
         	Descrizione: <input required type="text" th:field="${nuovaRicetta.descrizione}">
         	<span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
 			<br><br>
 			<h4>>INFORMAZIONI CUOCO</h4>
 			<br><br>
-			Nome cuoco: <input required type="text" th:field="${cuocoPlaceholder.nome}">
-			<span th:if="${#fields.hasErrors('cuoco.nome')}" th:errors="${cuocoPlaceholder.nome}"></span>
+			Nome cuoco: <input required type="text" th:field="${cuoco.nome}">
+			<span th:if="${#fields.hasErrors('cuoco.nome')}" th:errors="${cuoco.nome}"></span>
 			<br><br>
-			Cognome cuoco: <input required type="text" th:field="${cuocoPlaceholder.cognome}">
-			<span th:if="${#fields.hasErrors('cuoco.cognome')}" th:errors="${cuocoPlaceholder.cognome}"></span>
+			Cognome cuoco: <input required type="text" th:field="${cuoco.cognome}">
+			<span th:if="${#fields.hasErrors('cuoco.cognome')}" th:errors="${cuoco.cognome}"></span>
 			<br><br>
-			Data di nascita cuoco: <input required type="date" th:field="${cuocoPlaceholder.dataNascita}">
-			<span th:if="${#fields.hasErrors('cuoco.dataNascita')}" th:errors="${cuocoPlaceholder.dataNascita}"></span>
+			Data di nascita cuoco: <input required type="date" th:field="${cuoco.dataNascita}">
+			<span th:if="${#fields.hasErrors('cuoco.dataNascita')}" th:errors="${cuoco.dataNascita}"></span>
 			<br><br>
 			Percorso dei file immagine: <input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmagini}">
         </div>

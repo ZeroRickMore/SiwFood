@@ -73,13 +73,13 @@ public class RicettaController {
 	@GetMapping("/aggiungiRicetta")
 	public String showFormAggiungiRicetta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());
-		model.addAttribute("cuocoPlaceholder", new Cuoco());
+		model.addAttribute("cuoco", new Cuoco());
 		return "formAggiungiRicetta.html";
 	}
 
 	@PostMapping("/aggiungiRicetta")
 	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
-							@ModelAttribute("cuocoPlaceholder") Cuoco cuoco, Model model) {
+						@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
 		
 		//Ricerca del cuoco relativo sulla base di nome, cognome e data di nascita, e assegnazione alla ricetta
 		Cuoco cuocoRelativo =  this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
@@ -87,8 +87,9 @@ public class RicettaController {
 		
 		this.ricettaValidator.validate(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getAllErrors().toString());
 			//Print del th:href con il link al duplicato, qualora l'errore fosse quello
-			Ricetta ricettaInDB = this.ricettaService.findByNomeAndCuoco(ricetta.getNome(), ricetta.getCuoco());
+			Ricetta ricettaInDB = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
 			if(ricettaInDB!=null) {
 				model.addAttribute("vecchiaRicetta", ricettaInDB);
 			}
