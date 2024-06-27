@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina nuovo cuoco</title>
+</head>
+<body>
+    <h2>Aggiungi nuovo cuoco</h2>
+    <form th:action="@{/aggiungiCuoco}" method="POST" th:object="${nuovoCuoco}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}">
+				<span th:text="${err}"></span>
+					<span th:if="${err=='Cuoco già presente nel sistema:'}">
+						<a th:href="@{'/cuoco' + '/' + ${vecchioCuoco.id}}" th:text="' ' + ${vecchioCuoco.nome} + ' ' + ${vecchioCuoco.cognome}"> bho?</a>
+					</span>
+			</p>
+		</div>
+		<div>
+        	Nome: <input required type="text" th:field="${nuovoCuoco.nome}">
+        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			<br><br>
+        	Cognome: <input required type="text" th:field="${nuovoCuoco.cognome}">
+        	<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+			<br><br>
+			Data di nascita: <input required type="date" th:field="${nuovoCuoco.dataNascita}">
+			<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
+			<br><br>
+			Percorso file immagine: <input type="text" th:field="${nuovoCuoco.fotografia_path}">
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

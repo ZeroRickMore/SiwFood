@@ -36,7 +36,6 @@ public class Cuoco {
 	
 	private String fotografia_path;
 	
-	@NotNull
 	@OneToMany(mappedBy="cuoco")
 	private List<Ricetta> ricette;
 	
@@ -101,13 +100,15 @@ public class Cuoco {
 		return Objects.equals(cognome, other.cognome) && Objects.equals(dataNascita, other.dataNascita)
 				&& Objects.equals(nome, other.nome);
 	}
-	
-	
+
 	/*##############################################################*/
 	/*#######################CLASS METHODS##########################*/
 	/*##############################################################*/
 	
-	
-	
+	@Override
+	public String toString() {
+		return "Cuoco [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", dataNascita=" + dataNascita
+				+ ", fotografia_path=" + fotografia_path + ", ricette=" + ricette + "]";
+	}
 	
 }

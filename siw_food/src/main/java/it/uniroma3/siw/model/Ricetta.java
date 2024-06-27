@@ -36,7 +36,6 @@ public class Ricetta {
 	private List<String> tuttiPathDelleImmagini;
 	
 	//Map handling annotations
-	//@NotNull
 	@ElementCollection
 	@CollectionTable(name = "RicettaIngrediente2Quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
     @MapKeyColumn(name = "ingrediente_id")
@@ -107,11 +106,15 @@ public class Ricetta {
 		Ricetta other = (Ricetta) obj;
 		return Objects.equals(cuoco, other.cuoco) && Objects.equals(nome, other.nome);
 	}
-	
+
 	/*##############################################################*/
 	/*#######################CLASS METHODS##########################*/
 	/*##############################################################*/
 	
-	
+	@Override
+	public String toString() {
+		return "Ricetta [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", tuttiPathDelleImmagini="
+				+ tuttiPathDelleImmagini + ", ingrediente2quantity=" + ingrediente2quantity + ", cuoco=" + cuoco + "]";
+	}
 	
 }

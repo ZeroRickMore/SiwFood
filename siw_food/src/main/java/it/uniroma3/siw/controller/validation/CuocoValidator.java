@@ -8,17 +8,13 @@ import org.springframework.validation.Validator;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.CuocoService;
-import it.uniroma3.siw.service.RicettaService;
 
 @Component
-public class RicettaValidator implements Validator {
-	
+public class CuocoValidator implements Validator {
+
 	/*##############################################################*/
 	/*#########################SERVICES#############################*/
 	/*##############################################################*/
-	
-	@Autowired
-	private RicettaService ricettaService;
 	
 	@Autowired
 	private CuocoService cuocoService;
@@ -27,18 +23,14 @@ public class RicettaValidator implements Validator {
 	/*#########################VALIDATE#############################*/
 	/*##############################################################*/
 	
-
 	@Override
 	public void validate(Object o, Errors errors) {
-		Ricetta ricetta = (Ricetta) o;
-		//Controllo duplicati
-		Cuoco cuoco = ricetta.getCuoco();
-		if(ricetta.getNome()!=null && cuoco!=null &&
-				this.ricettaService.existsByNomeAndCuoco(ricetta.getNome(), cuoco)) {
-			errors.reject("ricetta.duplicate");
-		}
-		if(cuoco==null) {
-			errors.reject("cuoco.notFound");
+		Cuoco cuoco = (Cuoco) o;
+		//Duplicità
+		if(cuoco.getNome()!=null && cuoco.getCognome()!=null && cuoco.getDataNascita()!=null 
+				&& this.cuocoService.existsByNomeAndCognomeAndDataNascita(cuoco.getNome(), 
+						cuoco.getCognome(), cuoco.getDataNascita())) {
+			errors.reject("cuoco.duplicate"); //TODO: Aggiungi modo per linkare a quel cuoco!
 		}
 	}
 	
@@ -55,7 +47,7 @@ public class RicettaValidator implements Validator {
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Ricetta.class.equals(clazz);
+		return Cuoco.class.equals(clazz);
 	}
 	
 }

@@ -67,6 +67,15 @@ public class Ingrediente {
 		return Objects.equals(nome, other.nome);
 	}
 	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
+	
+	@Override
+	public String toString() {
+		return "Ingrediente [id=" + id + ", nome=" + nome + ", image_path=" + image_path + "]";
+	}
+	
 	
 	
 	
