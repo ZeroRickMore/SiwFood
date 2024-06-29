@@ -91,9 +91,10 @@ public class RicettaController {
 			System.out.println(bindingResult.getAllErrors().toString());
 			//Print del th:href con il link al duplicato, qualora l'errore fosse quello
 			Ricetta ricettaInDB = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
-			if(ricettaInDB!=null) {
+			
+			if(ricettaInDB!=null) 
 				model.addAttribute("vecchiaRicetta", ricettaInDB);
-			}
+			
 			return "formAggiungiRicetta.html";
 		}
 

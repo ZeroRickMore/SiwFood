@@ -75,6 +75,11 @@ nav .text {
     background-repeat: no-repeat;
 }
 
+#header a {
+	font-size: min(17vw, 17vh);
+	color: rgb(58, 35, 22);
+}
+
 #menu_container {
     height: 58vh;
     width: 73vw;
@@ -110,6 +115,15 @@ nav .text {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+#menu_container .choice_menu .titolo_choice_menu a {
+	color: rgb(58, 35, 22);
+	font-size: min(4.3vw, 4.3vh);
+}
+
+#menu_container .choice_menu .titolo_choice_menu a:hover {
+	text-decoration: none;
 }
 
 #menu_container .choice_menu .split_half {

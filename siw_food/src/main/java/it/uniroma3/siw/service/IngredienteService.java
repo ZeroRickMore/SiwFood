@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.repository.IngredienteRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class IngredienteService {
@@ -16,23 +17,35 @@ public class IngredienteService {
 	/*##############################################################*/
 	
 	@Autowired
-	private IngredienteRepository IngredienteRepository;
+	private IngredienteRepository ingredienteRepository;
 	
 	/*##############################################################*/
 	/*###########################METHODS############################*/
 	/*##############################################################*/
 	
 	public Iterable<Ingrediente> findAll() {
-		return this.IngredienteRepository.findAll();
+		return this.ingredienteRepository.findAll();
 	}
 
 	public Ingrediente findById(Long id) {
 		try {
-			return this.IngredienteRepository.findById(id).get();
+			return this.ingredienteRepository.findById(id).get();
 		}
 		catch (NoSuchElementException e) {
 			return null;
 		}
+	}
+
+	public boolean existsByNome(String nome) {
+		return this.ingredienteRepository.existsByNome(nome);
+	}
+
+	public Ingrediente findByNome(String nome) {
+		return this.ingredienteRepository.findByNome(nome);
+	}
+
+	public Ingrediente save(Ingrediente ingrediente) {
+		return this.ingredienteRepository.save(ingrediente);
 	}
 	
 	

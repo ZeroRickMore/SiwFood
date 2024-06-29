@@ -68,7 +68,9 @@ public class CuocoController {
 		if(bindingResult.hasErrors()) {
 			//Print del th:href con il link al duplicato, qualora l'errore fosse quello
 			Cuoco cuocoInDB = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
-			model.addAttribute("vecchioCuoco", cuocoInDB);
+			
+			if(cuocoInDB!=null)
+				model.addAttribute("vecchioCuoco", cuocoInDB);
 
 			return "formAggiungiCuoco.html";
 		}
