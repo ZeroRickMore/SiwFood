@@ -47,12 +47,28 @@ public class RicettaService {
 	}
 
 	public Ricetta save(Ricetta ricetta) {
-		return this.ricettaRepository.save(ricetta);	
+		return this.ricettaRepository.save(ricetta);
 	}
 
 	public boolean existsByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
 		return this.ricettaRepository.existsByNomeRicettaAndCuoco(nomeRicetta, cuoco);
 	}
-	
-	
+
+	public void delete(Ricetta ricetta) {
+		Ricetta del = this.ricettaRepository.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
+		this.ricettaRepository.delete(del);
+	}
+
+	public boolean existsByNomeRicetta(String nomeRicetta) {
+		return this.ricettaRepository.existsByNomeRicetta(nomeRicetta);
+	}
+
+	public Ricetta findByNomeRicetta(String nomeRicetta) {
+		return this.ricettaRepository.findByNomeRicetta(nomeRicetta);
+	}
+
+	public Iterable<Ricetta> findAllByNomeRicetta(String nomeRicetta) {
+		return this.ricettaRepository.findAllByNomeRicetta(nomeRicetta);
+	}
+
 }

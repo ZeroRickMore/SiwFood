@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina rimuovi ricetta</title>
+</head>
+<body>
+    <h2>Rimuovi ricetta esistente</h2>
+    <form th:action="@{/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}">
+				<span th:text="${err}"></span>
+			</p>
+		</div>
+		<div>
+        	Nome*: <input required type="text" th:field="${ricettaDaRimuovere.nomeRicetta}">
+        	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaDaRimuovere.nomeRicetta}"></span>
+			<br><br>
+			<h2>Informazioni cuoco</h2>
+			Cuoco*:
+			<select th:field="${cuoco.nome}">
+				<option value="Nessun cuoco" text="Nessun cuoco">Nessun cuoco</option>
+				<option th:each="line : ${elencoNomeCognomeData}" th:value="${line}" th:text="${line}">Nome - Cognome - DataNascita</option>
+			</select>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

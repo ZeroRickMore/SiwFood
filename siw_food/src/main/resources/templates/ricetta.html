@@ -13,8 +13,10 @@
     <div th:if="${ricetta}">
          <h1 th:text="${ricetta.nomeRicetta}">Nome ricetta</h1>
          <br>
-		 <h2 th:href="'/cuoco' + '/' + ${ricetta.cuoco.id}" th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome e cognome cuoco</h2>
-         <div>
+		 <span th:if="${ricetta.cuoco!=null}">
+		 	<h2 th:href="'/cuoco' + '/' + ${ricetta.cuoco.id}" th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome e cognome cuoco</h2>
+		 </span>
+		 <div>
 			 <span th:text="${ricetta.descrizione}"></span>
          </div>
          <br>

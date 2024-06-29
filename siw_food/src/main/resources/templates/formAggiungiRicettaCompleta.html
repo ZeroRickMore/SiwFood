@@ -5,10 +5,13 @@
 </head>
 <body>
     <h2>Aggiungi nuova ricetta</h2>
-    <form th:action="@{/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
+    <form th:action="@{/aggiungiRicettaCompleta}" method="POST" th:object="${nuovaRicetta}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
 				<span th:text="${err}"></span>
+					<span th:if="${err=='Ricetta già presente nel sistema:'}">
+						<a th:href="@{'/ricetta' + '/' + ${vecchiaRicetta.id}}" th:text="' ' + ${vecchiaRicetta.nomeRicetta}"> bho?</a>
+					</span>
 			</p>
 		</div>
 		<div>
@@ -19,6 +22,13 @@
         	<span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
 			<br><br>
 			Percorso dei file immagine: <input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmaginiString}">
+			<br><br>
+			Cuoco*:
+			<select th:field="${cuoco.nome}">
+				<option value="Nessun cuoco" text="Nessun cuoco">Nessun cuoco</option>
+				<option th:each="line : ${elencoNomeCognomeData}" th:value="${line}" th:text="${line}">Nome - Cognome - DataNascita</option>
+			</select>
+			
         </div>
         <div>
 			<span><button type="submit">Conferma</button></span>

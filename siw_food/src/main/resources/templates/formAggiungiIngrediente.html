@@ -15,7 +15,7 @@
 			</p>
 		</div>
 		<div>
-        	Nome: <input required type="text" th:field="${nuovoIngrediente.nome}">
+        	Nome*: <input required type="text" th:field="${nuovoIngrediente.nome}">
         	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 			<br><br>
 			Percorso file immagine: <input type="text" th:field="${nuovoIngrediente.image_path}">

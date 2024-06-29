@@ -11,5 +11,7 @@ public interface CuocoRepository extends CrudRepository<Cuoco, Long>{
 	public boolean existsByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita);
 
 	public Cuoco findByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita);
+
+	public Iterable<Cuoco> findAllByOrderByNomeAsc();
 	
 }

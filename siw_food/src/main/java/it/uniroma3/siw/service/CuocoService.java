@@ -55,4 +55,8 @@ public class CuocoService {
 		this.cuocoRepository.delete(del);
 	}
 
+	public Iterable<Cuoco> findAllByOrderByNomeAsc() {
+		return this.cuocoRepository.findAllByOrderByNomeAsc();
+	}
+
 }
