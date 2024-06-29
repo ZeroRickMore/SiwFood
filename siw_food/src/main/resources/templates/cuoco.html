@@ -30,7 +30,10 @@
 			 </ul>
          </div>
 		 	 Immagine:
-			 <img th:src="'/' + ${cuoco.fotografia_path}" width="20%">
+			 <span th:if="${cuoco.fotografia_path != null}">
+			 	<img th:src="'/' + ${cuoco.fotografia_path}" width="20%">
+			 </span>
+			 
     </div>
     <div th:unless="${cuoco}">Questo cuoco non è presente nel sistema!</div>
 </body>

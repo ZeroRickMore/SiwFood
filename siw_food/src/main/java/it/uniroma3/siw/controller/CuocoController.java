@@ -64,22 +64,48 @@ public class CuocoController {
 	@PostMapping("/aggiungiCuoco")
 	public String newCuoco(@Valid @ModelAttribute("nuovoCuoco") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
-
+		
 		if(bindingResult.hasErrors()) {
 			//Print del th:href con il link al duplicato, qualora l'errore fosse quello
 			Cuoco cuocoInDB = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 			
 			if(cuocoInDB!=null)
 				model.addAttribute("vecchioCuoco", cuocoInDB);
-
+			
 			return "formAggiungiCuoco.html";
 		}
-
+		
 		else {
 			this.cuocoService.save(cuoco);
 			return "redirect:cuoco/"+cuoco.getId();
 		}
 	}
 
+	/*##############################################################*/
+	/*######################/REMOVE METHODS#########################*/
+	/*##############################################################*/
+	
+	@GetMapping("/rimuoviCuoco")
+	public String showFormRimuoviCuoco(Model model) {
+		model.addAttribute("cuocoDaRimuovere", new Cuoco());
+		return "formRimuoviCuoco.html";
+	}
 
+	@PostMapping("/rimuoviCuoco")
+	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
+		this.cuocoValidator.validate(cuoco, bindingResult);
+		
+		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) { 
+				this.cuocoService.delete(cuoco);
+				return "redirect:elencoCuochi"; //Unico caso funzionante!
+			}
+			return "formRimuoviCuoco.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
+		}
+
+		bindingResult.reject("cuoco.nonEsiste");
+		return "formRimuoviCuoco.html"; //Ha inserito un cuoco che non esiste
+		
+	}
+	
 }

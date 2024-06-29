@@ -15,13 +15,13 @@
 			</p>
 		</div>
 		<div>
-        	Nome: <input required type="text" th:field="${nuovoCuoco.nome}">
+        	Nome*: <input required type="text" th:field="${nuovoCuoco.nome}">
         	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 			<br><br>
-        	Cognome: <input required type="text" th:field="${nuovoCuoco.cognome}">
+        	Cognome*: <input required type="text" th:field="${nuovoCuoco.cognome}">
         	<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
 			<br><br>
-			Data di nascita: <input required type="date" th:field="${nuovoCuoco.dataNascita}">
+			Data di nascita*: <input required type="date" th:field="${nuovoCuoco.dataNascita}">
 			<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
 			<br><br>
 			Percorso file immagine: <input type="text" th:field="${nuovoCuoco.fotografia_path}">

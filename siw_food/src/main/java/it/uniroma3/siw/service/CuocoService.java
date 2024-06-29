@@ -50,4 +50,9 @@ public class CuocoService {
 		return this.cuocoRepository.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
 	}
 
+	public void delete(Cuoco cuoco) {
+		Cuoco del = this.cuocoRepository.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+		this.cuocoRepository.delete(del);
+	}
+
 }

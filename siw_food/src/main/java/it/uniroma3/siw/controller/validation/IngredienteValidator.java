@@ -28,7 +28,7 @@ public class IngredienteValidator implements Validator {
 		//Duplicità
 		if(ingrediente.getNome()!=null
 				&& this.ingredienteService.existsByNome(ingrediente.getNome())) {
-			errors.reject("ingrediente.duplicate"); //TODO: Aggiungi modo per linkare a quel ingrediente!
+			errors.reject("ingrediente.duplicato");
 		}
 	}
 

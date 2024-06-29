@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class Cuoco {
 	@Column(length=300)
 	private String fotografia_path;
 	
-	@OneToMany(mappedBy="cuoco")
+	@OneToMany(mappedBy="cuoco", cascade=CascadeType.REMOVE)
 	private List<Ricetta> ricette;
 	
 	/*##############################################################*/
@@ -90,6 +91,7 @@ public class Cuoco {
 	public int hashCode() {
 		return Objects.hash(cognome, dataNascita, nome);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

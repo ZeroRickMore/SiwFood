@@ -30,7 +30,7 @@ public class CuocoValidator implements Validator {
 		if(cuoco.getNome()!=null && cuoco.getCognome()!=null && cuoco.getDataNascita()!=null 
 				&& this.cuocoService.existsByNomeAndCognomeAndDataNascita(cuoco.getNome(), 
 						cuoco.getCognome(), cuoco.getDataNascita())) {
-			errors.reject("cuoco.duplicate"); 
+			errors.reject("cuoco.duplicato"); 
 		}
 	}
 	
