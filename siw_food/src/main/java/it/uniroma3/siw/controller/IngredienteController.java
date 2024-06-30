@@ -45,7 +45,6 @@ public class IngredienteController {
 	
 	@GetMapping("/ingrediente/{id}")
 	public String showIngrediente(@PathVariable("id") Long id, Model model) {
-		
 		model.addAttribute("ingrediente", this.ingredienteService.findById(id));
 		return "ingrediente.html";
 	}
@@ -95,7 +94,7 @@ public class IngredienteController {
 		this.ingredienteValidator.validate(ingrediente, bindingResult);
 		
 		if(bindingResult.hasErrors()) { //Significa che l'ingrediente esiste oppure ci sono altri errori
-			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) { 
+			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) {
 				
 				this.ingredienteService.delete(ingrediente);
 				return "redirect:elencoIngredienti"; //Unico caso funzionante!

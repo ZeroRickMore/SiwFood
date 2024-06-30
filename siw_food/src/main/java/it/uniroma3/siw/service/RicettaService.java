@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -7,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Cuoco;
+import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.RicettaRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class RicettaService {
@@ -83,5 +86,16 @@ public class RicettaService {
 	
 	public void deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
 		this.ricettaRepository.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+	}
+
+	public List<Ricetta> findAllByIngrediente(Ingrediente ingredienteInfos) {
+		List<Long> ricetteIDs = this.ricettaRepository.findAllRicettaIDByIngredienteID(ingredienteInfos.getId());
+		List<Ricetta> ricette = new ArrayList<>();
+		
+		for(Long id : ricetteIDs) {
+			ricette.add(this.findById(id));
+		}
+		
+		return ricette;
 	}
 }

@@ -34,5 +34,10 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 	@Modifying
 	@Query(value = "DELETE FROM ricetta_ingrediente2quantità WHERE ingrediente2quantity_key = :idIngrediente AND ricetta_id = :idRicetta", nativeQuery = true)
 	public void deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(@Param("idIngrediente") Long idIngrediente, @Param("idRicetta") Long idRicetta);
+
+	@Transactional
+	@Modifying
+	@Query(value = "SELECT ricetta_id FROM ricetta_ingrediente2quantità WHERE ingrediente2quantity_key = :idIngrediente", nativeQuery = true)
+	public List<Long> findAllRicettaIDByIngredienteID(@Param("idIngrediente") Long idIngrediente);
 	
 }

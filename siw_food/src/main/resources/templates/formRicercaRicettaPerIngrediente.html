@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina nuova variant</title>
+</head>
+<body>
+    <h1>Ricerca una ricetta</h1>
+    
+	<h2>Ricerca per ingrediente</h2>
+
+	<form th:action="@{/ricercaPerIngredienteRicetta}" method="POST" th:object="${ingredienteInfos}">
+	    <div>
+	        Ingrediente*:
+	        <input required type="text" th:field="${ingredienteInfos.nome}">
+	        <span th:if="${#fields.hasErrors('nome')}" th:errors="${ingredienteInfos.nome}"></span>
+	    </div>
+	    <div>
+	        <span><button type="submit">Conferma</button></span>
+	    </div>
+	</form>
+</body>
+</html>

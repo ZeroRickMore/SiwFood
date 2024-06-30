@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina nuova variant</title>
+</head>
+<body>
+    <h1>Ricerca una ricetta</h1>
+    <h2>Ricerca per nome</h2>
+    <form th:action="@{/ricercaPerNomeRicetta}" method="POST" th:object="${ricettaInfos}">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}">
+                <span th:text="${err}"></span>
+            </p>
+        </div>
+        <div>
+            Nome Ricetta*:
+            <input required type="text" th:field="${ricettaInfos.nomeRicetta}">
+            <span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaInfos.nomeRicetta}"></span>
+        </div>
+        <div>
+            <span><button type="submit">Conferma</button></span>
+        </div>
+    </form>
+</body>
+</html>
