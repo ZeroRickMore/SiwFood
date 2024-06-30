@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.RicettaRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class RicettaService {

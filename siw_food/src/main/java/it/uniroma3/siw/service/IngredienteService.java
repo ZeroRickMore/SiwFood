@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.repository.IngredienteRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class IngredienteService {

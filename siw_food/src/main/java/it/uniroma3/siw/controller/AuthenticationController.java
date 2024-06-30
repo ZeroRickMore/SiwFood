@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import it.uniroma3.siw.controller.validation.CredentialsValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
-import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,9 +27,6 @@ public class AuthenticationController {
 
 	@Autowired
 	private CredentialsService credentialsService;
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	private CredentialsValidator credentialsValidator;
@@ -46,9 +41,6 @@ public class AuthenticationController {
 		model.addAttribute("credentials", new Credentials());
 		return "formRegister.html";
 	}
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/register")
 	public String newUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, 

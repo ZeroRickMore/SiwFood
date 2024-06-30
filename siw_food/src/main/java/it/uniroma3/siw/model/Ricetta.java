@@ -16,7 +16,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKeyColumn;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Ricetta {
