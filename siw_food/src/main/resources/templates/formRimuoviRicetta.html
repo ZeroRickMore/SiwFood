@@ -4,6 +4,22 @@
     <title>Siwvariant - Pagina rimuovi ricetta</title>
 </head>
 <body>
+
+    <nav>
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+        <div class="text">
+            Benvenuto, Rick!
+        </div>
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>
     <h2>Rimuovi ricetta esistente</h2>
     <form th:action="@{/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">

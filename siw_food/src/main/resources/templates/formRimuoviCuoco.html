@@ -4,6 +4,22 @@
     <title>Siwvariant - Pagina rimuovi cuoco</title>
 </head>
 <body>
+
+    <nav>
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+        <div class="text">
+            Benvenuto, Rick!
+        </div>
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>ody>
     <h2>Rimuovi cuoco esistente</h2>
     <form th:action="@{/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">

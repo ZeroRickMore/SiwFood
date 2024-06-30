@@ -46,7 +46,12 @@ public class CuocoService {
 	}
 	
 	public Cuoco findByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
-		return this.cuocoRepository.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
+		try {
+			return this.cuocoRepository.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
+		}
+		catch (NoSuchElementException e) {
+			return null;
+		}
 	}
 
 	public void delete(Cuoco cuoco) {

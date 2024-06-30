@@ -26,29 +26,29 @@
     <div>
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
-    <h1>Benvenuto nell'elenco ingredienti!</h1>
-	<h2>Ingredienti nella ricetta</h2>
+    <h1>Benvenuto nell'elenco cuochi!</h1>
+	<h2>Ricette del cuoco</h2>
     <div>
-        <div th:if="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
-            Questa ricetta non ha nessun ingrediente
+        <div th:if="${allRicetteMesse==null || allRicetteMesse.isEmpty()}">
+            Questo cuoco non ha ideato nessuna ricetta
         </div>
-        <div th:unless="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
+        <div th:unless="${allRicetteMesse==null || allRicetteMesse.isEmpty()}">
         	<ul>
-            	<li th:each="ingrediente : ${allIngredientiMessi}">
-                	<a th:href="@{'/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Goku Ingrediente</a>
+            	<li th:each="ricetta : ${allRicetteMesse}">
+                	<a th:href="@{'/removeRicetta' + '/' + ${cuocoId} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
             	</li>
         	</ul>
         </div>
     </div>
-	<h2>Ingredienti disponibili</h2>
+	<h2>Ricette disponibili</h2>
 	<div>
 	       <div th:if="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
-	            Non ci sono più ingredienti disponibili
+	            Questo cuoco ha ideato tutte le ricette nel sistema!
 	        </div>
 	        <div th:unless="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
 	        	<ul>
-	            	<li th:each="ingrediente : ${allIngredientiDisponibili}">
-	                	<a th:href="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Goku Ingrediente</a>
+	            	<li th:each="ricetta : ${allIngredientiDisponibili}">
+	                	<a th:href="@{'/addRicetta' + '/' + ${cuocoId} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
 	            	</li>
 	        	</ul>
 	        </div>

@@ -42,7 +42,12 @@ public class RicettaService {
 	}
 
 	public Ricetta findByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
-		return this.ricettaRepository.findByNomeRicettaAndCuoco(nomeRicetta, cuoco);
+		try {
+			return this.ricettaRepository.findByNomeRicettaAndCuoco(nomeRicetta, cuoco);
+		}
+		catch (NoSuchElementException e) {
+			return null;
+		}
 	}
 
 	public Ricetta save(Ricetta ricetta) {
@@ -71,13 +76,11 @@ public class RicettaService {
 	}
 
 	public void insertRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
-		try {this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);}
-		catch(Exception e) {} //Messo perché fa il suo lavoro, e poi lancia un'eccezione per dire che è riuscito
+		this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+		
 	}
 	
 	public void deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
-		try {this.ricettaRepository.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);}
-		catch(Exception e) {} //Messo perché fa il suo lavoro, e poi lancia un'eccezione per dire che è riuscito
+		this.ricettaRepository.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
 	}
-
 }

@@ -110,8 +110,8 @@ public class RicettaController {
 		
 		return "modificaIngredientiRicetta.html";
 	}
-
-
+	
+	
 	//AGGUNGI INGREDIENTE ALLA RICETTA
 	@GetMapping("/addIngrediente/{ricettaId}/{ingredienteId}")
 	public String showModificaIngredientiRicettaAndAddIngrediente(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
@@ -142,7 +142,7 @@ public class RicettaController {
 		}
 		
 		this.ricettaService.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
-
+		
 		return "redirect:/modificaIngredientiRicetta/"+ricettaId;
 	}
 

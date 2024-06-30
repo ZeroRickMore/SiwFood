@@ -14,14 +14,14 @@ public class IngredienteService {
 	/*##############################################################*/
 	/*#########################REPOSITORY###########################*/
 	/*##############################################################*/
-	
+
 	@Autowired
 	private IngredienteRepository ingredienteRepository;
-	
+
 	/*##############################################################*/
 	/*###########################METHODS############################*/
 	/*##############################################################*/
-	
+
 	public Iterable<Ingrediente> findAll() {
 		return this.ingredienteRepository.findAll();
 	}
@@ -40,21 +40,25 @@ public class IngredienteService {
 	}
 
 	public Ingrediente findByNome(String nome) {
-		return this.ingredienteRepository.findByNome(nome);
+		try {
+			return this.ingredienteRepository.findByNome(nome);
+		}
+		catch (NoSuchElementException e) {
+			return null;
+		}
 	}
 
 	public Ingrediente save(Ingrediente ingrediente) {
 		return this.ingredienteRepository.save(ingrediente);
 	}
-	
+
 	public void delete(Ingrediente ingrediente) {
 		ingrediente = this.ingredienteRepository.findByNome(ingrediente.getNome());
 
-		try { this.ingredienteRepository.deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(ingrediente.getId()); }
-		catch (Exception e) {} //Se l'ingrediente non è associato a nessuna ricetta, se provo a rimuovere una row alza un'exception, ma va bene cosi.
-		
+		this.ingredienteRepository.deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(ingrediente.getId());
+
 		this.ingredienteRepository.delete(ingrediente);
 	}
-	
-	
+
+
 }

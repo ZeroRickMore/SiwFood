@@ -1,5 +1,8 @@
 package it.uniroma3.siw.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.CuocoValidator;
 import it.uniroma3.siw.model.Cuoco;
+import it.uniroma3.siw.model.Ingrediente;
+import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.CuocoService;
+import it.uniroma3.siw.service.RicettaService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -23,6 +29,9 @@ public class CuocoController {
 
 	@Autowired
 	private CuocoService cuocoService;
+	
+	@Autowired
+	private RicettaService ricettaService;
 	
 	@Autowired
 	private CuocoValidator cuocoValidator;
@@ -79,6 +88,74 @@ public class CuocoController {
 			this.cuocoService.save(cuoco);
 			return "redirect:cuoco/"+cuoco.getId();
 		}
+	}
+	
+	/*##############################################################*/
+	/*#################MODIFICA INGREDIENTI CUOCO#################*/
+	/*##############################################################*/
+	
+	@GetMapping("/modificaRicetteCuoco")
+	public String showelencoRicettePerModificareIngredienti(Model model) {
+		Iterable<Cuoco> allCuochi = this.cuocoService.findAllByOrderByNomeAsc();
+		model.addAttribute("allCuochi", allCuochi);
+		return "elencoPerSelezionareCuocoPerRicetta.html";
+	}
+	
+	@GetMapping("/modificaRicetteCuoco/{cuocoId}")
+	public String showModificaIngredientiCuoco(@PathVariable("cuocoId") Long cuocoId, Model model) {
+		Cuoco cuoco = this.cuocoService.findById(cuocoId);
+		
+		if(cuoco==null) {
+			return "elencoPerSelezionareCuocoPerIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+		
+		List<Ricetta> allRicetteMesse = new ArrayList<>(cuoco.getRicette()); //La lista degli ingredienti presenti nella cuoco
+		
+		List<Ricetta> allRicetteDisponibili = (List<Ricetta>) this.ricettaService.findAll();
+		
+		allRicetteDisponibili.removeAll(allRicetteMesse);
+		
+		model.addAttribute("allRicetteMesse", allRicetteMesse);
+		model.addAttribute("allRicetteDisponibili", allRicetteDisponibili);
+		model.addAttribute("cuocoId", cuocoId);
+		
+		return "modificaIngredientiCuoco.html";
+	}
+
+	//AGGUNGI RICETTA AL CUOCO
+	@GetMapping("/addRicetta/{cuocoId}/{ricettaId}")
+	public String showModificaRicetteCuocoAndAddRicetta(@PathVariable("cuocoId") Long cuocoId, @PathVariable("ricettaId") Long ricettaId, Model model) {
+
+		//Logica per aggiungere ingrediente a cuoco
+		Cuoco cuoco = this.cuocoService.findById(cuocoId);
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+		
+		if(cuoco==null || ricetta==null) {
+			return "redirect:../../../modificaRicetteCuoco"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+
+		cuoco.getRicette().add(ricetta);
+
+		this.cuocoService.save(cuoco);
+		return "redirect:/modificaRicetteCuoco/"+cuocoId;
+		
+	}
+	
+	@GetMapping("/removeRicetta/{cuocoId}/{ricettaId}")
+	public String showModificaRicetteCuocoAndRemoveRicetta(@PathVariable("cuocoId") Long cuocoId, @PathVariable("ricettaId") Long ricettaId, Model model) {
+
+		//Logica per aggiungere ingrediente a cuoco
+		Cuoco cuoco = this.cuocoService.findById(cuocoId);
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+		
+		if(cuoco==null || !cuoco.getRicette().contains(ricetta)) {
+			return "redirect:../../../modificaRicetteCuoco"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+
+		cuoco.getRicette().remove(ricetta);
+
+		this.cuocoService.save(cuoco);
+		return "redirect:/modificaRicetteCuoco/"+cuocoId;
 	}
 
 	/*##############################################################*/

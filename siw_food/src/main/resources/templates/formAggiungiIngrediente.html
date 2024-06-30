@@ -4,6 +4,22 @@
     <title>SiwFood - Pagina nuovo ingrediente</title>
 </head>
 <body>
+
+    <nav>
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+        <div class="text">
+            Benvenuto, Rick!
+        </div>
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>>
     <h2>Aggiungi nuovo ingrediente</h2>
     <form th:action="@{/aggiungiIngrediente}" method="POST" th:object="${nuovoIngrediente}">
 		<div th:if="${#fields.hasGlobalErrors()}">
@@ -24,5 +40,21 @@
 			<span><button type="submit">Conferma</button></span>
 		</div>
     </form>
-</body>
+</<body>
+
+    <nav>
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+        <div class="text">
+            Benvenuto, Rick!
+        </div>
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>>
 </html>

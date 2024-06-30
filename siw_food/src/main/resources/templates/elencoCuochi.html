@@ -7,6 +7,22 @@
 </head>
 
 <body>
+
+    <nav>
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+        <div class="text">
+            Benvenuto, Rick!
+        </div>
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>>
     <div>
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
@@ -18,7 +34,7 @@
         <div th:unless="${allCuochi==null || allCuochi.isEmpty()}">
         	<ul>
             	<li th:each="cuoco : ${allCuochi}">
-                	<a th:href="@{'/cuoco' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Goku Cuoco</a>
+                	<a th:href="@{'/modificaIngredientiRicetta' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Goku Cuoco</a>
             	</li>
         	</ul>
         </div>

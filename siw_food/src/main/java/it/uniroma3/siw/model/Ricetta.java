@@ -125,7 +125,7 @@ public class Ricetta {
 	@Override
 	public String toString() {
 		return "Ricetta [id=" + id + ", nome=" + nomeRicetta + ", descrizione=" + descrizione + ", tuttiPathDelleImmagini="
-				+ tuttiPathDelleImmagini + ", ingrediente2quantity=" + ingrediente2quantity + ", cuoco=" + cuoco + "]";
+				+ tuttiPathDelleImmagini + ", cuoco=" + cuoco + "]";
 	}
 	public void setTuttiPathDelleImmaginiFromOwnString() {
 		this.tuttiPathDelleImmaginiString = this.tuttiPathDelleImmaginiString.replace(" ", "");

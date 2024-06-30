@@ -4,6 +4,22 @@
     <title>Siwvariant - Pagina nuovo ingrediente</title>
 </head>
 <body>
+
+    <nav>
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+        <div class="text">
+            Benvenuto, Rick!
+        </div>
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>y>
     <h2>Rimuovi ingrediente esistente</h2>
     <form th:action="@{/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">

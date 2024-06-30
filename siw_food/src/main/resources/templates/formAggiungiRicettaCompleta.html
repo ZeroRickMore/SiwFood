@@ -4,6 +4,22 @@
     <title>Siwvariant - Pagina nuova ricetta</title>
 </head>
 <body>
+
+    <nav>
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+        <div class="text">
+            Benvenuto, Rick!
+        </div>
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>
     <h2>Aggiungi nuova ricetta</h2>
     <form th:action="@{/aggiungiRicettaCompleta}" method="POST" th:object="${nuovaRicetta}">
 		<div th:if="${#fields.hasGlobalErrors()}">
