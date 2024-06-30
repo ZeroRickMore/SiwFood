@@ -11,43 +11,38 @@ import it.uniroma3.siw.repository.IngredienteRepository;
 @Service
 public class IngredienteService {
 
-	/*##############################################################*/
-	/*#########################REPOSITORY###########################*/
-	/*##############################################################*/
-
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                           VARIABLES                                           */
+	/*===============================================================================================*/
+	
+	
+	
+	
 	@Autowired
 	private IngredienteRepository ingredienteRepository;
 
-	/*##############################################################*/
-	/*###########################METHODS############################*/
-	/*##############################################################*/
+	
+	
+	
+//=======================================================================================================\\
+	/*===============================================================================================*/
+	/*                                            METHODS                                            */
+	/*===============================================================================================*/
+//=======================================================================================================\\
 
-	public Iterable<Ingrediente> findAll() {
-		return this.ingredienteRepository.findAll();
-	}
+				
 
-	public Ingrediente findById(Long id) {
-		try {
-			return this.ingredienteRepository.findById(id).get();
-		}
-		catch (NoSuchElementException e) {
-			return null;
-		}
-	}
+				
+	/*===============================================================================================*/
+	/*                                       SAVE DELETE METHODS                                     */
+	/*===============================================================================================*/
 
-	public boolean existsByNome(String nome) {
-		return this.ingredienteRepository.existsByNome(nome);
-	}
 
-	public Ingrediente findByNome(String nome) {
-		try {
-			return this.ingredienteRepository.findByNome(nome);
-		}
-		catch (NoSuchElementException e) {
-			return null;
-		}
-	}
 
+	
 	public Ingrediente save(Ingrediente ingrediente) {
 		return this.ingredienteRepository.save(ingrediente);
 	}
@@ -59,6 +54,58 @@ public class IngredienteService {
 		
 		this.ingredienteRepository.delete(ingrediente);
 	}
+
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                         EXISTS METHODS                                        */
+	/*===============================================================================================*/
+
+
+	
+	
+	public boolean existsByNome(String nome) {
+		return this.ingredienteRepository.existsByNome(nome);
+	}
+	
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                          FIND METHODS                                         */
+	/*===============================================================================================*/
+	
+	
+	
+	
+	public Iterable<Ingrediente> findAll() {
+		return this.ingredienteRepository.findAll();
+	}
+
+	
+	
+	public Ingrediente findById(Long id) {
+		try {
+			return this.ingredienteRepository.findById(id).get();
+		}
+		catch (NoSuchElementException e) {
+			return null;
+		}
+	}
+
+
+
+	public Ingrediente findByNome(String nome) {
+		try {
+			return this.ingredienteRepository.findByNome(nome);
+		}
+		catch (NoSuchElementException e) {
+			return null;
+		}
+	}
+
+	
 
 
 }

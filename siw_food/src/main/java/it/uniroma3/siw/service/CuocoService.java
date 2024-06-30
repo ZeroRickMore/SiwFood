@@ -11,23 +11,75 @@ import it.uniroma3.siw.repository.CuocoRepository;
 
 @Service
 public class CuocoService {
+
 	
-	/*##############################################################*/
-	/*#########################REPOSITORY###########################*/
-	/*##############################################################*/
+	
+	
+	/*===============================================================================================*/
+	/*                                           VARIABLES                                           */
+	/*===============================================================================================*/
+	
+	
+	
 	
 	@Autowired
 	private CuocoRepository cuocoRepository;
 
+//=======================================================================================================\\
+	/*===============================================================================================*/
+	/*                                            METHODS                                            */
+	/*===============================================================================================*/
+//=======================================================================================================\\
 
-	/*##############################################################*/
-	/*###########################METHODS############################*/
-	/*##############################################################*/
+			
+
+			
+	/*===============================================================================================*/
+	/*                                       SAVE DELETE METHODS                                     */
+	/*===============================================================================================*/
+
+
+
+
+	public Cuoco save(Cuoco cuoco) {
+		return this.cuocoRepository.save(cuoco);	
+	}
+
+	public void delete(Cuoco cuoco) {
+		Cuoco del = this.cuocoRepository.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+		this.cuocoRepository.delete(del);
+	}
+
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                         EXISTS METHODS                                        */
+	/*===============================================================================================*/
+
+
+	
+	
+	public boolean existsByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
+		return this.cuocoRepository.existsByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
+	}
+
+	
+
+	
+	/*===============================================================================================*/
+	/*                                          FIND METHODS                                         */
+	/*===============================================================================================*/
+
+
+	
 	
 	public Iterable<Cuoco> findAll() {
 		return this.cuocoRepository.findAll();
 	}
 
+	
+	
 	public Cuoco findById(Long id) {
 		try {
 			return this.cuocoRepository.findById(id).get();
@@ -37,14 +89,7 @@ public class CuocoService {
 		}
 	}
 
-	
-	public Cuoco save(Cuoco cuoco) {
-		return this.cuocoRepository.save(cuoco);	
-	}
 
-	public boolean existsByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
-		return this.cuocoRepository.existsByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
-	}
 	
 	public Cuoco findByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
 		try {
@@ -55,10 +100,7 @@ public class CuocoService {
 		}
 	}
 
-	public void delete(Cuoco cuoco) {
-		Cuoco del = this.cuocoRepository.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
-		this.cuocoRepository.delete(del);
-	}
+
 
 	public Iterable<Cuoco> findAllByOrderByNomeAsc() {
 		return this.cuocoRepository.findAllByOrderByNomeAsc();

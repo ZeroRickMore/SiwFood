@@ -15,26 +15,99 @@ import jakarta.validation.Valid;
 
 @Service
 public class RicettaService {
+
 	
-	/*##############################################################*/
-	/*#########################REPOSITORY###########################*/
-	/*##############################################################*/
+	
+	
+	/*===============================================================================================*/
+	/*                                           VARIABLES                                           */
+	/*===============================================================================================*/
+	
+	
+	
 	
 	@Autowired
 	private RicettaRepository ricettaRepository;
 
-	/*##############################################################*/
-	/*###########################METHODS############################*/
-	/*##############################################################*/
+	
+	
+	
+//=======================================================================================================\\
+	/*===============================================================================================*/
+	/*                                            METHODS                                            */
+	/*===============================================================================================*/
+//=======================================================================================================\\
+
+					
+
+					
+	/*===============================================================================================*/
+	/*                                       SAVE DELETE METHODS                                     */
+	/*===============================================================================================*/
+
+
+
+	
+	public Ricetta save(Ricetta ricetta) {
+		return this.ricettaRepository.save(ricetta);
+	}
+	
+	
+	public void insertRicettaIngredienteIntoRicettaIngrediente2Quantità(Integer quantity, Long ingredienteId, Long ricettaId) {
+		this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId, quantity);
+		
+	}
+	
+	
+	public void delete(Ricetta ricetta) {
+		Ricetta del = this.ricettaRepository.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
+		this.ricettaRepository.delete(del);
+	}
+
+	
+	public void deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
+		this.ricettaRepository.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+	}
+	
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                         EXISTS METHODS                                        */
+	/*===============================================================================================*/
+
+
+	
+	
+	public boolean existsByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
+		return this.ricettaRepository.existsByNomeRicettaAndCuoco(nomeRicetta, cuoco);
+	}
+
+
+	public boolean existsByNomeRicetta(String nomeRicetta) {
+		return this.ricettaRepository.existsByNomeRicetta(nomeRicetta);
+	}
+
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                          FIND METHODS                                         */
+	/*===============================================================================================*/
+	
+	
+	
 	
 	public Iterable<Ricetta> findAll() {
 		return this.ricettaRepository.findAll();
 	}
 	
+	
 	public List<Ricetta> findAllByOrderByNomeRicettaAsc() {
 		return this.ricettaRepository.findAllByOrderByNomeRicettaAsc();
 	}
 
+	
 	public Ricetta findById(Long id) {
 		try {
 			return this.ricettaRepository.findById(id).get();
@@ -44,6 +117,7 @@ public class RicettaService {
 		}
 	}
 
+	
 	public Ricetta findByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
 		try {
 			return this.ricettaRepository.findByNomeRicettaAndCuoco(nomeRicetta, cuoco);
@@ -52,42 +126,18 @@ public class RicettaService {
 			return null;
 		}
 	}
-
-	public Ricetta save(Ricetta ricetta) {
-		return this.ricettaRepository.save(ricetta);
-	}
-
-	public boolean existsByNomeRicettaAndCuoco(String nomeRicetta, Cuoco cuoco) {
-		return this.ricettaRepository.existsByNomeRicettaAndCuoco(nomeRicetta, cuoco);
-	}
-
-	public void delete(Ricetta ricetta) {
-		Ricetta del = this.ricettaRepository.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
-		this.ricettaRepository.delete(del);
-	}
-
-	public boolean existsByNomeRicetta(String nomeRicetta) {
-		return this.ricettaRepository.existsByNomeRicetta(nomeRicetta);
-	}
-
+	
+	
 	public Ricetta findByNomeRicetta(String nomeRicetta) {
 		return this.ricettaRepository.findByNomeRicetta(nomeRicetta);
 	}
 
+	
 	public Iterable<Ricetta> findAllByNomeRicetta(String nomeRicetta) {
 		return this.ricettaRepository.findAllByNomeRicetta(nomeRicetta);
 	}
 
 	
-	public void insertRicettaIngredienteIntoRicettaIngrediente2Quantità(Integer quantity, Long ingredienteId, Long ricettaId) {
-		this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId, quantity);
-		
-	}
-	
-	public void deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
-		this.ricettaRepository.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
-	}
-
 	public List<Ricetta> findAllByIngrediente(Ingrediente ingredienteInfos) {
 		List<Long> ricetteIDs = this.ricettaRepository.findAllRicettaIDByIngredienteID(ingredienteInfos.getId());
 		List<Ricetta> ricette = new ArrayList<>();

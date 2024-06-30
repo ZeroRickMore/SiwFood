@@ -10,23 +10,67 @@ import it.uniroma3.siw.repository.CredentialsRepository;
 @Service
 public class CredentialsService {
 	
-	/*##############################################################*/
-	/*#########################REPOSITORY###########################*/
-	/*##############################################################*/
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                           VARIABLES                                           */
+	/*===============================================================================================*/
+	
+	
+	
 	
 	@Autowired
 	private CredentialsRepository credentialsRepository;
-	
-	/*##############################################################*/
-	/*###########################ENCODER############################*/
-	/*##############################################################*/
-	
+
 	@Autowired
     private PasswordEncoder passwordEncoder;
 	
-	/*##############################################################*/
-	/*###########################METHODS############################*/
-	/*##############################################################*/
+//=======================================================================================================\\
+	/*===============================================================================================*/
+	/*                                            METHODS                                            */
+	/*===============================================================================================*/
+//=======================================================================================================\\
+
+		
+
+		
+	/*===============================================================================================*/
+	/*                                          SAVE METHODS                                         */
+	/*===============================================================================================*/
+
+	
+	
+	
+	public Credentials saveCredentials(Credentials credentials) {
+		credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
+		credentials.setRole(Credentials.CUOCO_ROLE);
+		return this.credentialsRepository.save(credentials);
+	}
+
+	
+
+	
+	/*===============================================================================================*/
+	/*                                         EXISTS METHODS                                        */
+	/*===============================================================================================*/
+
+
+	
+	
+	public boolean existsByUsername(String username) {
+		return this.credentialsRepository.existsByUsername(username);
+	}
+
+	
+
+	
+	/*===============================================================================================*/
+	/*                                           GET METHODS                                         */
+	/*===============================================================================================*/
+
+
+	
 	
 	public Credentials getCredentials(Long id) {
 		return this.credentialsRepository.findById(id).get();
@@ -36,13 +80,6 @@ public class CredentialsService {
 		return this.credentialsRepository.findByUsername(username).get();
 	}
 	
-	public Credentials saveCredentials(Credentials credentials) {
-		credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
-		credentials.setRole(Credentials.CUOCO_ROLE);
-		return this.credentialsRepository.save(credentials);
-	}
+	
 
-	public boolean existsByUsername(String username) {
-		return this.credentialsRepository.existsByUsername(username);
-	}
 }

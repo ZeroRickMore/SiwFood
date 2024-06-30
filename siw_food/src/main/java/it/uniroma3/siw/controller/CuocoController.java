@@ -23,9 +23,9 @@ import jakarta.validation.Valid;
 @Controller
 public class CuocoController {
 
-	/*##############################################################*/
-	/*##########################SERVICES############################*/
-	/*##############################################################*/
+	/*===============================================================================================*/
+	/*                                           VARIABLES                                           */
+	/*===============================================================================================*/
 
 	@Autowired
 	private CuocoService cuocoService;
@@ -36,16 +36,25 @@ public class CuocoController {
 	@Autowired
 	private CuocoValidator cuocoValidator;
 
-//======================================================================\\
-	/*##############################################################*/
-	/*###########################METHODS############################*/
-	/*##############################################################*/
-//======================================================================\\
+	
+	
+	
+//=======================================================================================================\\
+	/*===============================================================================================*/
+	/*                                            METHODS                                            */
+	/*===============================================================================================*/
+//=======================================================================================================\\
 
-	/*##############################################################*/
-	/*########################/SHOW METHODS#########################*/
-	/*##############################################################*/
+	
 
+	
+	/*===============================================================================================*/
+	/*                                          SHOW METHODS                                         */
+	/*===============================================================================================*/
+
+	
+	
+	
 	@GetMapping("/elencoCuochi")
 	public String showElencoCuochi(Model model) {
 		Iterable<Cuoco> allCuochi = this.cuocoService.findAll();
@@ -60,10 +69,16 @@ public class CuocoController {
 		return "cuoco.html";
 	}
 
-	/*##############################################################*/
-	/*######################/INSERT METHODS#########################*/
-	/*##############################################################*/
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                         INSERT METHODS                                        */
+	/*===============================================================================================*/
 
+	
+	
+	
 	@GetMapping("/aggiungiCuoco")
 	public String showFormAggiungiCuoco(Model model) {
 		model.addAttribute("nuovoCuoco", new Cuoco());
@@ -89,10 +104,51 @@ public class CuocoController {
 			return "redirect:cuoco/"+cuoco.getId();
 		}
 	}
+
 	
-	/*##############################################################*/
-	/*#################MODIFICA INGREDIENTI CUOCO#################*/
-	/*##############################################################*/
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                         REMOVE METHODS                                        */
+	/*===============================================================================================*/
+	
+	
+	
+	
+	
+	@GetMapping("/rimuoviCuoco")
+	public String showFormRimuoviCuoco(Model model) {
+		model.addAttribute("cuocoDaRimuovere", new Cuoco());
+		return "formRimuoviCuoco.html";
+	}
+
+	@PostMapping("/rimuoviCuoco")
+	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
+		this.cuocoValidator.validate(cuoco, bindingResult);
+		
+		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) { 
+				this.cuocoService.delete(cuoco);
+				return "redirect:elencoCuochi"; //Unico caso funzionante!
+			}
+			return "formRimuoviCuoco.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
+		}
+
+		bindingResult.reject("cuoco.nonEsiste");
+		return "formRimuoviCuoco.html"; //Ha inserito un cuoco che non esiste
+		
+	}
+	
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                     MODIFICA RICETTE CUOCO                                    */
+	/*===============================================================================================*/
+	
+	
+	
 	
 	@GetMapping("/modificaRicetteCuoco")
 	public String showelencoRicettePerModificareIngredienti(Model model) {
@@ -122,7 +178,10 @@ public class CuocoController {
 		return "modificaIngredientiCuoco.html";
 	}
 	
-	//AGGUNGI RICETTA AL CUOCO
+
+	//-------------------------------------Aggiungi Ricetta a Cuoco-------------------------------------\\
+	
+	
 	@GetMapping("/addRicetta/{cuocoId}/{ricettaId}")
 	public String showModificaRicetteCuocoAndAddRicetta(@PathVariable("cuocoId") Long cuocoId, @PathVariable("ricettaId") Long ricettaId, Model model) {
 
@@ -144,6 +203,8 @@ public class CuocoController {
 		
 	}
 	
+	//-------------------------------------Rimuovi Ricetta da Cuoco-------------------------------------\\
+	
 	@GetMapping("/removeRicetta/{cuocoId}/{ricettaId}")
 	public String showModificaRicetteCuocoAndRemoveRicetta(@PathVariable("cuocoId") Long cuocoId, @PathVariable("ricettaId") Long ricettaId, Model model) {
 
@@ -164,31 +225,14 @@ public class CuocoController {
 		return "redirect:/modificaRicetteCuoco/"+cuocoId;
 	}
 
-	/*##############################################################*/
-	/*######################/REMOVE METHODS#########################*/
-	/*##############################################################*/
 	
-	@GetMapping("/rimuoviCuoco")
-	public String showFormRimuoviCuoco(Model model) {
-		model.addAttribute("cuocoDaRimuovere", new Cuoco());
-		return "formRimuoviCuoco.html";
-	}
-
-	@PostMapping("/rimuoviCuoco")
-	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
-		this.cuocoValidator.validate(cuoco, bindingResult);
-		
-		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
-			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) { 
-				this.cuocoService.delete(cuoco);
-				return "redirect:elencoCuochi"; //Unico caso funzionante!
-			}
-			return "formRimuoviCuoco.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
-		}
-
-		bindingResult.reject("cuoco.nonEsiste");
-		return "formRimuoviCuoco.html"; //Ha inserito un cuoco che non esiste
-		
-	}
+	
+	
+	/*===============================================================================================*/
+	/*                                        SUPPORT METHODS                                        */
+	/*===============================================================================================*/
+	
+	
+	
 	
 }
