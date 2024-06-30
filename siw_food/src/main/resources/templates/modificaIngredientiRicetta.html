@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwFood - Cuochi</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+    <h1>Benvenuto nell'elenco ingredienti!</h1>
+	<h2>Ingredienti nella ricetta</h2>
+    <div>
+        <div th:if="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
+            Questa ricetta non ha nessun ingrediente
+        </div>
+        <div th:unless="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
+        	<ul>
+            	<li th:each="ingrediente : ${allIngredientiMessi}">
+                	<a th:href="@{'/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Goku Ingrediente</a>
+            	</li>
+        	</ul>
+        </div>
+    </div>
+	<h2>Ingredienti disponibili</h2>
+	<div>
+	       <div th:if="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
+	            Non ci sono più ingredienti disponibili
+	        </div>
+	        <div th:unless="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
+	        	<ul>
+	            	<li th:each="ingrediente : ${allIngredientiDisponibili}">
+	                	<a th:href="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Goku Ingrediente</a>
+	            	</li>
+	        	</ul>
+	        </div>
+	    </div>
+</body>
+
+</html>

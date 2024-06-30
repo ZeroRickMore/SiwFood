@@ -71,4 +71,14 @@ public class RicettaService {
 		return this.ricettaRepository.findAllByNomeRicetta(nomeRicetta);
 	}
 
+	public void insertRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
+		try {this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);}
+		catch(Exception e) {} //Messo perché fa il suo lavoro, e poi lancia un'eccezione per dire che è riuscito
+	}
+	
+	public void deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
+		try {this.ricettaRepository.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);}
+		catch(Exception e) {} //Messo perché fa il suo lavoro, e poi lancia un'eccezione per dire che è riuscito
+	}
+
 }

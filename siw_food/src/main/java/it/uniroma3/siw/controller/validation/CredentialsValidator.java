@@ -29,7 +29,6 @@ public class CredentialsValidator implements Validator {
 		//USERNAME UNICO
 		if(credentials.getUsername()!=null
 				&& this.credentialsService.existsByUsername(credentials.getUsername())) {
-			System.out.println("\nCred duplicate!\n");
 			errors.reject("credentials.duplicato");
 		}
 	}

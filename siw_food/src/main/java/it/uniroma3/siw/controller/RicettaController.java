@@ -2,8 +2,10 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.RicettaValidator;
 import it.uniroma3.siw.model.Cuoco;
+import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.CuocoService;
+import it.uniroma3.siw.service.IngredienteService;
 import it.uniroma3.siw.service.RicettaService;
 import jakarta.validation.Valid;
 
@@ -36,6 +40,9 @@ public class RicettaController {
 
 	@Autowired
 	private CuocoService cuocoService;
+	
+	@Autowired
+	private IngredienteService ingredienteService;
 
 	/*##############################################################*/
 	/*#########################VALIDATOR############################*/
@@ -43,6 +50,8 @@ public class RicettaController {
 
 	@Autowired
 	private RicettaValidator ricettaValidator;
+
+	
 
 
 	//======================================================================\\
@@ -71,6 +80,73 @@ public class RicettaController {
 		//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
 
 		return "ricetta.html";
+	}
+	
+	/*##############################################################*/
+	/*#################MODIFICA INGREDIENTI RICETTA#################*/
+	/*##############################################################*/
+	
+	@GetMapping("/modificaIngredientiRicetta")
+	public String showelencoRicettePerModificareIngredienti(Model model) {
+		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
+		model.addAttribute("allRicette", allRicette);
+		return "elencoPerSelezionareRicettaPerIngredienti.html";
+	}
+	
+	@GetMapping("/modificaIngredientiRicetta/{ricettaId}")
+	public String showModificaIngredientiRicetta(@PathVariable("ricettaId") Long ricettaId, Model model) {
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+		
+		if(ricetta==null) {
+			return "elencoPerSelezionareRicettaPerIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+		
+		List<Ingrediente> allIngredientiMessi = new ArrayList<>(ricetta.getIngrediente2quantity().keySet()); //La lista degli ingredienti presenti nella ricetta
+		
+		List<Ingrediente> allIngredientiDisponibili = (List<Ingrediente>) this.ingredienteService.findAll();
+		
+		allIngredientiDisponibili.removeAll(allIngredientiMessi);
+		
+		model.addAttribute("allIngredientiMessi", allIngredientiMessi);
+		model.addAttribute("allIngredientiDisponibili", allIngredientiDisponibili);
+		model.addAttribute("ricettaId", ricettaId);
+		
+		return "modificaIngredientiRicetta.html";
+	}
+
+
+	//AGGUNGI INGREDIENTE ALLA RICETTA
+	@GetMapping("/addIngrediente/{ricettaId}/{ingredienteId}")
+	public String showModificaIngredientiRicettaAndAddIngrediente(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
+
+		//Logica per aggiungere ingrediente a ricetta
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
+		
+		if(ricetta==null || ingrediente==null) {
+			return "redirect:../../../modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+		
+		this.ricettaService.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+
+		return "redirect:/modificaIngredientiRicetta/"+ricettaId;
+		
+	}
+	
+	@GetMapping("/removeIngrediente/{ricettaId}/{ingredienteId}")
+	public String showModificaIngredientiRicettaAndRemoveIngrediente(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
+
+		//Logica per aggiungere ingrediente a ricetta
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
+		
+		if(ricetta==null || !ricetta.getIngrediente2quantity().containsKey(ingrediente)) {
+			return "redirect:../../../modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+		
+		this.ricettaService.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+
+		return "redirect:/modificaIngredientiRicetta/"+ricettaId;
 	}
 
 	/*##############################################################*/
