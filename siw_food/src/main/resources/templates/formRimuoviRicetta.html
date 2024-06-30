@@ -16,7 +16,7 @@
         	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaDaRimuovere.nomeRicetta}"></span>
 			<br><br>
 			<h2>Informazioni cuoco</h2>
-			Cuoco*:
+			Cuoco:
 			<select th:field="${cuoco.nome}">
 				<option value="Nessun cuoco" text="Nessun cuoco">Nessun cuoco</option>
 				<option th:each="line : ${elencoNomeCognomeData}" th:value="${line}" th:text="${line}">Nome - Cognome - DataNascita</option>

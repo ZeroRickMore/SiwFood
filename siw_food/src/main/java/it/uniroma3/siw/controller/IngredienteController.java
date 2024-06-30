@@ -42,9 +42,10 @@ public class IngredienteController {
 		model.addAttribute("allIngredienti", allIngredienti);
 		return "elencoIngredienti.html";
 	}
-
+	
 	@GetMapping("/ingrediente/{id}")
 	public String showIngrediente(@PathVariable("id") Long id, Model model) {
+		
 		model.addAttribute("ingrediente", this.ingredienteService.findById(id));
 		return "ingrediente.html";
 	}
@@ -79,4 +80,32 @@ public class IngredienteController {
 		}
 	}
 
+	/*##############################################################*/
+	/*######################/REMOVE METHODS#########################*/
+	/*##############################################################*/
+	
+	@GetMapping("/rimuoviIngrediente")
+	public String showFormRimuoviIngrediente(Model model) {
+		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
+		return "formRimuoviIngrediente.html";
+	}
+
+	@PostMapping("/rimuoviIngrediente")
+	public String rimuoviIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
+		this.ingredienteValidator.validate(ingrediente, bindingResult);
+		
+		if(bindingResult.hasErrors()) { //Significa che l'ingrediente esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) { 
+				
+				this.ingredienteService.delete(ingrediente);
+				return "redirect:elencoIngredienti"; //Unico caso funzionante!
+			}
+			return "formRimuoviIngrediente.html"; //Ho problemi ma non ingrediente.duplicato, quindi lo user ha toppato
+		}
+
+		bindingResult.reject("ingrediente.nonEsiste");
+		return "formRimuoviIngrediente.html"; //Ha inserito un ingrediente che non esiste
+		
+	}
+	
 }

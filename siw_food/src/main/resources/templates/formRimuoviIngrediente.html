@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina nuovo ingrediente</title>
+</head>
+<body>
+    <h2>Rimuovi ingrediente esistente</h2>
+    <form th:action="@{/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}">
+				<span th:text="${err}"></span>
+			</p>
+		</div>
+		<div>
+        	Nome*: <input required type="text" th:field="${ingredienteDaRimuovere.nome}">
+        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			<br><br>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

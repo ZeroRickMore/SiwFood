@@ -114,6 +114,9 @@ public class RicettaController {
 
 	@GetMapping("/aggiungiRicetta")
 	public String showFormAggiungiRicetta(Model model) {
+		
+		
+		
 		model.addAttribute("nuovaRicetta", new Ricetta());
 		return "formAggiungiRicetta.html";
 	}
@@ -150,20 +153,23 @@ public class RicettaController {
 	@PostMapping("/rimuoviRicetta")
 	public String rimuoviRicetta(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
-
+		
+		//IF che rimuove la ricetta con un cuoco
 		if(!cuoco.getNome().equals("Nessun cuoco")) {
-
+			
 			this.parseIntoCuocoFields(cuoco);
-
+			
 			cuoco = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 			ricetta.setCuoco(cuoco);
-
+			
 			this.ricettaValidator.validate(ricetta, bindingResult);
-		} else {
+		} else { //Se non ho assegnato un cuoco
 			ricetta.setCuoco(null);
 			this.ricettaValidator.validateStessoNomeNoCuoco(ricetta, bindingResult);
 		}
-
+		
+		//Controllo sugli errori e act accordingly
+		
 		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicato")) { 
 				this.ricettaService.delete(ricetta);

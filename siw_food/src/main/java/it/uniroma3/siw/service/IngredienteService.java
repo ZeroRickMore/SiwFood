@@ -48,5 +48,11 @@ public class IngredienteService {
 		return this.ingredienteRepository.save(ingrediente);
 	}
 	
+	public void delete(Ingrediente ingrediente) {
+		ingrediente = this.ingredienteRepository.findByNome(ingrediente.getNome());
+		this.ingredienteRepository.deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(ingrediente.getId());
+		this.ingredienteRepository.delete(ingrediente);
+	}
+	
 	
 }
