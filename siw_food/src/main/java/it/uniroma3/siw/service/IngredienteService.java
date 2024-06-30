@@ -50,7 +50,10 @@ public class IngredienteService {
 	
 	public void delete(Ingrediente ingrediente) {
 		ingrediente = this.ingredienteRepository.findByNome(ingrediente.getNome());
-		this.ingredienteRepository.deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(ingrediente.getId());
+
+		try { this.ingredienteRepository.deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(ingrediente.getId()); }
+		catch (Exception e) {} //Se l'ingrediente non è associato a nessuna ricetta, se provo a rimuovere una row alza un'exception, ma va bene cosi.
+		
 		this.ingredienteRepository.delete(ingrediente);
 	}
 	
