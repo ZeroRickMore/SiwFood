@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Siwvariant - Pagina nuovo ingrediente</title>
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
@@ -18,7 +20,7 @@
             Benvenuto, Rick!
         </div>
     </nav>
-
+	<div id="header"><a th:href="@{/}">Siwfood</a></div>
     <div id="header"><a th:href="@{/}">Siwfood</a></div>y>
     <h2>Rimuovi ingrediente esistente</h2>
     <form th:action="@{/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">

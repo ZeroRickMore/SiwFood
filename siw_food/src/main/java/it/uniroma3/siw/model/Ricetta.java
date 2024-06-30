@@ -131,7 +131,7 @@ public class Ricetta {
 		if (getClass() != obj.getClass())
 			return false;
 		Ricetta other = (Ricetta) obj;
-		return Objects.equals(cuoco, other.cuoco) && Objects.equals(nomeRicetta, other.nomeRicetta);
+		return Objects.equals(cuoco, other.getCuoco()) && Objects.equals(nomeRicetta, other.getNomeRicetta());
 	}
 
 

@@ -38,10 +38,20 @@ public class IngredienteValidator implements Validator {
 	public void validate(Object o, Errors errors) {
 		Ingrediente ingrediente = (Ingrediente) o;
 		//Duplicità
-		if(ingrediente.getNome()!=null
+		if(ingrediente.getNome()!=null && ingrediente.getUnitàDiMisura()!=null
 				&& this.ingredienteService.existsByNome(ingrediente.getNome())) {
 			errors.reject("ingrediente.duplicato");
 		}
+		
+		//Unità di misura valida
+		String unitàMisura = ingrediente.getUnitàDiMisura();
+		if(unitàMisura!=null) {
+			String[] allUnitàMisura = Ingrediente.getUnitàdimisurapossibili();
+			for(String unità : allUnitàMisura)
+				if(unità.equals(unitàMisura))
+					return;	
+		}
+		errors.reject("ingrediente.UnitàDiMisuraNonEsiste");
 	}
 
 

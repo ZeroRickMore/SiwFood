@@ -119,8 +119,8 @@ public class Cuoco {
 		if (getClass() != obj.getClass())
 			return false;
 		Cuoco other = (Cuoco) obj;
-		return Objects.equals(cognome, other.cognome) && Objects.equals(dataNascita, other.dataNascita)
-				&& Objects.equals(nome, other.nome);
+		return Objects.equals(cognome, other.getCognome()) && Objects.equals(dataNascita, other.getDataNascita())
+				&& Objects.equals(nome, other.getNome());
 	}
 
 

@@ -20,8 +20,9 @@ public class Ingrediente {
 	/*===============================================================================================*/
 	
 	
-	
-	
+	public static final String[] unitàDiMisuraPossibili = {"grammi", "unità", "cucchiai", "spicchi"};
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -32,6 +33,8 @@ public class Ingrediente {
 	@Column(length=300)
 	private String image_path;
 
+	@NotBlank
+	private String unitàDiMisura;
 	
 	
 	
@@ -41,7 +44,15 @@ public class Ingrediente {
 	
 	
 	
-	
+	public static String[] getUnitàdimisurapossibili() {
+		return unitàDiMisuraPossibili;
+	}
+	public String getUnitàDiMisura() {
+		return unitàDiMisura;
+	}
+	public void setUnitàDiMisura(String unitàDiMisura) {
+		this.unitàDiMisura = unitàDiMisura;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -73,7 +84,7 @@ public class Ingrediente {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome);
+		return Objects.hash(nome, unitàDiMisura);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -84,7 +95,7 @@ public class Ingrediente {
 		if (getClass() != obj.getClass())
 			return false;
 		Ingrediente other = (Ingrediente) obj;
-		return Objects.equals(nome, other.nome);
+		return Objects.equals(nome, other.getNome()) && Objects.equals(unitàDiMisura, other.getUnitàDiMisura());
 	}
 
 

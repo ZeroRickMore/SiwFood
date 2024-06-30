@@ -78,6 +78,7 @@ public class IngredienteController {
 	@GetMapping("/aggiungiIngrediente")
 	public String showFormAggiungiIngrediente(Model model) {
 		model.addAttribute("nuovoIngrediente", new Ingrediente());
+		model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
 		return "formAggiungiIngrediente.html";
 	}
 

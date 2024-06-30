@@ -85,7 +85,7 @@ public class RicettaController {
 		if(ricetta!=null) {
 			ricetta.setTuttiPathDelleImmaginiFromOwnString();
 			//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
-			model.addAttribute("listaRicette", ricetta.getIngrediente2quantity().keySet());
+			model.addAttribute("listaIngredienti", ricetta.getIngrediente2quantity().keySet());
 		}
 		
 		model.addAttribute("ricetta", ricetta);

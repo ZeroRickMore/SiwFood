@@ -1,6 +1,6 @@
-INSERT INTO ingrediente (id, nome, image_path) VALUES(nextval('ingrediente_seq'), 'Cipolla', 'immaginiIngredienti/cipolla.jpg')
-INSERT INTO ingrediente (id, nome, image_path) VALUES(nextval('ingrediente_seq'), 'Carote', 'immaginiIngredienti/carote.jpg')
-INSERT INTO ingrediente (id, nome, image_path) VALUES(nextval('ingrediente_seq'), 'Amore', 'immaginiIngredienti/amore.jpg')
+INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Cipolla', 'immaginiIngredienti/cipolla.jpg', 'grammi')
+INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Carote', 'immaginiIngredienti/carote.jpg', 'unità')
+INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Amore', 'immaginiIngredienti/amore.jpg', 'spicchi')
 
 INSERT INTO cuoco (id, nome, cognome, data_nascita, fotografia_path) VALUES(nextval('cuoco_seq'), 'Goku', 'Fighissimo', '737-04-16', 'immaginiCuochi/goku_poderoso_upscayl.jpg')
 INSERT INTO cuoco (id, nome, cognome, data_nascita, fotografia_path) VALUES(nextval('cuoco_seq'), 'Vegeta', 'Vegetariano', '732-09-19', 'immaginiCuochi/vegeta.jpg')
