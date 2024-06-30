@@ -117,11 +117,11 @@ public class CuocoController {
 		
 		model.addAttribute("allRicetteMesse", allRicetteMesse);
 		model.addAttribute("allRicetteDisponibili", allRicetteDisponibili);
-		model.addAttribute("cuocoId", cuocoId);
+		model.addAttribute("cuoco", cuoco);
 		
 		return "modificaIngredientiCuoco.html";
 	}
-
+	
 	//AGGUNGI RICETTA AL CUOCO
 	@GetMapping("/addRicetta/{cuocoId}/{ricettaId}")
 	public String showModificaRicetteCuocoAndAddRicetta(@PathVariable("cuocoId") Long cuocoId, @PathVariable("ricettaId") Long ricettaId, Model model) {
@@ -135,8 +135,11 @@ public class CuocoController {
 		}
 
 		cuoco.getRicette().add(ricetta);
+		ricetta.setCuoco(cuoco);
 
 		this.cuocoService.save(cuoco);
+		this.ricettaService.save(ricetta);
+		
 		return "redirect:/modificaRicetteCuoco/"+cuocoId;
 		
 	}
@@ -153,8 +156,11 @@ public class CuocoController {
 		}
 
 		cuoco.getRicette().remove(ricetta);
+		ricetta.setCuoco(null);
 
 		this.cuocoService.save(cuoco);
+		this.ricettaService.save(ricetta);
+		
 		return "redirect:/modificaRicetteCuoco/"+cuocoId;
 	}
 

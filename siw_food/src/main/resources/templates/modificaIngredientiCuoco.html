@@ -26,8 +26,7 @@
     <div>
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
-    <h1>Benvenuto nell'elenco cuochi!</h1>
-	<h2>Ricette del cuoco</h2>
+	<h2>Ricette del cuoco <a th:href="@{'/cuoco' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></a></h2>
     <div>
         <div th:if="${allRicetteMesse==null || allRicetteMesse.isEmpty()}">
             Questo cuoco non ha ideato nessuna ricetta
@@ -35,20 +34,20 @@
         <div th:unless="${allRicetteMesse==null || allRicetteMesse.isEmpty()}">
         	<ul>
             	<li th:each="ricetta : ${allRicetteMesse}">
-                	<a th:href="@{'/removeRicetta' + '/' + ${cuocoId} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
+                	<a th:href="@{'/removeRicetta' + '/' + ${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
             	</li>
         	</ul>
         </div>
     </div>
 	<h2>Ricette disponibili</h2>
 	<div>
-	       <div th:if="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
+	       <div th:if="${allRicetteDisponibili==null || allRicetteDisponibili.isEmpty()}">
 	            Questo cuoco ha ideato tutte le ricette nel sistema!
 	        </div>
-	        <div th:unless="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
+	        <div th:unless="${allRicetteDisponibili==null || allRicetteDisponibili.isEmpty()}">
 	        	<ul>
-	            	<li th:each="ricetta : ${allIngredientiDisponibili}">
-	                	<a th:href="@{'/addRicetta' + '/' + ${cuocoId} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
+	            	<li th:each="ricetta : ${allRicetteDisponibili}">
+	                	<a th:href="@{'/addRicetta' + '/' + ${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
 	            	</li>
 	        	</ul>
 	        </div>

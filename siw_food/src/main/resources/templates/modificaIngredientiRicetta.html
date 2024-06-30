@@ -26,7 +26,7 @@
     <div>
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
-    <h1>Benvenuto nell'elenco ingredienti!</h1>
+    <h1>Benvenuto nell'elenco ingredienti della ricetta <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}"></a></h1>
 	<h2>Ingredienti nella ricetta</h2>
     <div>
         <div th:if="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
@@ -35,7 +35,7 @@
         <div th:unless="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
         	<ul>
             	<li th:each="ingrediente : ${allIngredientiMessi}">
-                	<a th:href="@{'/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Goku Ingrediente</a>
+                	<a th:href="@{'/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' [' + ${ricetta.ingrediente2quantity.get(ingrediente)} + ']'">Goku Ingrediente</a>
             	</li>
         	</ul>
         </div>
@@ -48,7 +48,12 @@
 	        <div th:unless="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
 	        	<ul>
 	            	<li th:each="ingrediente : ${allIngredientiDisponibili}">
-	                	<a th:href="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Goku Ingrediente</a>
+						
+						<form th:action="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" method="post">
+							<span th:text="${ingrediente.nome}"></span>
+						    <input type="number" name="ingredienteQuantity">
+						    <button type="submit">Aggiungi alla ricetta</button>
+						</form>
 	            	</li>
 	        	</ul>
 	        </div>

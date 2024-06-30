@@ -37,6 +37,7 @@ public class CuocoService {
 		}
 	}
 
+	
 	public Cuoco save(Cuoco cuoco) {
 		return this.cuocoRepository.save(cuoco);	
 	}

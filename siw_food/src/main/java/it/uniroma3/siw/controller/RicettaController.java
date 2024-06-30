@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.validation.RicettaValidator;
 import it.uniroma3.siw.model.Cuoco;
@@ -73,7 +74,7 @@ public class RicettaController {
 		Ricetta ricetta = this.ricettaService.findById(id);
 		ricetta.setTuttiPathDelleImmaginiFromOwnString();
 		model.addAttribute("ricetta", ricetta);
-		model.addAttribute("listaRicette", ricetta.getIngrediente2quantity().keySet()); 
+		model.addAttribute("listaRicette", ricetta.getIngrediente2quantity().keySet());
 		//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
 
 		return "ricetta.html";
@@ -106,15 +107,16 @@ public class RicettaController {
 		
 		model.addAttribute("allIngredientiMessi", allIngredientiMessi);
 		model.addAttribute("allIngredientiDisponibili", allIngredientiDisponibili);
-		model.addAttribute("ricettaId", ricettaId);
+		model.addAttribute("ricetta", ricetta);
 		
 		return "modificaIngredientiRicetta.html";
 	}
 	
 	
 	//AGGUNGI INGREDIENTE ALLA RICETTA
-	@GetMapping("/addIngrediente/{ricettaId}/{ingredienteId}")
-	public String showModificaIngredientiRicettaAndAddIngrediente(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
+	@PostMapping("/addIngrediente/{ricettaId}/{ingredienteId}")
+	public String showModificaIngredientiRicettaAndAddIngrediente(@PathVariable("ricettaId") Long ricettaId, 
+			@PathVariable("ingredienteId") Long ingredienteId, @RequestParam("ingredienteQuantity") Integer ingredienteQuantity, Model model) {
 
 		//Logica per aggiungere ingrediente a ricetta
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
@@ -124,7 +126,7 @@ public class RicettaController {
 			return "redirect:../../../modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 		
-		this.ricettaService.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+		this.ricettaService.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteQuantity, ingredienteId, ricettaId);
 
 		return "redirect:/modificaIngredientiRicetta/"+ricettaId;
 		

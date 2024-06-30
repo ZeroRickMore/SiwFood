@@ -75,8 +75,9 @@ public class RicettaService {
 		return this.ricettaRepository.findAllByNomeRicetta(nomeRicetta);
 	}
 
-	public void insertRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
-		this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+	
+	public void insertRicettaIngredienteIntoRicettaIngrediente2Quantità(Integer quantity, Long ingredienteId, Long ricettaId) {
+		this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId, quantity);
 		
 	}
 	
