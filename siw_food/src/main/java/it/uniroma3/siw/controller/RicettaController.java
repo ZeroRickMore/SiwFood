@@ -236,28 +236,28 @@ public class RicettaController {
 	//Per cuoco
 	@PostMapping("/rimuoviRicetta")
 	public String rimuoviRicettaCuoco(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, Model model) {
-		
+
 		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
 		ricetta.setCuoco(cuocoCorrente);
 		this.ricettaValidator.validate(ricetta, bindingResult);
-		
+
 		//Controllo sugli errori e act accordingly
 		if(bindingResult.hasErrors()) { //Significa che la ricetta esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicato")) { 
 				Ricetta ricettaDaRimuovere = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), cuocoCorrente);
-				
+
 				this.ricettaService.delete(ricettaDaRimuovere);
 				return "redirect:/cuoco/"+cuocoCorrente.getId(); //Caso funzionante
 			}
 			return "formRimuoviRicetta.html"; //Ho problemi ma non ricetta.duplicato, quindi lo user ha toppato sui field
 		}
-		
+
 		if(this.ricettaService.existsByNomeRicetta(ricetta.getNomeRicetta()))
 			//Se esiste il nome ma, dopo i controlli di prima, il cuoco è per forza diverso, altrimenti sarebbe ricetta.duplicato
 			bindingResult.reject("cuoco.ricettaNonTua"); 
 		else
 			bindingResult.reject("ricetta.nonEsiste");
-		
+
 		return "formRimuoviRicetta.html"; //Ha inserito un ricetta che non esiste
 	}
 
@@ -359,7 +359,7 @@ public class RicettaController {
 	public String showelencoRicettePerModificareIngredientiCuoco(Model model) {
 
 		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
-		
+
 		Iterable<Ricetta> allRicetteDelCuoco = this.ricettaService.findAllByCuocoOrderByNomeRicettaAsc(cuocoCorrente);
 		model.addAttribute("allRicette", allRicetteDelCuoco);
 		return "elencoPerSelezionareRicettaPerModificaIngredienti.html";
@@ -370,13 +370,13 @@ public class RicettaController {
 	public String showModificaIngredientiRicettaCuoco(@PathVariable("ricettaId") Long ricettaId, Model model) {
 
 		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
-		
+
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 
-		if(ricetta==null || !cuocoCorrente.equals(ricetta.getCuoco())) {
+		if(ricetta==null || !cuocoCorrente.equals(ricetta.getCuoco())) { //Controllo anche che il cuoco sia giusto
 			return "redirect:/modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
-		
+
 		this.setupModificaIngredientiRicetta(ricetta, model);
 
 		return "modificaIngredientiRicetta.html";
@@ -392,10 +392,13 @@ public class RicettaController {
 	public String showModificaIngredientiRicettaAndAddIngredienteCuoco(@PathVariable("ricettaId") Long ricettaId, 
 			@PathVariable("ingredienteId") Long ingredienteId, @RequestParam("ingredienteQuantity") Integer ingredienteQuantity, Model model) {
 
-		//LOGICA PER CUOCO
+		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
 
 		//Logica per aggiungere ingrediente a ricetta
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+
+
+
 		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
 
 		//Controllo per quantità strettamente positiva
@@ -406,7 +409,7 @@ public class RicettaController {
 			return "modificaIngredientiRicetta.html";
 		}
 
-		if(ricetta==null || ingrediente==null) {
+		if(ricetta==null || ingrediente==null || !cuocoCorrente.equals(ricetta.getCuoco())) { //Controllo anche che il cuoco sia giusto
 			return "redirect:/modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url e con la quantità
 		}
 
@@ -422,21 +425,20 @@ public class RicettaController {
 	@GetMapping("/removeIngrediente/{ricettaId}/{ingredienteId}")
 	public String showModificaIngredientiRicettaAndRemoveIngredienteCuoco(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
 
-		//LOGICA PER CUOCO
+		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
 
 		//Logica per aggiungere ingrediente a ricetta
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
 
-		if(ricetta==null || !ricetta.getIngrediente2quantity().containsKey(ingrediente)) {
-			return "redirect:../../../modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
+		if(ricetta==null || !cuocoCorrente.equals(ricetta.getCuoco()) || !ricetta.getIngrediente2quantity().containsKey(ingrediente) ) { //Controllo anche che il cuoco sia giusto
+			return "redirect:/modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 
 		this.ricettaService.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
 
 		return "redirect:/modificaIngredientiRicetta/"+ricettaId;
 	}
-
 
 
 
