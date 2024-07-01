@@ -30,16 +30,16 @@ import jakarta.validation.Valid;
 @Controller
 public class RicettaController {
 
-	
-	
-	
+
+
+
 	/*===============================================================================================*/
 	/*                                           VARIABLES                                           */
 	/*===============================================================================================*/
 
-	
-	
-	
+
+
+
 	@Autowired
 	private RicettaService ricettaService;
 
@@ -52,25 +52,25 @@ public class RicettaController {
 	@Autowired
 	private RicettaValidator ricettaValidator;
 
-	
-	
-	
-//=======================================================================================================\\
+
+
+
+	//=======================================================================================================\\
 	/*===============================================================================================*/
 	/*                                            METHODS                                            */
 	/*===============================================================================================*/
-//=======================================================================================================\\
+	//=======================================================================================================\\
 
-	
-	
-	
+
+
+
 	/*===============================================================================================*/
 	/*                                          SHOW METHODS                                         */
 	/*===============================================================================================*/
-	
-	
-	
-	
+
+
+
+	//Per tutti
 	@GetMapping("/elencoRicette")
 	public String showelencoRicette(Model model) {
 		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
@@ -78,40 +78,42 @@ public class RicettaController {
 		return "elencoRicette.html";
 	}
 
+	//Per tutti
 	@GetMapping("/ricetta/{id}")
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(id);
-		
+
 		if(ricetta!=null) {
 			ricetta.setTuttiPathDelleImmaginiFromOwnString();
 			//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
 			model.addAttribute("listaIngredienti", ricetta.getIngrediente2quantity().keySet());
 		}
-		
+
 		model.addAttribute("ricetta", ricetta);
-		
+
 		return "ricetta.html";
 	}
 
 
-	
-	
+
+
 	/*===============================================================================================*/
 	/*                                         INSERT METHODS                                        */
 	/*===============================================================================================*/
 
-	
-	
-	
-	@GetMapping("/aggiungiRicettaCompleta")
+
+
+	//Per admin -> Aggiunge ricetta con pure il cuoco. Admin va solo qui
+	@GetMapping("/admin/aggiungiRicettaCompleta")
 	public String showFormAggiungiRicettaCompleta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());
 		model.addAttribute("cuoco", new Cuoco());
 		this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
-		return "formAggiungiRicettaCompleta.html";
+		return "/admin/formAggiungiRicettaCompleta.html";
 	}
 
-	@PostMapping("/aggiungiRicettaCompleta")
+	//Per admin -> Aggiunge ricetta con pure il cuoco. Admin va solo qui
+	@PostMapping("/admin/aggiungiRicettaCompleta")
 	public String newRicettaCompleta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult,
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
 
@@ -120,7 +122,7 @@ public class RicettaController {
 		//Ricerca del cuoco relativo sulla base di nome, cognome e data di nascita, e assegnazione alla ricetta
 		Cuoco cuocoRelativo =  this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		ricetta.setCuoco(cuocoRelativo); //Se è null, lo verifica il validate!
-		
+
 		this.ricettaValidator.validate(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors().toString());
@@ -130,24 +132,24 @@ public class RicettaController {
 			if(ricettaInDB!=null) 
 				model.addAttribute("vecchiaRicetta", ricettaInDB);
 
-			return "formAggiungiRicettaCompleta.html";
+			return "/admin/formAggiungiRicettaCompleta.html";
 		}
 
 		else {
 			this.ricettaService.save(ricetta);
-			return "redirect:ricetta/"+ricetta.getId();
+			return "redirect:/ricetta/"+ricetta.getId();
 		}
 	}
 
+	//Per cuoco
 	@GetMapping("/aggiungiRicetta")
 	public String showFormAggiungiRicetta(Model model) {
-
-
 
 		model.addAttribute("nuovaRicetta", new Ricetta());
 		return "formAggiungiRicetta.html";
 	}
 
+	//Per cuoco
 	@PostMapping("/aggiungiRicetta")
 	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, Model model) {
 
@@ -160,31 +162,30 @@ public class RicettaController {
 		}
 		else {
 			this.ricettaService.save(ricetta);
-			return "redirect:ricetta/"+ricetta.getId();
+			return "redirect:/ricetta/"+ricetta.getId();
 		}
 	}
 
-	
-	
-	
+
+
 	/*===============================================================================================*/
 	/*                                         REMOVE METHODS                                        */
 	/*===============================================================================================*/
 
-	
-	
-	
-	@GetMapping("/rimuoviRicetta")
-	public String showFormRimuoviRicetta(Model model) {
+
+	//Per admin
+	@GetMapping("/admin/rimuoviRicetta")
+	public String showFormRimuoviRicettaAdmin(Model model) {
 		model.addAttribute("ricettaDaRimuovere", new Ricetta());
 		model.addAttribute("cuoco", new Cuoco());
 		this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
 
-		return "formRimuoviRicetta.html";
+		return "/admin/formRimuoviRicetta.html";
 	}
 
-	@PostMapping("/rimuoviRicetta")
-	public String rimuoviRicetta(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
+	//Per admin
+	@PostMapping("/admin/rimuoviRicetta")
+	public String rimuoviRicettaAdmin(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
 
 		//IF che rimuove la ricetta con un cuoco
@@ -206,13 +207,67 @@ public class RicettaController {
 		if(bindingResult.hasErrors()) { //Significa che la ricetta esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicato")) { 
 				this.ricettaService.delete(ricetta);
-				return "redirect:elencoRicette"; //Caso funzionante se aveva messo un Cuoco
+				return "redirect:/elencoRicette"; //Caso funzionante se aveva messo un Cuoco
 			}
 			if(bindingResult.getAllErrors().toString().contains("ricetta.stessoNomeMaNoCuoco")) { 
 				Ricetta ricettaConNomeUguale = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), null);
 				this.ricettaService.delete(ricettaConNomeUguale);
 
-				return "redirect:elencoRicette"; //Caso funzionante se non aveva messo cuochi
+				return "redirect:/elencoRicette"; //Caso funzionante se non aveva messo cuochi
+			}
+			return "/admin/formRimuoviRicetta.html"; //Ho problemi ma non ricetta.duplicato, quindi lo user ha toppato
+		}
+
+		bindingResult.reject("ricetta.nonEsiste");
+		return "/admin/formRimuoviRicetta.html"; //Ha inserito un ricetta che non esiste
+
+	}
+
+
+
+
+	//Per cuoco
+	@GetMapping("/rimuoviRicetta")
+	public String showFormRimuoviRicettaCuoco(Model model) {
+		//LOGICA PER CUOCO
+		model.addAttribute("ricettaDaRimuovere", new Ricetta());
+		model.addAttribute("cuoco", new Cuoco());
+		this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
+
+		return "formRimuoviRicetta.html";
+	}
+
+	//Per cuoco
+	@PostMapping("/rimuoviRicetta")
+	public String rimuoviRicettaCuoco(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
+			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
+		//LOGICA PER CUOCO
+		//IF che rimuove la ricetta con un cuoco
+		if(!cuoco.getNome().equals("Nessun cuoco")) {
+
+			this.parseIntoCuocoFields(cuoco);
+
+			cuoco = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+			ricetta.setCuoco(cuoco);
+
+			this.ricettaValidator.validate(ricetta, bindingResult);
+		} else { //Se non ho assegnato un cuoco
+			ricetta.setCuoco(null);
+			this.ricettaValidator.validateStessoNomeNoCuoco(ricetta, bindingResult);
+		}
+
+		//Controllo sugli errori e act accordingly
+
+		if(bindingResult.hasErrors()) { //Significa che la ricetta esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicato")) { 
+				this.ricettaService.delete(ricetta);
+				return "redirect:/elencoRicette"; //Caso funzionante se aveva messo un Cuoco
+			}
+			if(bindingResult.getAllErrors().toString().contains("ricetta.stessoNomeMaNoCuoco")) { 
+				Ricetta ricettaConNomeUguale = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), null);
+				this.ricettaService.delete(ricettaConNomeUguale);
+
+				return "redirect:/elencoRicette"; //Caso funzionante se non aveva messo cuochi
 			}
 			return "formRimuoviRicetta.html"; //Ho problemi ma non ricetta.duplicato, quindi lo user ha toppato
 		}
@@ -222,25 +277,26 @@ public class RicettaController {
 
 	}
 
-	
-	
-	
+
+
+
 	/*===============================================================================================*/
-	/*                                 MODIFICA INGREDIENTI RICETTA                                  */
+	/*                               MODIFICA INGREDIENTI RICETTA ADMIN                              */
 	/*===============================================================================================*/
-	
-	
-	
-	
-	@GetMapping("/modificaIngredientiRicetta")
-	public String showelencoRicettePerModificareIngredienti(Model model) {
+
+
+
+	//Per admin
+	@GetMapping("/admin/modificaIngredientiRicetta")
+	public String showelencoRicettePerModificareIngredientiAdmin(Model model) {
 		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
 		model.addAttribute("allRicette", allRicette);
-		return "elencoPerSelezionareRicettaPerModificaIngredienti.html";
+		return "/admin/elencoPerSelezionareRicettaPerModificaIngredienti.html";
 	}
 
-	@GetMapping("/modificaIngredientiRicetta/{ricettaId}")
-	public String showModificaIngredientiRicetta(@PathVariable("ricettaId") Long ricettaId, Model model) {
+	//Per admin
+	@GetMapping("/admin/modificaIngredientiRicetta/{ricettaId}")
+	public String showModificaIngredientiRicettaAdmin(@PathVariable("ricettaId") Long ricettaId, Model model) {
 
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 
@@ -249,24 +305,117 @@ public class RicettaController {
 			model.addAttribute("allRicette", allRicette);
 			return "elencoPerSelezionareRicettaPerModificaIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
+
+		this.setupModificaIngredientiRicetta(ricetta, model);
+
+		return "/admin/modificaIngredientiRicetta.html";
+	}
+
+
+
+	
+	//-------------------------------------Aggiungi Ingrediente a Ricetta-------------------------------------\\
+
+	//Per admin
+	@PostMapping("/admin/addIngrediente/{ricettaId}/{ingredienteId}")
+	public String showModificaIngredientiRicettaAndAddIngredienteAdmin(@PathVariable("ricettaId") Long ricettaId, 
+			@PathVariable("ingredienteId") Long ingredienteId, @RequestParam("ingredienteQuantity") Integer ingredienteQuantity, Model model) {
+
+		//Logica per aggiungere ingrediente a ricetta
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
+
+		//Controllo per quantità strettamente positiva
+
+		if(ingredienteQuantity <= 0) {
+			this.setupModificaIngredientiRicetta(ricetta, model);
+			model.addAttribute("qtyError", "");
+			return "/admin/modificaIngredientiRicetta.html";
+		}
+
+		if(ricetta==null || ingrediente==null) {
+			return "redirect:/admin/modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url e con la quantità
+		}
+
+		this.ricettaService.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteQuantity, ingredienteId, ricettaId);
+
+		return "redirect:/admin/modificaIngredientiRicetta/"+ricettaId;
+
+	}
+
+	//-------------------------------------Rimuovi Ingrediente da Ricetta-------------------------------------\\	
+
+	//Per admin
+	@GetMapping("/admin/removeIngrediente/{ricettaId}/{ingredienteId}")
+	public String showModificaIngredientiRicettaAndRemoveIngredienteAdmin(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
+
+		//Logica per aggiungere ingrediente a ricetta
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
+
+		if(ricetta==null || !ricetta.getIngrediente2quantity().containsKey(ingrediente)) {
+			return "redirect:/admin/modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+
+		this.ricettaService.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
+
+		return "redirect:/admin/modificaIngredientiRicetta/"+ricettaId;
+	}
+
+
+
+	/*===============================================================================================*/
+	/*                               MODIFICA INGREDIENTI RICETTA CUOCO                              */
+	/*===============================================================================================*/
+
+
+
+	//Per cuoco
+	@GetMapping("/modificaIngredientiRicetta")
+	public String showelencoRicettePerModificareIngredientiCuoco(Model model) {
 		
+		//LOGICA PER CUOCO
+		
+		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
+		model.addAttribute("allRicette", allRicette);
+		return "elencoPerSelezionareRicettaPerModificaIngredienti.html";
+	}
+
+	//Per cuoco
+	@GetMapping("/modificaIngredientiRicetta/{ricettaId}")
+	public String showModificaIngredientiRicettaCuoco(@PathVariable("ricettaId") Long ricettaId, Model model) {
+
+		//LOGICA PER CUOCO
+		
+		Ricetta ricetta = this.ricettaService.findById(ricettaId);
+
+		if(ricetta==null) {
+			Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
+			model.addAttribute("allRicette", allRicette);
+			return "elencoPerSelezionareRicettaPerModificaIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+
 		this.setupModificaIngredientiRicetta(ricetta, model);
 
 		return "modificaIngredientiRicetta.html";
 	}
 
 
+
+	
 	//-------------------------------------Aggiungi Ingrediente a Ricetta-------------------------------------\\
-	
-	
+
+	//Per cuoco
 	@PostMapping("/addIngrediente/{ricettaId}/{ingredienteId}")
-	public String showModificaIngredientiRicettaAndAddIngrediente(@PathVariable("ricettaId") Long ricettaId, 
+	public String showModificaIngredientiRicettaAndAddIngredienteCuoco(@PathVariable("ricettaId") Long ricettaId, 
 			@PathVariable("ingredienteId") Long ingredienteId, @RequestParam("ingredienteQuantity") Integer ingredienteQuantity, Model model) {
+
+		//LOGICA PER CUOCO
 		
 		//Logica per aggiungere ingrediente a ricetta
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
-		
+
 		//Controllo per quantità strettamente positiva
 
 		if(ingredienteQuantity <= 0) {
@@ -287,10 +436,12 @@ public class RicettaController {
 
 	//-------------------------------------Rimuovi Ingrediente da Ricetta-------------------------------------\\	
 
-	
+	//Per cuoco
 	@GetMapping("/removeIngrediente/{ricettaId}/{ingredienteId}")
-	public String showModificaIngredientiRicettaAndRemoveIngrediente(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
+	public String showModificaIngredientiRicettaAndRemoveIngredienteCuoco(@PathVariable("ricettaId") Long ricettaId, @PathVariable("ingredienteId") Long ingredienteId, Model model) {
 
+		//LOGICA PER CUOCO
+		
 		//Logica per aggiungere ingrediente a ricetta
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
@@ -304,71 +455,71 @@ public class RicettaController {
 		return "redirect:/modificaIngredientiRicetta/"+ricettaId;
 	}
 
-	
-	
-	
+
+
+
 	/*===============================================================================================*/
 	/*                                            RICERCA                                            */
 	/*===============================================================================================*/
+	//Tutto per tutti
 
-	
-	
-	
+
+
 	@GetMapping("/formRicercaRicetta")
 	public String showFormRicercaRicetta(Model model) {
 		model.addAttribute("ricettaInfos", new Ricetta());
 		model.addAttribute("ingredienteInfos", new Ingrediente());
 		return "formRicercaRicetta.html";
 	}
-	
-	//////////////////////
+
+
 	@PostMapping("/ricercaPerNomeRicetta")
 	public String showRicettaConStessoNome(@Valid @ModelAttribute("ricettaInfos") Ricetta ricetta,
-					BindingResult bindingResult, Model model) {
-		
+			BindingResult bindingResult, Model model) {
+
 		if(bindingResult.hasFieldErrors("nomeRicetta")) {
 			return "redirect:/ricetta/-1"; //Un modo carino per sfruttare il template della ricetta per una ricetta che non esiste
 		}
-		
+
 		ricetta = this.ricettaService.findByNomeRicetta(ricetta.getNomeRicetta());
-		
+
 		if(ricetta!=null) {
 			return "redirect:ricetta/"+ricetta.getId();
 		}
-		
+
 		return "redirect:/ricetta/-1"; //Un modo carino per sfruttare il template della ricetta per una ricetta che non esiste
 	}
-	
+
 	@PostMapping("/ricercaPerIngredienteRicetta")
 	public String showRicetteConStessoIngrediente(@Valid @ModelAttribute("ingredienteInfos") Ingrediente ingredienteInfos,
 			BindingResult bindingResult, Model model) {
-		
+
 		if(bindingResult.hasFieldErrors("ingredienteInfos")) {
 			return "redirect:/ingrediente/-1"; //Un modo carino per sfruttare il template dell'ingrediente per una dell'ingrediente che non esiste
 		}
-		
+
 		ingredienteInfos = this.ingredienteService.findByNome(ingredienteInfos.getNome());
-		
+
 		if(ingredienteInfos==null) {
 			return "redirect:/ingrediente/-1"; //Un modo carino per sfruttare il template dell'ingrediente per una dell'ingrediente che non esiste
 		}
-		
+
 		List<Ricetta> allRicette = (List<Ricetta>) this.ricettaService.findAllByIngrediente(ingredienteInfos);
-		
+
 		model.addAttribute("allRicette", allRicette);
 		return "elencoRicette.html";
 	}
 
 
-	
-	
+
+
 	/*===============================================================================================*/
 	/*                                        SUPPORT METHODS                                        */
 	/*===============================================================================================*/
 
-	
-	
-	
+
+
+
 	private void addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(Model model) {
 		//============================================================
 		//Add the editori attributes for menu a tendina
@@ -393,8 +544,8 @@ public class RicettaController {
 			cuoco.setDataNascita(LocalDate.parse(dataNascitaStringa, DateTimeFormatter.ISO_LOCAL_DATE));
 		} catch (Exception e) {}
 	}
-	
-	
+
+
 	private void setupModificaIngredientiRicetta(Ricetta ricetta, Model model) {
 
 		List<Ingrediente> allIngredientiMessi = new ArrayList<>(ricetta.getIngrediente2quantity().keySet()); //La lista degli ingredienti presenti nella ricetta
@@ -407,5 +558,5 @@ public class RicettaController {
 		model.addAttribute("allIngredientiDisponibili", allIngredientiDisponibili);
 		model.addAttribute("ricetta", ricetta);
 	}
-	
+
 }

@@ -27,15 +27,15 @@
     <div>
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
-    <h1>Benvenuto nell'elenco cuochi!</h1>
+    <h1>Benvenuto nell'elenco ricette!</h1>
     <div>
-        <div th:if="${allCuochi==null || allCuochi.isEmpty()}">
-            Non ci sono cuochi nel sistema!
+        <div th:if="${allRicette==null || allRicette.isEmpty()}">
+            Non ci sono ricette nel sistema!
         </div>
-        <div th:unless="${allCuochi==null || allCuochi.isEmpty()}">
+        <div th:unless="${allRicette==null || allRicette.isEmpty()}">
         	<ul>
-            	<li th:each="cuoco : ${allCuochi}">
-                	<a th:href="@{'/cuoco' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Goku Cuoco</a>
+            	<li th:each="ricetta : ${allRicette}">
+                	<a th:href="@{'/modificaIngredientiRicetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
             	</li>
         	</ul>
         </div>

@@ -58,7 +58,7 @@ public class CuocoController {
 
 
 
-
+	//Per tutti
 	@GetMapping("/elencoCuochi")
 	public String showElencoCuochi(Model model) {
 		Iterable<Cuoco> allCuochi = this.cuocoService.findAll();
@@ -66,6 +66,7 @@ public class CuocoController {
 		return "elencoCuochi.html";
 	}
 
+	//Per tutti
 	@GetMapping("/cuoco/{id}")
 	public String showCuoco(@PathVariable("id") Long id, Model model) {
 		Cuoco cuoco = this.cuocoService.findById(id);
@@ -82,15 +83,15 @@ public class CuocoController {
 
 
 
-
-	@GetMapping("/aggiungiCuoco")
+	//Per admin
+	@GetMapping("/admin/aggiungiCuoco")
 	public String showFormAggiungiCuoco(Model model) {
 		model.addAttribute("nuovoCuoco", new Cuoco());
-		return "formAggiungiCuoco.html";
+		return "/admin/formAggiungiCuoco.html";
 	}
 
-
-	@PostMapping("/aggiungiCuoco")
+	//Per admin
+	@PostMapping("/admin/aggiungiCuoco")
 	public String newCuoco(@Valid @ModelAttribute("nuovoCuoco") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
 
@@ -101,12 +102,12 @@ public class CuocoController {
 			if(cuocoInDB!=null)
 				model.addAttribute("vecchioCuoco", cuocoInDB);
 
-			return "formAggiungiCuoco.html";
+			return "/admin/formAggiungiCuoco.html";
 		}
 
 		else {
 			this.cuocoService.save(cuoco);
-			return "redirect:cuoco/"+cuoco.getId();
+			return "redirect:/cuoco/"+cuoco.getId();
 		}
 	}
 
@@ -121,14 +122,14 @@ public class CuocoController {
 
 
 
-
-	@GetMapping("/rimuoviCuoco")
+	//Per admin
+	@GetMapping("/admin/rimuoviCuoco")
 	public String showFormRimuoviCuoco(Model model) {
 		model.addAttribute("cuocoDaRimuovere", new Cuoco());
-		return "formRimuoviCuoco.html";
+		return "/admin/formRimuoviCuoco.html";
 	}
 
-
+	//Per admin
 	@PostMapping("/rimuoviCuoco")
 	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
@@ -136,13 +137,13 @@ public class CuocoController {
 		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) { 
 				this.cuocoService.delete(cuoco);
-				return "redirect:elencoCuochi"; //Unico caso funzionante!
+				return "redirect:/elencoCuochi"; //Unico caso funzionante!
 			}
-			return "formRimuoviCuoco.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
+			return "/admin/formRimuoviCuoco.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
 		}
 
 		bindingResult.reject("cuoco.nonEsiste");
-		return "formRimuoviCuoco.html"; //Ha inserito un cuoco che non esiste
+		return "/admin/formRimuoviCuoco.html"; //Ha inserito un cuoco che non esiste
 
 	}
 
@@ -154,24 +155,25 @@ public class CuocoController {
 	/*===============================================================================================*/
 
 
+	
 
-
-	@GetMapping("/modificaRicetteCuoco")
+	//Per admin
+	@GetMapping("/admin/modificaRicetteCuoco")
 	public String showelencoRicettePerModificareIngredienti(Model model) {
 		Iterable<Cuoco> allCuochi = this.cuocoService.findAllByOrderByNomeAsc();
 		model.addAttribute("allCuochi", allCuochi);
-		return "elencoPerSelezionareCuocoPerModificaRicette.html";
+		return "/admin/elencoPerSelezionareCuocoPerModificaRicette.html";
 	}
 
-
-	@GetMapping("/modificaRicetteCuoco/{cuocoId}")
+	//Per admin
+	@GetMapping("/admin/modificaRicetteCuoco/{cuocoId}")
 	public String showModificaIngredientiCuoco(@PathVariable("cuocoId") Long cuocoId, Model model) {
 		Cuoco cuoco = this.cuocoService.findById(cuocoId);
 
 		if(cuoco==null) {
 			Iterable<Cuoco> allCuochi = this.cuocoService.findAllByOrderByNomeAsc();
 			model.addAttribute("allCuochi", allCuochi);
-			return "elencoPerSelezionareCuocoPerModificaRicette.html"; //Non metto errori, non modello per persone che giocano con gli url...
+			return "/admin/elencoPerSelezionareCuocoPerModificaRicette.html"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 
 		List<Ricetta> allRicetteMesse = new ArrayList<>(cuoco.getRicette()); //La lista degli ingredienti presenti nella cuoco
@@ -184,14 +186,14 @@ public class CuocoController {
 		model.addAttribute("allRicetteDisponibili", allRicetteDisponibili);
 		model.addAttribute("cuoco", cuoco);
 
-		return "modificaIngredientiCuoco.html";
+		return "/admin/modificaIngredientiCuoco.html";
 	}
 
 
 	//-------------------------------------Aggiungi Ricetta a Cuoco-------------------------------------\\
 
-
-	@GetMapping("/addRicetta/{cuocoId}/{ricettaId}")
+	//Per admin
+	@GetMapping("/admin/addRicetta/{cuocoId}/{ricettaId}")
 	public String showModificaRicetteCuocoAndAddRicetta(@PathVariable("cuocoId") Long cuocoId, @PathVariable("ricettaId") Long ricettaId, Model model) {
 
 		//Logica per aggiungere ingrediente a cuoco
@@ -199,7 +201,7 @@ public class CuocoController {
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 
 		if(cuoco==null || ricetta==null) {
-			return "redirect:../../../modificaRicetteCuoco"; //Non metto errori, non modello per persone che giocano con gli url...
+			return "redirect:/admin/modificaRicetteCuoco"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 
 		cuoco.getRicette().add(ricetta);
@@ -208,13 +210,14 @@ public class CuocoController {
 		this.cuocoService.save(cuoco);
 		this.ricettaService.save(ricetta);
 
-		return "redirect:/modificaRicetteCuoco/"+cuocoId;
+		return "redirect:/admin/modificaRicetteCuoco/"+cuocoId;
 
 	}
 
 	//-------------------------------------Rimuovi Ricetta da Cuoco-------------------------------------\\
 
-	@GetMapping("/removeRicetta/{cuocoId}/{ricettaId}")
+	//Per admin
+	@GetMapping("/admin/removeRicetta/{cuocoId}/{ricettaId}")
 	public String showModificaRicetteCuocoAndRemoveRicetta(@PathVariable("cuocoId") Long cuocoId, @PathVariable("ricettaId") Long ricettaId, Model model) {
 
 		//Logica per aggiungere ingrediente a cuoco
@@ -222,7 +225,7 @@ public class CuocoController {
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 
 		if(cuoco==null || !cuoco.getRicette().contains(ricetta)) {
-			return "redirect:../../../modificaRicetteCuoco"; //Non metto errori, non modello per persone che giocano con gli url...
+			return "redirect:/admin/modificaRicetteCuoco"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 
 		cuoco.getRicette().remove(ricetta);
@@ -231,13 +234,12 @@ public class CuocoController {
 		this.cuocoService.save(cuoco);
 		this.ricettaService.save(ricetta);
 
-		return "redirect:/modificaRicetteCuoco/"+cuocoId;
+		return "redirect:/admin/modificaRicetteCuoco/"+cuocoId;
 	}
 	/*===============================================================================================*/
 	/*                                            RICERCA                                            */
 	/*===============================================================================================*/
-
-
+	//Tutto per tutti
 
 
 	@GetMapping("/formRicercaCuoco")

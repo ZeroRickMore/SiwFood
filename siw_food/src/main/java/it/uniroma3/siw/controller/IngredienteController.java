@@ -54,7 +54,7 @@ public class IngredienteController {
 
 	
 	
-	
+	//Per tutti
 	@GetMapping("/elencoIngredienti")
 	public String showElencoIngredienti(Model model) {
 		Iterable<Ingrediente> allIngredienti = this.ingredienteService.findAll();
@@ -62,6 +62,7 @@ public class IngredienteController {
 		return "elencoIngredienti.html";
 	}
 	
+	//Per tutti
 	@GetMapping("/ingrediente/{id}")
 	public String showIngrediente(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("ingrediente", this.ingredienteService.findById(id));
@@ -77,7 +78,7 @@ public class IngredienteController {
 
 	
 	
-	
+	//Per admin e cuoco (identico)
 	@GetMapping("/aggiungiIngrediente")
 	public String showFormAggiungiIngrediente(Model model) {
 		model.addAttribute("nuovoIngrediente", new Ingrediente());
@@ -85,6 +86,8 @@ public class IngredienteController {
 		return "formAggiungiIngrediente.html";
 	}
 
+	
+	//Per admin e cuoco (identico)
 	@PostMapping("/aggiungiIngrediente")
 	public String newIngrediente(@Valid @ModelAttribute("nuovoIngrediente") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 		this.ingredienteValidator.validate(ingrediente, bindingResult);
@@ -113,15 +116,15 @@ public class IngredienteController {
 	/*===============================================================================================*/
 	
 	
-	
-	
-	@GetMapping("/rimuoviIngrediente")
+	//Per admin -> Cuoco non può cancellare i propri ingrediente da specifiche
+	@GetMapping("/admin/rimuoviIngrediente")
 	public String showFormRimuoviIngrediente(Model model) {
 		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
-		return "formRimuoviIngrediente.html";
+		return "/admin/formRimuoviIngrediente.html";
 	}
 
-	@PostMapping("/rimuoviIngrediente")
+	//Per admin -> Cuoco non può cancellare i propri ingrediente da specifiche
+	@PostMapping("/admin/rimuoviIngrediente")
 	public String rimuoviIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 		this.ingredienteValidator.validate(ingrediente, bindingResult);
 		
@@ -129,13 +132,13 @@ public class IngredienteController {
 			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) {
 				
 				this.ingredienteService.delete(ingrediente);
-				return "redirect:elencoIngredienti"; //Unico caso funzionante!
+				return "redirect:/elencoIngredienti"; //Unico caso funzionante!
 			}
-			return "formRimuoviIngrediente.html"; //Ho problemi ma non ingrediente.duplicato, quindi lo user ha toppato
+			return "/admin/formRimuoviIngrediente.html"; //Ho problemi ma non ingrediente.duplicato, quindi lo user ha toppato
 		}
 
 		bindingResult.reject("ingrediente.nonEsiste");
-		return "formRimuoviIngrediente.html"; //Ha inserito un ingrediente che non esiste
+		return "/admin/formRimuoviIngrediente.html"; //Ha inserito un ingrediente che non esiste
 		
 	}
 	
@@ -145,8 +148,7 @@ public class IngredienteController {
 	/*===============================================================================================*/
 	/*                                            RICERCA                                            */
 	/*===============================================================================================*/
-
-	
+	//Tutto per tutti
 	
 	
 	@GetMapping("/formRicercaIngrediente")
