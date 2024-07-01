@@ -148,4 +148,9 @@ public class RicettaService {
 		
 		return ricette;
 	}
+
+
+	public Iterable<Ricetta> findAllByCuocoOrderByNomeRicettaAsc(Cuoco cuoco) {
+		return this.ricettaRepository.findAllByCuocoOrderByNomeRicettaAsc(cuoco);
+	}
 }

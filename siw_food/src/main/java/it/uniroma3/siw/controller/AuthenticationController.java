@@ -106,7 +106,8 @@ public class AuthenticationController {
 
 	public Cuoco getCuocoSessioneCorrente() {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials utenteSessioneCorrente = this.credentialsService.findByUsername(user.getUsername());
+		System.out.println(user.getUsername());
+		Credentials utenteSessioneCorrente = this.credentialsService.getCredentials(user.getUsername());
 		Cuoco cuoco = utenteSessioneCorrente.getUser().getCuoco();
 		return cuoco;
 	}

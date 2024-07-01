@@ -39,5 +39,7 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 	@Modifying
 	@Query(value = "SELECT ricetta_id FROM ricetta_ingrediente2quantità WHERE ingrediente2quantity_key = :idIngrediente", nativeQuery = true)
 	public List<Long> findAllRicettaIDByIngredienteID(@Param("idIngrediente") Long idIngrediente);
+
+	public Iterable<Ricetta> findAllByCuocoOrderByNomeRicettaAsc(Cuoco cuoco);
 	
 }
