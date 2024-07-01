@@ -24,6 +24,9 @@ public class CuocoService {
 	
 	@Autowired
 	private CuocoRepository cuocoRepository;
+	
+	
+	
 
 //=======================================================================================================\\
 	/*===============================================================================================*/
@@ -104,6 +107,14 @@ public class CuocoService {
 
 	public Iterable<Cuoco> findAllByOrderByNomeAsc() {
 		return this.cuocoRepository.findAllByOrderByNomeAsc();
+	}
+
+	public Iterable<Cuoco> findAllByNome(String nome) {
+		return this.cuocoRepository.findAllByNomeOrderByCognomeAsc(nome);
+	}
+
+	public Iterable<Cuoco> findAllByCognome(String cognome) {
+		return this.cuocoRepository.findAllByCognomeOrderByNomeAsc(cognome);
 	}
 
 }

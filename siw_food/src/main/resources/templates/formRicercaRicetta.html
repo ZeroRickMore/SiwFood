@@ -31,7 +31,7 @@
             </p>
         </div>
         <div>
-            Nome Ricetta*:
+            Nome Ricetta:
             <input required type="text" th:field="${ricettaInfos.nomeRicetta}">
             <span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaInfos.nomeRicetta}"></span>
         </div>
@@ -44,7 +44,7 @@
 
 		<form th:action="@{/ricercaPerIngredienteRicetta}" method="POST" th:object="${ingredienteInfos}">
 		    <div>
-		        Ingrediente*:
+		        Ingrediente:
 		        <input required type="text" th:field="${ingredienteInfos.nome}">
 		        <span th:if="${#fields.hasErrors('nome')}" th:errors="${ingredienteInfos.nome}"></span>
 		    </div>

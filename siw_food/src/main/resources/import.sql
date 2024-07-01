@@ -4,6 +4,8 @@ INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval(
 
 INSERT INTO cuoco (id, nome, cognome, data_nascita, fotografia_path) VALUES(nextval('cuoco_seq'), 'Goku', 'Fighissimo', '737-04-16', 'immaginiCuochi/goku_poderoso_upscayl.jpg')
 INSERT INTO cuoco (id, nome, cognome, data_nascita, fotografia_path) VALUES(nextval('cuoco_seq'), 'Vegeta', 'Vegetariano', '732-09-19', 'immaginiCuochi/vegeta.jpg')
+INSERT INTO cuoco (id, nome, cognome, data_nascita, fotografia_path) VALUES(nextval('cuoco_seq'), 'Vegeta', 'H-Vegetariano', '732-09-19', 'immaginiCuochi/vegeta.jpg')
+INSERT INTO cuoco (id, nome, cognome, data_nascita, fotografia_path) VALUES(nextval('cuoco_seq'), 'Vegeta', 'B-Vegetariano', '732-09-19', 'immaginiCuochi/vegeta.jpg')
 
 INSERT INTO ricetta (id, nome_ricetta, cuoco_id, descrizione, tutti_path_delle_immagini_string) VALUES(nextval('ricetta_seq'), 'Pasta fighissima', (SELECT id FROM cuoco WHERE nome='Goku' AND cognome='Fighissimo'), 'Pasta DAVVERO fighissima!', 'immaginiRicette/carbonara.jpg')
 INSERT INTO ricetta (id, nome_ricetta, cuoco_id, descrizione, tutti_path_delle_immagini_string) VALUES(nextval('ricetta_seq'), 'Carne vegetariana', (SELECT id FROM cuoco WHERE nome='Vegeta' AND cognome='Vegetariano'), 'Carne DAVVERO vegetariana!', 'immaginiRicette/carne_vegetariana.jpg')

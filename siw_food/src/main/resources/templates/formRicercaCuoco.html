@@ -22,22 +22,39 @@
 	        </div>
 	    </nav>
 		<div id="header"><a th:href="@{/}">Siwfood</a></div>
-    <h1>Ricerca un ingrediente</h1>
+    <h1>Ricerca un cuoco</h1>
     <h2>Ricerca per nome</h2>
-    <form th:action="@{/ricercaPerNomeIngrediente}" method="POST" th:object="${ingredienteInfos}">
+    <form th:action="@{/ricercaPerNomeCuoco}" method="POST" th:object="${cuocoInfos}">
         <div th:if="${#fields.hasGlobalErrors()}">
             <p th:each="err : ${#fields.globalErrors()}">
                 <span th:text="${err}"></span>
             </p>
         </div>
         <div>
-            Nome Ingrediente*:
-            <input required type="text" th:field="${ingredienteInfos.nome}">
-            <span th:if="${#fields.hasErrors('nome')}" th:errors="${ingredienteInfos.nome}"></span>
+            Nome:
+            <input required type="text" th:field="${cuocoInfos.nome}">
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="${cuocoInfos.nome}"></span>
         </div>
         <div>
             <span><button type="submit">Conferma</button></span>
         </div>
-    </form>
+	</form>
+	<h2>Ricerca per cognome</h2>
+	    <form th:action="@{/ricercaPerCognomeCuoco}" method="POST" th:object="${cuocoInfos}">
+	        <div th:if="${#fields.hasGlobalErrors()}">
+	            <p th:each="err : ${#fields.globalErrors()}">
+	                <span th:text="${err}"></span>
+	            </p>
+	        </div>
+	        <div>
+	            Cognome:
+	            <input required type="text" th:field="${cuocoInfos.cognome}">
+	            <span th:if="${#fields.hasErrors('cognome')}" th:errors="${cuocoInfos.cognome}"></span>
+	        </div>
+	        <div>
+	            <span><button type="submit">Conferma</button></span>
+	        </div>
+		</form>
+
 </body>
 </html>

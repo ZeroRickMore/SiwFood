@@ -150,7 +150,7 @@ public class IngredienteController {
 	
 	
 	@GetMapping("/formRicercaIngrediente")
-	public String showFormRicercaRicetta(Model model) {
+	public String showFormRicercaIngrediente(Model model) {
 		model.addAttribute("ingredienteInfos", new Ingrediente());
 		return "formRicercaIngrediente.html";
 	}
