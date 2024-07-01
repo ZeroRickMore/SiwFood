@@ -11,8 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import it.uniroma3.siw.controller.validation.CredentialsValidator;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.CuocoService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -28,26 +30,37 @@ public class AuthenticationController {
 	@Autowired
 	private CredentialsValidator credentialsValidator;
 
+	@Autowired
+	private CuocoService cuocoService;
+	
 	/*===============================================================================================*/
 	/*                                           REGISTER                                            */
 	/*===============================================================================================*/
 
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
-		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
+		model.addAttribute("cuoco", new Cuoco());
 		return "formRegister.html";
 	}
 
 	@PostMapping("/register")
-	public String newUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, 
-							@Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials,
-								Model model) {
+	public String newUser( @Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials,
+						  @Valid @ModelAttribute("cuoco") Cuoco cuoco, BindingResult bindingResultCuoco,
+						  Model model) {
+		User user = new User();
+
+		if(this.cuocoService.existsByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita())) {
+			user.setCuoco(this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita()));
+		}
+		else {
+			user.setCuoco(cuoco);
+		}
+		
 		credentials.setUser(user);
 		this.credentialsValidator.validate(credentials, bindingResultCredentials);
-
-		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {
-			model.addAttribute("userErrors", bindingResultUser);
+		if(bindingResultCredentials.hasErrors() || bindingResultCuoco.hasErrors()) {
+			model.addAttribute("cuocoErrors", bindingResultCuoco);
 			return "formRegister.html";
 		} else {
 			credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
@@ -72,7 +85,7 @@ public class AuthenticationController {
 			if(credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
 				return "/admin/index.html";
 			}
-			return "index.html";
+			return "indexCuoco.html";
 		}
 
 	}
@@ -86,4 +99,16 @@ public class AuthenticationController {
 		return "login.html";
 	}
 
+	/*===============================================================================================*/
+	/*                                         SUPPORT METHODS                                       */
+	/*===============================================================================================*/
+
+
+	public Cuoco getCuocoSessioneCorrente() {
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials utenteSessioneCorrente = this.credentialsService.findByUsername(user.getUsername());
+		Cuoco cuoco = utenteSessioneCorrente.getUser().getCuoco();
+		return cuoco;
+	}
+	
 }

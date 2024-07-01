@@ -26,21 +26,28 @@
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
-        <label for="username">Username:</label><br>
+        <label>Username*:</label><br>
         <input type="text" th:field="${credentials.username}" required>
 		<span th:if="${#fields.hasErrors('username')}" th:errors="${credentials.username}"></span>
 		<br><br>
-        <label for="password">Password:</label><br>
+        <label>Password*:</label><br>
         <input type="password" th:field="${credentials.password}" required>
 		<span th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></span>
 		<br><br>
-		<label for="password">Nome:</label><br>
-		<input type="text" th:field="${user.nome}" required>
-		<span th:if="${userErrors != null and userErrors.hasFieldErrors('nome')}" th:errors="${user.nome}"></span>
+		<label>Nome*:</label><br>
+		<input required type="text" th:field="${cuoco.nome}">
+		<span th:if="${cuocoErrors != null and cuocoErrors.hasErrors('nome')}" th:errors="${cuoco.nome}"></span>
 		<br><br>
-		<label for="password">Cognome:</label><br>
-		<input type="text" th:field="${user.cognome}" required>
-		<span th:if="${userErrors != null and userErrors.hasFieldErrors('cognome')}" th:errors="${user.cognome}"></span>
+		<label>Cognome*:</label><br>
+		<input required type="text" th:field="${cuoco.cognome}">
+		<span th:if="${cuocoErrors != null and cuocoErrors.hasErrors('cognome')}" th:errors="${cuoco.cognome}"></span>
+		<br><br>
+		<label>Data di nascita*:</label><br>
+		<input required type="date" th:field="${cuoco.dataNascita}">
+		<span th:if="${cuocoErrors != null and cuocoErrors.hasErrors('dataNascita')}" th:errors="${cuoco.dataNascita}"></span>
+		<br><br>
+		<label>Percorso immagine:</label><br> 
+		<input type="text" th:field="${cuoco.fotografia_path}">
 		
         <input type="submit" value="Register">
     </form>

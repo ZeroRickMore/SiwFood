@@ -31,13 +31,9 @@ import jakarta.validation.Valid;
 public class RicettaController {
 
 
-
-
 	/*===============================================================================================*/
 	/*                                           VARIABLES                                           */
 	/*===============================================================================================*/
-
-
 
 
 	@Autowired
@@ -52,7 +48,8 @@ public class RicettaController {
 	@Autowired
 	private RicettaValidator ricettaValidator;
 
-
+	@Autowired
+	private AuthenticationController authenticationController; //Necessario per ottenere il cuoco corrente
 
 
 	//=======================================================================================================\\
@@ -157,6 +154,8 @@ public class RicettaController {
 
 		this.ricettaValidator.validateStessoNomeNoCuoco(ricetta, bindingResult);
 
+		
+		
 		if(bindingResult.hasErrors()) {
 			return "formAggiungiRicetta.html";
 		}
