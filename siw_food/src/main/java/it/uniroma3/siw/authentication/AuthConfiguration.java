@@ -59,7 +59,7 @@ public class AuthConfiguration {
 	  
 	  // chiunque (autenticato o no) può accedere alle pagine
 	  .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", "/formRicerca**",
-			  			"/elenco**", "/cuoco/**", "/ingrediente/**", "/ricetta/**"
+			  			"/elenco**", "/cuoco/**", "/ingrediente/**", "/ricetta/**", "/rest/**"
 			  			).permitAll()
 	  
 	  // chiunque (autenticato o no) può mandare richieste POST al punto di accesso
