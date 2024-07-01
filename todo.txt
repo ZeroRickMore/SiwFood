@@ -1,0 +1,8 @@
+- Ricerche
+- Roba per admin e setup credenziali
+
+
+- Fai metodo dentro authcontroller che prende editore (cuoco), mettilo statico. Copialo
+- Nel register aggiungi attributo a GET "cuoco", cambia il formRegister per prendere informazioni del cuoco
+	Fixa il fatto che serve anche cuocoErrors oltre a userErrors per la diagnostica degli errori del form... Sia nel form, che nel POSTmapping register
+

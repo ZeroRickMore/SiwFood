@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.IngredienteValidator;
 import it.uniroma3.siw.model.Ingrediente;
+import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.IngredienteService;
 import jakarta.validation.Valid;
 
@@ -136,6 +139,39 @@ public class IngredienteController {
 		
 	}
 	
+	
+	
+	
+	/*===============================================================================================*/
+	/*                                            RICERCA                                            */
+	/*===============================================================================================*/
+
+	
+	
+	
+	@GetMapping("/formRicercaIngrediente")
+	public String showFormRicercaRicetta(Model model) {
+		model.addAttribute("ingredienteInfos", new Ingrediente());
+		return "formRicercaIngrediente.html";
+	}
+	
+
+	@PostMapping("/ricercaPerNomeIngrediente")
+	public String showIngredienteConStessoNome(@Valid @ModelAttribute("ingredienteInfos") Ingrediente ingrediente,
+					BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasFieldErrors("nomeIngrediente")) {
+			return "redirect:/ingrediente/-1"; //Un modo carino per sfruttare il template della ingrediente per una ingrediente che non esiste
+		}
+		
+		ingrediente = this.ingredienteService.findByNome(ingrediente.getNome());
+		
+		if(ingrediente!=null) {
+			return "redirect:ingrediente/"+ingrediente.getId();
+		}
+		
+		return "redirect:/ingrediente/-1"; //Un modo carino per sfruttare il template della ingrediente per una ingrediente che non esiste
+	}
 	
 	
 	
