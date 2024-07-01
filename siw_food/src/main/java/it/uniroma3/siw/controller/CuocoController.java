@@ -89,6 +89,7 @@ public class CuocoController {
 		return "formAggiungiCuoco.html";
 	}
 
+	
 	@PostMapping("/aggiungiCuoco")
 	public String newCuoco(@Valid @ModelAttribute("nuovoCuoco") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
@@ -127,6 +128,7 @@ public class CuocoController {
 		return "formRimuoviCuoco.html";
 	}
 
+	
 	@PostMapping("/rimuoviCuoco")
 	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
@@ -158,15 +160,18 @@ public class CuocoController {
 	public String showelencoRicettePerModificareIngredienti(Model model) {
 		Iterable<Cuoco> allCuochi = this.cuocoService.findAllByOrderByNomeAsc();
 		model.addAttribute("allCuochi", allCuochi);
-		return "elencoPerSelezionareCuocoPerRicetta.html";
+		return "elencoPerSelezionareCuocoPerModificaRicette.html";
 	}
+	
 	
 	@GetMapping("/modificaRicetteCuoco/{cuocoId}")
 	public String showModificaIngredientiCuoco(@PathVariable("cuocoId") Long cuocoId, Model model) {
 		Cuoco cuoco = this.cuocoService.findById(cuocoId);
 		
 		if(cuoco==null) {
-			return "elencoPerSelezionareCuocoPerIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
+			Iterable<Cuoco> allCuochi = this.cuocoService.findAllByOrderByNomeAsc();
+			model.addAttribute("allCuochi", allCuochi);
+			return "elencoPerSelezionareCuocoPerModificaRicette.html"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 		
 		List<Ricetta> allRicetteMesse = new ArrayList<>(cuoco.getRicette()); //La lista degli ingredienti presenti nella cuoco

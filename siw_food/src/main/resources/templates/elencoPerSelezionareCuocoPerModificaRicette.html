@@ -35,7 +35,9 @@
         <div th:unless="${allCuochi==null || allCuochi.isEmpty()}">
         	<ul>
             	<li th:each="cuoco : ${allCuochi}">
-                	<a th:href="@{'/modificaRicetteCuoco' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Goku Cuoco</a>
+					<a th:href="@{'/cuoco' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Editore Generico</a>
+                	<a th:href="@{'/modificaRicetteCuoco' + '/' + ${cuoco.id}}">Aggiungi o rimuovi Ricette</a>
+					
             	</li>
         	</ul>
         </div>

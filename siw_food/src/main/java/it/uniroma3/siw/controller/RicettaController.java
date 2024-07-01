@@ -236,7 +236,7 @@ public class RicettaController {
 	public String showelencoRicettePerModificareIngredienti(Model model) {
 		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
 		model.addAttribute("allRicette", allRicette);
-		return "elencoPerSelezionareRicettaPerIngredienti.html";
+		return "elencoPerSelezionareRicettaPerModificaIngredienti.html";
 	}
 
 	@GetMapping("/modificaIngredientiRicetta/{ricettaId}")
@@ -245,7 +245,9 @@ public class RicettaController {
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 
 		if(ricetta==null) {
-			return "elencoPerSelezionareRicettaPerIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
+			Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
+			model.addAttribute("allRicette", allRicette);
+			return "elencoPerSelezionareRicettaPerModificaIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 		
 		this.setupModificaIngredientiRicetta(ricetta, model);
