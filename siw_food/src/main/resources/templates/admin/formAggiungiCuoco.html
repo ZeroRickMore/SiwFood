@@ -23,7 +23,7 @@
 
     <div id="header"><a th:href="@{/}">Siwfood</a></div>
     <h2>Aggiungi nuovo cuoco</h2>
-    <form th:action="@{/aggiungiCuoco}" method="POST" th:object="${nuovoCuoco}">
+    <form th:action="@{/admin/aggiungiCuoco}" method="POST" th:object="${nuovoCuoco}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
 				<span th:text="${err}"></span>

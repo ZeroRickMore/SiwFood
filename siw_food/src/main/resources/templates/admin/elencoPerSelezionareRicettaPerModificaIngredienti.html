@@ -35,7 +35,7 @@
         <div th:unless="${allRicette==null || allRicette.isEmpty()}">
         	<ul>
             	<li th:each="ricetta : ${allRicette}">
-                	<a th:href="@{'/modificaIngredientiRicetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
+                	<a th:href="@{'/admin/modificaIngredientiRicetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
             	</li>
         	</ul>
         </div>

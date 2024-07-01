@@ -36,7 +36,7 @@
         <div th:unless="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
         	<ul>
             	<li th:each="ingrediente : ${allIngredientiMessi}">
-                	<a th:href="@{'/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' [' + ${ricetta.ingrediente2quantity.get(ingrediente)} + ']'">Goku Ingrediente</a>
+                	<a th:href="@{'/admin/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' [' + ${ricetta.ingrediente2quantity.get(ingrediente)} + ']'">Goku Ingrediente</a>
             	</li>
         	</ul>
         </div>
@@ -55,7 +55,7 @@
 	        	<ul>
 	            	<li th:each="ingrediente : ${allIngredientiDisponibili}">
 						
-						<form th:action="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" method="post">
+						<form th:action="@{'/admin/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" method="post">
 							<span th:text="${ingrediente.nome}"></span>
 						    <input type="number" name="ingredienteQuantity">
 							

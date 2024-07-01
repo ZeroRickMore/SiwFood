@@ -36,7 +36,7 @@
         	<ul>
             	<li th:each="cuoco : ${allCuochi}">
 					<a th:href="@{'/cuoco' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Editore Generico</a>
-                	<a th:href="@{'/modificaRicetteCuoco' + '/' + ${cuoco.id}}">Aggiungi o rimuovi Ricette</a>
+                	<a th:href="@{'/admin/modificaRicetteCuoco' + '/' + ${cuoco.id}}">Aggiungi o rimuovi Ricette</a>
 					
             	</li>
         	</ul>

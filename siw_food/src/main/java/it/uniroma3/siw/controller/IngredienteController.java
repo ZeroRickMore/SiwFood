@@ -120,6 +120,7 @@ public class IngredienteController {
 	@GetMapping("/admin/rimuoviIngrediente")
 	public String showFormRimuoviIngrediente(Model model) {
 		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
+		model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
 		return "/admin/formRimuoviIngrediente.html";
 	}
 

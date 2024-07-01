@@ -35,7 +35,7 @@
         <div th:unless="${allRicetteMesse==null || allRicetteMesse.isEmpty()}">
         	<ul>
             	<li th:each="ricetta : ${allRicetteMesse}">
-                	<a th:href="@{'/removeRicetta' + '/' + ${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
+                	<a th:href="@{'/admin/removeRicetta' + '/' + ${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
             	</li>
         	</ul>
         </div>
@@ -48,7 +48,7 @@
 	        <div th:unless="${allRicetteDisponibili==null || allRicetteDisponibili.isEmpty()}">
 	        	<ul>
 	            	<li th:each="ricetta : ${allRicetteDisponibili}">
-	                	<a th:href="@{'/addRicetta' + '/' + ${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
+	                	<a th:href="@{'/admin/addRicetta' + '/' + ${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
 	            	</li>
 	        	</ul>
 	        </div>

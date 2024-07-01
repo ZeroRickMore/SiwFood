@@ -130,7 +130,7 @@ public class CuocoController {
 	}
 
 	//Per admin
-	@PostMapping("/rimuoviCuoco")
+	@PostMapping("/admin/rimuoviCuoco")
 	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
 
