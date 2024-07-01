@@ -241,21 +241,14 @@ public class RicettaController {
 
 	@GetMapping("/modificaIngredientiRicetta/{ricettaId}")
 	public String showModificaIngredientiRicetta(@PathVariable("ricettaId") Long ricettaId, Model model) {
+
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 
 		if(ricetta==null) {
 			return "elencoPerSelezionareRicettaPerIngredienti.html"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
-
-		List<Ingrediente> allIngredientiMessi = new ArrayList<>(ricetta.getIngrediente2quantity().keySet()); //La lista degli ingredienti presenti nella ricetta
-
-		List<Ingrediente> allIngredientiDisponibili = (List<Ingrediente>) this.ingredienteService.findAll();
-
-		allIngredientiDisponibili.removeAll(allIngredientiMessi);
-
-		model.addAttribute("allIngredientiMessi", allIngredientiMessi);
-		model.addAttribute("allIngredientiDisponibili", allIngredientiDisponibili);
-		model.addAttribute("ricetta", ricetta);
+		
+		this.setupModificaIngredientiRicetta(ricetta, model);
 
 		return "modificaIngredientiRicetta.html";
 	}
@@ -267,13 +260,21 @@ public class RicettaController {
 	@PostMapping("/addIngrediente/{ricettaId}/{ingredienteId}")
 	public String showModificaIngredientiRicettaAndAddIngrediente(@PathVariable("ricettaId") Long ricettaId, 
 			@PathVariable("ingredienteId") Long ingredienteId, @RequestParam("ingredienteQuantity") Integer ingredienteQuantity, Model model) {
-
+		
 		//Logica per aggiungere ingrediente a ricetta
 		Ricetta ricetta = this.ricettaService.findById(ricettaId);
 		Ingrediente ingrediente = this.ingredienteService.findById(ingredienteId);
+		
+		//Controllo per quantità strettamente positiva
+
+		if(ingredienteQuantity <= 0) {
+			this.setupModificaIngredientiRicetta(ricetta, model);
+			model.addAttribute("qtyError", "");
+			return "modificaIngredientiRicetta.html";
+		}
 
 		if(ricetta==null || ingrediente==null) {
-			return "redirect:../../../modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url...
+			return "redirect:/modificaIngredientiRicetta"; //Non metto errori, non modello per persone che giocano con gli url e con la quantità
 		}
 
 		this.ricettaService.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteQuantity, ingredienteId, ricettaId);
@@ -389,6 +390,20 @@ public class RicettaController {
 
 			cuoco.setDataNascita(LocalDate.parse(dataNascitaStringa, DateTimeFormatter.ISO_LOCAL_DATE));
 		} catch (Exception e) {}
+	}
+	
+	
+	private void setupModificaIngredientiRicetta(Ricetta ricetta, Model model) {
+
+		List<Ingrediente> allIngredientiMessi = new ArrayList<>(ricetta.getIngrediente2quantity().keySet()); //La lista degli ingredienti presenti nella ricetta
+
+		List<Ingrediente> allIngredientiDisponibili = (List<Ingrediente>) this.ingredienteService.findAll();
+
+		allIngredientiDisponibili.removeAll(allIngredientiMessi);
+
+		model.addAttribute("allIngredientiMessi", allIngredientiMessi);
+		model.addAttribute("allIngredientiDisponibili", allIngredientiDisponibili);
+		model.addAttribute("ricetta", ricetta);
 	}
 	
 }

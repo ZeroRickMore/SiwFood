@@ -43,6 +43,11 @@
     </div>
 	<h2>Ingredienti disponibili</h2>
 	<div>
+		<span th:if="${qtyError}">
+			<span th:if="${qtyError == ''}">
+				<h1>Inserire una quantità maggiore di zero!</h1>
+			</span>
+		</span>
 	       <div th:if="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
 	            Non ci sono più ingredienti disponibili
 	        </div>
@@ -53,6 +58,7 @@
 						<form th:action="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" method="post">
 							<span th:text="${ingrediente.nome}"></span>
 						    <input type="number" name="ingredienteQuantity">
+							
 						    <button type="submit">Aggiungi alla ricetta</button>
 						</form>
 	            	</li>
