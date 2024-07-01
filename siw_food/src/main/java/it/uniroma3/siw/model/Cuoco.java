@@ -27,7 +27,6 @@ public class Cuoco {
 	
 	
 	
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -47,7 +46,7 @@ public class Cuoco {
 	
 	@OneToMany(mappedBy="cuoco", cascade=CascadeType.REMOVE)
 	private List<Ricetta> ricette;
-
+	
 	
 	
 	

@@ -79,6 +79,13 @@ public class CredentialsService {
 	public Credentials getCredentials(String username) {
 		return this.credentialsRepository.findByUsername(username).get();
 	}
+
+
+
+
+	public Credentials findByUsername(String username) {
+		return this.findByUsername(username);
+	}
 	
 	
 

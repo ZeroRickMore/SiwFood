@@ -188,11 +188,11 @@ public class RicettaController {
 	public String rimuoviRicettaAdmin(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
 
-		//IF che rimuove la ricetta con un cuoco
-		if(!cuoco.getNome().equals("Nessun cuoco")) {
-
+		//IF che imposta il cuoco accordingly: Se l'utente l'ha inserito, lo cerca e imposta, altrimenti mette a null e fa i giusti validate
+		if(!cuoco.getNome().equals("Nessun cuoco")) { //Un cuoco è stato inserito in input
+			
 			this.parseIntoCuocoFields(cuoco);
-
+			
 			cuoco = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 			ricetta.setCuoco(cuoco);
 
