@@ -20,6 +20,7 @@ indexCuoco.html -> FATTO
 
 elencoPerSelezionareRicettaPerModificaIngredienti.html -> FATTO
 
+formAggiungiIngrediente.html -> FATTO
 
 
 Admin

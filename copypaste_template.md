@@ -51,35 +51,103 @@
 
 
 
+<!DOCTYPE html>
+<head>
+    <title>SiwFood - Aggiungi ricetta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body>
 
-<div id="header"><a th:href="@{/}">Siwfood</a></div>
-    <h2>Aggiungi nuovo ingrediente</h2>
+	<nav th:if="${userDetails!=null}">
 	
-	
-    <form th:action="@{/aggiungiIngrediente}" method="POST" th:object="${nuovoIngrediente}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}">
-				<span th:text="${err}"></span>
-					<span th:if="${err=='Ingrediente già presente nel sistema:'}">
-						<a th:href="@{'/ingrediente' + '/' + ${vecchioIngrediente.id}}" th:text="' ' + ${vecchioIngrediente.nome}"> bho?</a>
-					</span>
-			</p>
+		<div class="buttons">
+    		<span class="button">
+       	 		<a href="/logout">Esci</a>
+    		</span>
+            	
 		</div>
-		<div>
-        	Nome*: <input required type="text" th:field="${nuovoIngrediente.nome}">
-        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-			<br><br>
-			Unità di misura*:
-			<select th:field="${nuovoIngrediente.unitàDiMisura}">
-				<option th:each="unitàDiMisuraType : ${elencoUnitàDiMisura}" th:value="${unitàDiMisuraType}" th:text="${unitàDiMisuraType}">Unità di misura</option>
-			</select>
-			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-			<br><br>
-			Percorso file immagine: <input type="text" th:field="${nuovoIngrediente.image_path}">
+        
+		<div class="text_a">
+    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+		</div>
+	
+	</nav>
+
+	
+	<nav th:if="${userDetails==null}">
+	
+		<div class="buttons">
+			<span class="button">
+				<a href="/register">Registrati</a>
+			</span>
+			<span class="button">
+				<a href="/login">Accedi</a>
+			</span>
+		</div>
+		        
+		<div class="text_a">
+			<a th:href="@{'/register'}" th:text="Benvenuto in SiwFood !"></a>
+		</div>
+		        
+	</nav>
+
+	
+	<div id="header"><a th:href="@{/}">Siwfood</a></div>
+
+
+		<div id="menu_container">
+        <div class="choice_menu">
+                        
+            <div class="titolo_choice_menu">
+                            
+                <a th:href="@{'/aggiungiIngrediente/'}">Aggiungi nuova ricetta</a>
+
+            </div>
+            <div class="split_half">
+                <img src="/css/libro_ricette_upscayl.jpg" width="20%"> 
+            </div>
+                        
+            <div class="split_half">     
+                <div class="text_form">
+                    <ul>
+						<li>
+							<form th:action="@{/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
+									<div th:if="${#fields.hasGlobalErrors()}">
+										<p th:each="err : ${#fields.globalErrors()}">
+											<span th:text="${err}"></span>
+										</p>
+									</div>
+									<div>
+										<br>
+							        	<span class="match_input_offset"> Nome*:<br></span>
+										<input required type="text" th:field="${nuovaRicetta.nomeRicetta}">
+							        	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="*{nomeRicetta}"></span>
+										<br><br>
+										<span class="match_input_offset"> Descrizione*:<br></span>
+										<input required type="text" th:field="${nuovaRicetta.descrizione}">
+										<br><br>
+										<span class="match_input_offset">Percorso dei file immagine, separati da una virgola:</span>
+										<input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmaginiString}">
+										<div><br></div>
+									</div>
+						
+						
+							        <div>
+										<span><button class="submit" type="submit">Conferma</button></span>
+									</div>
+							    </form>
+						</li>
+							
+					</ul>
+                </div>
+            </div>
         </div>
-        <div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-    </form>
+    
+
+</body>
+
+</html>
+
 
 

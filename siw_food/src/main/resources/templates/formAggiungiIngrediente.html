@@ -70,14 +70,14 @@
 									</div>
 									<div>
 										<br>
-							        	<span class="match_input_offset"> Nome*:<br></span><input required type="text" th:field="${nuovoIngrediente.nome}">
+							        	<span class="match_input_offset"> Nome*:<br></span>
+										<input required type="text" th:field="${nuovoIngrediente.nome}">
 							        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 										<br><br>
 										<span class="match_input_offset">Unità di misura*:</span>
 										<select th:field="${nuovoIngrediente.unitàDiMisura}">
 											<option th:each="unitàDiMisuraType : ${elencoUnitàDiMisura}" th:value="${unitàDiMisuraType}" th:text="${unitàDiMisuraType}">Unità di misura</option>
 										</select>
-										<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 										<br><br>
 										<span class="match_input_offset">Percorso file immagine:</span>
 										<input type="text" th:field="${nuovoIngrediente.image_path}">
