@@ -25,6 +25,7 @@
     Nota: Il Cuoco, quando si registra, inserisce anche le credenziali del Cuoco che "Rappresenta".
     L'idea è che un Utente sia un ponte verso l'oggetto Cuoco, di cui si hanno Nome, Cognome, Data di Nascita.
     Se il Cuoco esiste già (in quanto creato dall'Admin), inserire Nome, Cognome e Data di Nascita di quel Cuoco lo associa DIRETTAMENTE al nuovo utente, senza crearne un doppione o lanciando errori.
+    Se il Cuoco tuttavia è già associato a un Utente, il sistema nega la Registrazione dicendo di Inserire un altro cuoco
 
     - L'amministratore 
 
