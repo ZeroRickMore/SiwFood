@@ -21,23 +21,6 @@
 	
 	</nav>
 	
-	<nav th:if="${userDetails==null}">
-	
-		<div class="buttons">
-			<span class="button">
-				<a href="/register">Registrati</a>
-			</span>
-			<span class="button">
-				<a href="/login">Accedi</a>
-			</span>
-		</div>
-		        
-		<div class="text_a">
-			<a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
-		</div>
-		        
-	</nav>
-	
 	<div id="header"><a th:href="@{/}">Siwfood</a></div>
 
     <div id="menu_container">

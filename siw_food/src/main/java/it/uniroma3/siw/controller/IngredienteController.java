@@ -135,9 +135,13 @@ public class IngredienteController {
 				this.ingredienteService.delete(ingrediente);
 				return "redirect:/elencoIngredienti"; //Unico caso funzionante!
 			}
+
+			model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
 			return "/admin/formRimuoviIngrediente.html"; //Ho problemi ma non ingrediente.duplicato, quindi lo user ha toppato
 		}
+		
 
+		model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
 		bindingResult.reject("ingrediente.nonEsiste");
 		return "/admin/formRimuoviIngrediente.html"; //Ha inserito un ingrediente che non esiste
 		

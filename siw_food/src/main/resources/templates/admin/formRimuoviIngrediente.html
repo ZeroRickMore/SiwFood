@@ -1,45 +1,76 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <title>Siwvariant - Pagina nuovo ingrediente</title>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-			<link rel="stylesheet" type="text/css" href="/css/index.css">
+    <title>SiwFood - Aggiungi ingrediente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
-    <nav>
+    <nav th:if="${userDetails!=null}">
+    
         <div class="buttons">
             <span class="button">
-                <a href="/register">Registrati</a>
+                <a href="/logout">Esci</a>
             </span>
-            <span class="button">
-                <a href="/login">Accedi</a>
-            </span>
+                
         </div>
-        <div class="text">
-            Benvenuto, Rick!
+        
+        <div class="text_a">
+            Bentornato, admin <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
         </div>
+    
     </nav>
-	<div id="header"><a th:href="@{/}">Siwfood</a></div>
-    <h2>Rimuovi ingrediente esistente</h2>
-    <form th:action="@{/admin/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}">
-				<span th:text="${err}"></span>
-			</p>
-		</div>
-		<div>
-        	Nome*: <input required type="text" th:field="${ingredienteDaRimuovere.nome}">
-        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-			<br><br>
-			Unità di misura*:
-			<select th:field="${ingredienteDaRimuovere.unitàDiMisura}">
-				<option th:each="unitàDiMisuraType : ${elencoUnitàDiMisura}" th:value="${unitàDiMisuraType}" th:text="${unitàDiMisuraType}">Unità di misura</option>
-			</select>
+    
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>
+
+    <div id="menu_container">
+        <div class="choice_menu">
+                        
+            <div class="titolo_choice_menu">
+                            
+                <a th:href="@{'/admin/rimuoviIngrediente'}">Rimuovi ingrediente</a>
+
+            </div>
+            <div class="split_half">
+                <img src="/css/fruit_basket_upscayl.jpg" width="20%"> 
+            </div>
+                        
+            <div class="split_half">     
+                <div class="text_form">
+                    <ul>
+                        <li>
+                            <form th:action="@{/admin/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
+                                <div th:if="${#fields.hasGlobalErrors()}">
+                                    <p th:each="err : ${#fields.globalErrors()}">
+                                        <span class="match_input_offset_err" th:text="${err}"></span>
+                                            <span th:if="${err=='Ingrediente già presente nel sistema:'}">
+                                                <a th:href="@{'/ingrediente' + '/' + ${vecchioIngrediente.id}}" th:text="' ' + ${vecchioIngrediente.nome}"> bho?</a>
+                                            </span>
+                                    </p>
+                                </div>
+                                <br>
+                                <span class="match_input_offset"> Nome*:<br></span>
+                                <input required type="text" th:field="${ingredienteDaRimuovere.nome}">
+                                <span class="match_input_offset_err" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                                <br><br>
+                                <span class="match_input_offset">Unità di misura*:</span>
+                                <select th:field="${ingredienteDaRimuovere.unitàDiMisura}">
+                                    <option th:each="unitàDiMisuraType : ${elencoUnitàDiMisura}" th:value="${unitàDiMisuraType}" th:text="${unitàDiMisuraType}">Unità di misura</option>
+                                </select>
+                                <br><br>
+                                <!--Non uso in backend, ma se lo tolgo si rompe il css...-->
+                                <span class="match_input_offset">Percorso file immagine (opt):</span>
+                                <input type="text" th:field="${ingredienteDaRimuovere.image_path}">
+                                <div><br></div>
+                                <span><button class="submit" type="submit">Conferma</button></span>
+                                <br>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-    </form>
+    </div>
+
 </body>
 </html>

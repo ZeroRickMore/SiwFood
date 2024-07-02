@@ -149,15 +149,15 @@ public class RicettaController {
 	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, Model model) {
 
 		//Ricerca del cuoco relativo sulla base di nome, cognome e data di nascita, e assegnazione alla ricetta
-
-		this.ricettaValidator.validateStessoNomeNoCuoco(ricetta, bindingResult);
+		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
+		ricetta.setCuoco(cuocoCorrente);
+		this.ricettaValidator.validate(ricetta, bindingResult);
 
 		if(bindingResult.hasErrors()) {
 			return "formAggiungiRicetta.html";
 		}
 		else {
-			Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
-			ricetta.setCuoco(cuocoCorrente);
+			
 			this.ricettaService.save(ricetta);
 
 			return "redirect:/ricetta/"+ricetta.getId();

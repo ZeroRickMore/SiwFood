@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <title>Siwvariant - Pagina rimuovi cuoco</title>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="/css/index.css">
-	</head>
+    <title>SiwFood - Aggiungi ingrediente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body>
 
-	<body>
-
-	    <nav>
-	        <div class="buttons">
-	            <span class="button">
-	                <a href="/register">Registrati</a>
-	            </span>
-	            <span class="button">
-	                <a href="/login">Accedi</a>
-	            </span>
-	        </div>
-	        <div class="text">
-	            Benvenuto, Rick!
-	        </div>
-	    </nav>
-		<div id="header"><a th:href="@{/}">Siwfood</a></div>
-    <div id="header"><a th:href="@{/}">Siwfood</a></div>ody>
+	<nav th:if="${userDetails!=null}">
+	
+		<div class="buttons">
+    		<span class="button">
+       	 		<a href="/logout">Esci</a>
+    		</span>
+            	
+		</div>
+        
+		<div class="text_a">
+    		Bentornato, admin <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+		</div>
+	
+	</nav>
+	
+	<div id="header"><a th:href="@{/}">Siwfood</a></div>
+	
+	
+	
+	
+	
+	
     <h2>Rimuovi cuoco esistente</h2>
     <form th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">

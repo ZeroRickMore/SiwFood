@@ -391,6 +391,7 @@ select {
 	margin-left: 7%;
 }
 
+/* <span class="match_input_offset_err" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span> */
 .match_input_offset_err {
 	margin-left: 7%;
 	color: darkred;
