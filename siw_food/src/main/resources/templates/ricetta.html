@@ -47,11 +47,17 @@
 		            		<span class="text" th:text="${ricetta.descrizione}"></span>
 		        		</li>
 						<li>
-							<h1 >Ingredienti:</h1>
+							<h1>Ingredienti:</h1>
 							<li th:each="ingrediente : ${listaIngredienti}" >
 								<a th:href="@{'/ingrediente' + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' : '">Nome ingrediente Generico</a>
 								<span th:text="${ricetta.ingrediente2quantity.get(ingrediente)} + ' ' + ${ingrediente.unitàDiMisura}">Quantità ingrediente generica</span>		 	
 							</li>
+						</li>
+						<li th:if="${ricetta.cuoco!=null}">
+							<h1>Cuoco</h1>
+						</li>
+						<li>
+							<a th:href="@{'/cuoco' + '/' + ${ricetta.cuoco.id}}" th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Cuoco Generico</a>
 						</li>
 		     	   </ul>
 		    	</div>
