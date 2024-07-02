@@ -59,18 +59,31 @@
 			<div class="split_half">     
 				<div class="text">
 		    		<ul>
-						<li><h1>Data di nascita:</h1></li>
-						<li><span th:text="${cuoco.dataNascita}"></span></li>
-						<li><h1>Ricette:</h1></li>
-						<li th:each="ricetta : ${cuoco.ricette}">
-							<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Ricetta Generica</a>		 	
+						<div>
+							<li>
+								<div>
+									<h1>Data di nascita:</h1>
+									<span th:text="${cuoco.dataNascita}"></span>
+									<div><br></div>	
+								</div>
+							</li>
+						</div>
+						<li>
+							<div>
+								<h1>Ricette:</h1>
+								<div th:each="ricetta : ${cuoco.ricette}">
+								<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Ricetta Generica</a>		 	
+								<div><br></div>
+							</div>
 						</li>
 		     	   </ul>
 		    	</div>
 			</div>
 		</div>
 	</div>
-    <div th:unless="${cuoco}">Questo cuoco non è presente nel sistema!</div>
+	<div th:unless="${cuoco}" id="header_2_err"><h5>Questa ricetta non è presente nel sistema!</h5></div>
+	<div id="menu_container">
+	
 </body>
 
 </html>

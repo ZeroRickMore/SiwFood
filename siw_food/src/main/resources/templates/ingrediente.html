@@ -6,66 +6,72 @@
 </head>
 <body>
 
-	<nav th:if="${userDetails!=null}">
-	
-		<div class="buttons">
-    		<span class="button">
-       	 		<a href="/logout">Esci</a>
-    		</span>
-            	
-		</div>
+    <nav th:if="${userDetails!=null}">
+    
+        <div class="buttons">
+            <span class="button">
+                <a href="/logout">Esci</a>
+            </span>
+                
+        </div>
         
-		<div class="text_a">
-    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
-		</div>
-	
-	</nav>
-	
-	<nav th:if="${userDetails==null}">
-	
-		<div class="buttons">
-			<span class="button">
-				<a href="/register">Registrati</a>
-			</span>
-			<span class="button">
-				<a href="/login">Accedi</a>
-			</span>
-		</div>
-		        
-		<div class="text_a">
-			<a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
-		</div>
-		        
-	</nav>
-	
-	<div id="header"><a th:href="@{/}">Siwfood</a></div>
+        <div class="text_a">
+            Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+        </div>
+    
+    </nav>
+    
+    <nav th:if="${userDetails==null}">
+    
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+                
+        <div class="text_a">
+            <a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
+        </div>
+                
+    </nav>
+    
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>
 
     <div th:if="${ingrediente}">
-		<div id="menu_container">
-        <div class="choice_menu">
-                        
-            <div class="titolo_choice_menu">
+        <div id="menu_container">
+            <div class="choice_menu">
                             
-                <a th:href="@{'/ingrediente/'+ ${ingrediente.id}}" th:text="${ingrediente.nome}">Nome Ingrediente</a>
+                <div class="titolo_choice_menu">
+                                
+                    <a th:href="@{'/ingrediente/'+ ${ingrediente.id}}" th:text="${ingrediente.nome}">Nome Ingrediente</a>
 
-            </div>
-            <div th:if="${ingrediente.image_path != null && ingrediente.image_path != ''}" class="split_half">
-                <div>
-                    <img th:src="'/' + ${ingrediente.image_path}" width="20%">
                 </div>
-            </div>
-                        
-            <div class="split_half">     
-                <div class="text">
-                    <ul>
-                        <li><h1>Unità di misura:</h1></li>
-                        <li><h3><div th:text="${ingrediente.unitàDiMisura}">Unità di misura</div></h3></li>
-                    </ul>
+                <div th:if="${ingrediente.image_path != null && ingrediente.image_path != ''}" class="split_half">
+                    <div>
+                        <img th:src="'/' + ${ingrediente.image_path}" width="20%">
+                    </div>
+                </div>
+                            
+                <div class="split_half">     
+                    <div class="text">
+                        <ul>
+                            <li>
+								<div>
+									<h1>Unità di misura:</h1>
+                            		<h2><div th:text="${ingrediente.unitàDiMisura}">Unità di misura</div></h>
+								</div>
+							</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
+    <div th:unless="${ingrediente}" id="header_2_err"><h5>Questo ingrediente non è presente nel sistema!</h5></div>
+    <div id="menu_container">
 </body>
 
 </html>

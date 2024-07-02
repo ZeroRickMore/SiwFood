@@ -133,9 +133,6 @@ public class Cuoco {
 	/*                                          CLASS METHODS                                        */
 	/*===============================================================================================*/
 	
-	
-	
-	
 	@Override
 	public String toString() {
 		return "Cuoco [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", dataNascita=" + dataNascita

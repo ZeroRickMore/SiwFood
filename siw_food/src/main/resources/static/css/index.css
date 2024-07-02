@@ -163,7 +163,7 @@ nav .text_a a {
 	
 	height: 115%;
 	width: 77vw;
-	overflow: hidden; /* This time it's needed! */
+	overflow: visible; /* This time it's needed! */
 	display: flex;
 	align-items: space-around;
 	justify-content: space-around;

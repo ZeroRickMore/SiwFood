@@ -85,7 +85,7 @@ public class RicettaController {
 			//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
 			model.addAttribute("listaIngredienti", ricetta.getIngrediente2quantity().keySet());
 		}
-
+		
 		model.addAttribute("ricetta", ricetta);
 
 		return "ricetta.html";
