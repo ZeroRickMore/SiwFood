@@ -15,6 +15,7 @@ import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.CuocoService;
+import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -32,6 +33,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private CuocoService cuocoService;
+	
+	@Autowired
+	private UserService userService;
 	
 	/*===============================================================================================*/
 	/*                                           REGISTER                                            */
@@ -51,7 +55,12 @@ public class AuthenticationController {
 		User user = new User();
 
 		if(this.cuocoService.existsByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita())) {
-			user.setCuoco(this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita()));
+			Cuoco c = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+			User associato = this.userService.findByCuoco(c);
+			if(associato!=null)
+				return "redirect:/register?error=cuocoAssociato";
+			else
+				user.setCuoco(c);
 		}
 		else {
 			user.setCuoco(cuoco);

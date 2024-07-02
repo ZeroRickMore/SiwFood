@@ -63,4 +63,11 @@ public class UserService {
 	public void deleteCuocoAssociato(Cuoco toDelete) {
 		this.userRepository.deleteCuocoAssociato(toDelete.getId());
 	}
+
+
+
+
+	public User findByCuoco(Cuoco c) {
+		return this.userRepository.findByCuoco(c);
+	}
 }

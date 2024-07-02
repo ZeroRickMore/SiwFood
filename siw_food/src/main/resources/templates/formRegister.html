@@ -45,8 +45,8 @@
                         
             <div class="titolo_choice_menu">
                             
-                <a th:href="@{'/register'}">Registrati</a>
-
+                <a th:if="${param.error==null}"th:href="@{'/register'}">Registrati</a>
+				<a th:if="${param.error!=null}"th:href="@{'/register?error=cuocoAssociato'}">Inserire un altro cuoco</a>
             </div> 
                         
             <div class="split_half">     
