@@ -60,7 +60,7 @@
 								<form th:action="@{/ricercaPerNomeCuoco}" method="POST" th:object="${cuocoInfos}">
 										
 										<div>
-											<br>
+											<h2>Ricerca per Nome</h2>
 								        	<span> Nome*:<br></span>
 											<input class="fix_offset" required type="text" th:field="${cuocoInfos.nome}">
 											<span th:if="${#fields.hasErrors('nome')}" th:errors="${cuocoInfos.nome}"></span>
@@ -77,7 +77,8 @@
 								<form th:action="@{/ricercaPerCognomeCuoco}" method="POST" th:object="${cuocoInfos}">
 									
 									<div>
-										<br>
+										<h2>Ricerca per Cognome</h2>
+										
 										<span> Cognome*:<br></span>
 										<input class="fix_offset" required type="text" th:field="${cuocoInfos.cognome}">
 										<span th:if="${#fields.hasErrors('cognome')}" th:errors="${cuocoInfos.cognome}"></span>
