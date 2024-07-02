@@ -8,6 +8,8 @@ cuoco.html -> FATTO
 
 cipolla.html -> FATTO
 
+elencoIngredienti.html -> FATTO
+
 Cuoco:
 
 indexCuoco.html -> FATTO
