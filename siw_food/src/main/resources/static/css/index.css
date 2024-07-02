@@ -121,6 +121,7 @@ nav .text_a a {
 }
 
 #menu_container .choice_menu {
+	background-image: url('wood_slight_dark_upscayl.jpg');
     background-color: #855d37;
     border-radius: 10px; /* Smussa gli angoli */
     height: 100%;
