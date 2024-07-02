@@ -45,7 +45,7 @@
                         
             <div class="titolo_choice_menu">
                             
-                <a th:href="@{'/aggiungiIngrediente/'}">Registrati</a>
+                <a th:href="@{'/register'}">Registrati</a>
 
             </div> 
                         
@@ -61,23 +61,23 @@
 										<br>
 							        	<span class="match_input_offset"> Username*:<br></span>
 										<input type="text" th:field="${credentials.username}" required>
-										<span th:if="${#fields.hasErrors('username')}" th:errors="${credentials.username}"></span>
+										<span class="match_input_offset_err" th:if="${#fields.hasErrors('username')}" th:errors="${credentials.username}"></span>
 										<br><br>
 										<span class="match_input_offset"> Password*:<br></span>
 										<input type="password" th:field="${credentials.password}" required>
-										<span th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></span>
+										<span class="match_input_offset_err" th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></span>
 										<br><br>
 										<span class="match_input_offset"> Nome*:<br></span>
 										<input required type="text" th:field="${cuoco.nome}">
-										<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('nome')}" th:errors="${cuoco.nome}"></span>
+										<span class="match_input_offset_err" th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('nome')}" th:errors="${cuoco.nome}"></span>
 										<br><br>
 										<span class="match_input_offset"> Cognome*:<br></span>
 										<input required type="text" th:field="${cuoco.cognome}">
-										<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('cognome')}" th:errors="${cuoco.cognome}"></span>
+										<span class="match_input_offset_err" th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('cognome')}" th:errors="${cuoco.cognome}"></span>
 										<br><br>
 										<span class="match_input_offset"> Data di nascita*:</span>
 										<input required type="date" th:field="${cuoco.dataNascita}">
-										<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('dataNascita')}" th:errors="${cuoco.dataNascita}"></span>
+										<span class="match_input_offset_err" th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('dataNascita')}" th:errors="${cuoco.dataNascita}"></span>
 										<br><br>
 										<span class="match_input_offset"> Percorso file immagine*:<br></span>
 										<input type="text" th:field="${cuoco.fotografia_path}">

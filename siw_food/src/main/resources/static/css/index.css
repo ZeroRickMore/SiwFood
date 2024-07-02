@@ -343,6 +343,7 @@ button {
     height: 100%;
     display: block;
 	font-size:150%;
+	color: rgb(3, 22, 152);
 }
 
 input {
@@ -369,4 +370,8 @@ select {
 	margin-left: 7%;
 }
 
+.match_input_offset_err {
+	margin-left: 7%;
+	color: darkred;
+}
 
