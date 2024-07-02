@@ -291,6 +291,10 @@ nav .text_a a {
 
 }
 
+a .variableSize {
+	color: rgb(1, 66, 237);
+	text-decoration: none;
+}
 
 a {
     font-size: min(1.5vw, 4.3vh);
