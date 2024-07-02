@@ -58,11 +58,6 @@
 	                    <ul>
 							<li>
 								<form th:action="@{/ricercaPerNomeCuoco}" method="POST" th:object="${cuocoInfos}">
-								        <div th:if="${#fields.hasGlobalErrors()}">
-								            <p th:each="err : ${#fields.globalErrors()}">
-								                <span th:text="${err}"></span>
-								            </p>
-								        </div>
 										
 										<div>
 											<br>
@@ -80,11 +75,6 @@
 							
 							<li>
 								<form th:action="@{/ricercaPerCognomeCuoco}" method="POST" th:object="${cuocoInfos}">
-									<div th:if="${#fields.hasGlobalErrors()}">
-										<p th:each="err : ${#fields.globalErrors()}">
-											<span th:text="${err}"></span>
-										</p>
-									</div>
 									
 									<div>
 										<br>
