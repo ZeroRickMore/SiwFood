@@ -40,7 +40,8 @@ public class CuocoController {
 	@Autowired
 	private CuocoValidator cuocoValidator;
 
-
+	@Autowired
+	private AuthenticationController authenticationController; //Necessario per ottenere il cuoco corrente
 
 
 	//=======================================================================================================\\
@@ -74,7 +75,18 @@ public class CuocoController {
 		return "cuoco.html";
 	}
 
-
+	
+	//Per cuoco
+	@GetMapping("/showSelf")
+	public String showSelfCuoco(Model model) {
+		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
+		
+		if(cuocoCorrente==null) 
+			return "redirect:/admin/index.html"; //Qui ci possono accedere admin o cuoco, se non è cuoco, è admin che ha fatto qualche test...
+		
+		return "redirect:/cuoco/"+cuocoCorrente.getId();
+		
+	}
 
 
 	/*===============================================================================================*/

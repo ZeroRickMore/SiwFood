@@ -15,8 +15,8 @@
                 <a href="/login">Accedi</a>
             </span>
         </div>
-        <div class="text">
-            <span th:text="'Bentornato, ' + ${userDetails.username} + ' !'"></span>
+        <div class="text_a">
+            Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
         </div>
     </nav>
 
