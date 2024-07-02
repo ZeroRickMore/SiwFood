@@ -48,10 +48,8 @@
 		       		<a th:href="@{'/ricetta/'+ ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Nome ricetta</a>
 		    	</div>
 				<div class="image_carousel">
-		    		<span th:each="pathImmagine : ${ricetta.tuttiPathDelleImmagini}">
-						<img th:if="${pathImmagine!=null && pathImmagine!=''}" th:src="'/' + ${pathImmagine}" width="20%">
-					</span>
-				</span>
+		    		<img th:each="pathImmagine : ${ricetta.tuttiPathDelleImmagini}" th:if="${pathImmagine!=null && pathImmagine!=''}" th:src="'/' + ${pathImmagine}" width="20%"> 
+				</div>
 				
 			<div class="split_half">     
 				<div class="text">
