@@ -1,105 +1,125 @@
 <!DOCTYPE html>
 <head>
-    <title>SiwFood - Aggiungi ingrediente</title>
+    <title>SiwFood - Ricerca Cuoco</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
-	<nav th:if="${userDetails!=null}">
-	
-		<div class="buttons">
-    		<span class="button">
-       	 		<a href="/logout">Esci</a>
-    		</span>
-            	
-		</div>
-        
-		<div class="text_a">
-    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
-		</div>
-	
-	</nav>
-	
-	<nav th:if="${userDetails==null}">
-	
-		<div class="buttons">
-			<span class="button">
-				<a href="/register">Registrati</a>
-			</span>
-			<span class="button">
-				<a href="/login">Accedi</a>
-			</span>
-		</div>
-		        
-		<div class="text_a">
-			<a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
-		</div>
-		        
-	</nav>
-	
-	<div id="header"><a th:href="@{/}">Siwfood</a></div>
-	
-	<nav th:if="${userDetails==null}">
-	
-		<div class="buttons">
-			<span class="button">
-				<a href="/register">Registrati</a>
-			</span>
-			<span class="button">
-				<a href="/login">Accedi</a>
-			</span>
-		</div>
-		        
-		<div class="text_a">
-			<a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
-		</div>
-		        
-	</nav>
-	
-	<div id="header"><a th:href="@{/}">Siwfood</a></div>
-	
-    <div>
-        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
-    </div>
-    <h1>Benvenuto nell'elenco ingredienti della ricetta <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}"></a></h1>
-	<h2>Ingredienti nella ricetta</h2>
-    <div>
-        <div th:if="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
-            Questa ricetta non ha nessun ingrediente
-        </div>
-        <div th:unless="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
-        	<ul>
-            	<li th:each="ingrediente : ${allIngredientiMessi}">
-                	<a th:href="@{'/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' [' + ${ricetta.ingrediente2quantity.get(ingrediente)} + ']'">Goku Ingrediente</a>
-            	</li>
-        	</ul>
-        </div>
-    </div>
-	<h2>Ingredienti disponibili</h2>
-	<div>
-		<span th:if="${qtyError}">
-			<span th:if="${qtyError == ''}">
-				<h1>Inserire una quantità maggiore di zero!</h1>
-			</span>
-		</span>
-	       <div th:if="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
-	            Non ci sono più ingredienti disponibili
-	        </div>
-	        <div th:unless="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
-	        	<ul>
-	            	<li th:each="ingrediente : ${allIngredientiDisponibili}">
-						
-						<form th:action="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" method="post">
-							<span th:text="${ingrediente.nome}"></span>
-						    <input type="number" name="ingredienteQuantity">
-							
-						    <button type="submit">Aggiungi alla ricetta</button>
-						</form>
-	            	</li>
-	        	</ul>
-	        </div>
-	    </div>
-</body>
+    <nav th:if="${userDetails!=null}">
 
+        <div class="buttons">
+            <span class="button">
+                <a href="/logout">Esci</a>
+            </span>
+        </div>
+
+        <div class="text_a">
+            Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+        </div>
+
+    </nav>
+
+    <nav th:if="${userDetails==null}">
+
+        <div class="buttons">
+            <span class="button">
+                <a href="/register">Registrati</a>
+            </span>
+            <span class="button">
+                <a href="/login">Accedi</a>
+            </span>
+        </div>
+
+        <div class="text_a">
+            <a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
+        </div>
+
+    </nav>
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>
+
+    <div th:unless="${qtyError}"id="header_2"><h5>Elenco modifica ingredienti</h5></div>    
+	
+	<span th:if="${qtyError}">
+		<span th:if="${qtyError == ''}">
+			<div id="header_2_err"><h5>Inserire una quantità maggiore di zero!</h5></div>   
+		</span>
+	</span> 
+
+    <div id="menu_container">
+        <div class="choice_menu">
+
+            <div class="titolo_choice_menu">
+                <a th:href="@{'/'}">Utilizzati</a>
+            </div>
+            <div class="split_half">
+                <img src="/css/libro_ricette_upscayl.jpg" width="20%">
+            </div>
+
+            <div class="split_half">
+                <div class="text_form">
+                    <ul>
+                        <div th:if="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
+
+                            <li>
+                                <div>
+                                	<span>Nessun ingrediente utilizzato</span>
+                                </div>
+                            </li>
+						
+                        </div>
+                        <div th:unless="${allIngredientiMessi==null || allIngredientiMessi.isEmpty()}">
+
+                            <li th:each="ingrediente : ${allIngredientiMessi}">
+                                <a th:href="@{'/removeIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' [' + ${ricetta.ingrediente2quantity.get(ingrediente)} + ']'">Goku Ingrediente</a>
+                            </li>
+
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="choice_menu">
+
+            <div class="titolo_choice_menu">
+                <a th:href="@{'/'}">Disponibili</a>
+            </div>
+            <div class="split_half">
+                <img src="/css/libro_ricette_upscayl.jpg" width="20%">
+            </div>
+
+            <div class="split_half">
+                <div class="text_form">
+                    <ul>
+                        <div th:if="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
+
+                            <li>
+                                <div>
+                                	<span>Nessun ingrediente disponibile</span>
+                                </div>
+                            </li>
+
+                        </div>
+                        <div th:unless="${allIngredientiDisponibili==null || allIngredientiDisponibili.isEmpty()}">
+						
+                            <li th:each="ingrediente : ${allIngredientiDisponibili}">
+								<form th:action="@{'/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" method="post">
+									<div><br></div>	
+									<span class="match_input_offset" th:text="${ingrediente.nome}"></span>
+									<input type="number" name="ingredienteQuantity">
+									<div><br></div>				
+									<button class="smaller" type="submit">Aggiungi alla ricetta</button>
+								</form>
+                            </li>
+						
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
