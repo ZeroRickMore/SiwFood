@@ -15,9 +15,9 @@
                 <a href="/login">Accedi</a>
             </span>
         </div>
-        <div class="text">
-            Benvenuto, Rick!
-        </div>
+		<div class="text_a">
+			Bentornato, admin <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+		</div>
     </nav>
 
     <div id="header"><a th:href="@{/}">Siwfood</a></div>

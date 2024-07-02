@@ -272,10 +272,14 @@ public class RicettaController {
 
 	//Per admin
 	@GetMapping("/admin/modificaIngredientiRicetta")
-	public String showelencoRicettePerModificareIngredientiAdmin(Model model) {
+	public String showElencoRicettePerModificareIngredientiAdmin(Model model) {
+
 		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
+
 		model.addAttribute("allRicette", allRicette);
+
 		return "/admin/elencoPerSelezionareRicettaPerModificaIngredienti.html";
+		
 	}
 
 	//Per admin

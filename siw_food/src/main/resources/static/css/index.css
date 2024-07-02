@@ -124,7 +124,7 @@ nav .text_a a {
     background-color: #855d37;
     border-radius: 10px; /* Smussa gli angoli */
     height: 100%;
-    width: 20vw;
+    width: 22.5vw;
     overflow: hidden; /* This time it's needed! */
     display: flex;
     align-items: space-around;
@@ -299,7 +299,7 @@ a {
 }
 
 a:hover {
-    font-size: min(1.7vw, 4.5vh);
+    font-size: min(1.4vw, 4.2vh);
     color: rgb(0, 0, 255);
 	text-decoration: underline;
 }
