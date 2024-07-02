@@ -18,6 +18,7 @@ import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.RicettaService;
+import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -42,6 +43,9 @@ public class CuocoController {
 
 	@Autowired
 	private AuthenticationController authenticationController; //Necessario per ottenere il cuoco corrente
+	
+	@Autowired
+	private UserService userService;
 
 
 	//=======================================================================================================\\
@@ -146,9 +150,11 @@ public class CuocoController {
 	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
 
-		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
+		if(bindingResult.hasErrors()) { //Significa che cuoco esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) { 
-				this.cuocoService.delete(cuoco);
+				Cuoco toDelete = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+				this.userService.deleteCuocoAssociato(toDelete);
+				this.cuocoService.delete(toDelete);
 				return "redirect:/elencoCuochi"; //Unico caso funzionante!
 			}
 			return "/admin/formRimuoviCuoco.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato

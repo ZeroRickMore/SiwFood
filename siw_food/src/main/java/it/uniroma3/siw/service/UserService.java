@@ -3,6 +3,7 @@ package it.uniroma3.siw.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
 
@@ -54,5 +55,12 @@ public class UserService {
 	
 	public User getUser(Long id) {
 		return this.userRepository.findById(id).get();
+	}
+
+
+
+
+	public void deleteCuocoAssociato(Cuoco toDelete) {
+		this.userRepository.deleteCuocoAssociato(toDelete.getId());
 	}
 }

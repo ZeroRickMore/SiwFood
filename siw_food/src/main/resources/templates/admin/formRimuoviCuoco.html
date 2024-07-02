@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>SiwFood - Aggiungi ingrediente</title>
+    <title>SiwFood - Aggiungi ricetta</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
@@ -16,39 +16,90 @@
 		</div>
         
 		<div class="text_a">
-    		Bentornato, admin <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
 		</div>
 	
 	</nav>
 	
+	<nav th:if="${userDetails==null}">
+	
+		<div class="buttons">
+			<span class="button">
+				<a href="/register">Registrati</a>
+			</span>
+			<span class="button">
+				<a href="/login">Accedi</a>
+			</span>
+		</div>
+		
+		<div class="text_a">
+			<a th:href="@{'/register'}" text="Benvenuto in SiwFood !"></a>
+		</div>
+		        
+	</nav>
+	
 	<div id="header"><a th:href="@{/}">Siwfood</a></div>
-	
-	
-	
-	
-	
-	
-    <h2>Rimuovi cuoco esistente</h2>
-    <form th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}">
-				<span th:text="${err}"></span>
-			</p>
-		</div>
-		<div>
-        	Nome*: <input required type="text" th:field="${cuocoDaRimuovere.nome}">
-        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-			<br><br>
-        	Cognome*: <input required type="text" th:field="${cuocoDaRimuovere.cognome}">
-        	<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
-			<br><br>
-			Data di nascita*: <input required type="date" th:field="${cuocoDaRimuovere.dataNascita}">
-			<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
-			<br><br>
+
+		<div id="menu_container">
+        <div class="choice_menu">
+                        
+            <div class="titolo_choice_menu">
+                            
+                <a th:href="@{'/admin/rimuoviCuoco'}">Rimuovi cuoco esistente</a>
+
+            </div>
+
+            <div class="split_half"> 
+                <div class="text_form">
+                    <ul>
+						<li>
+							<form th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
+									<div th:if="${#fields.hasGlobalErrors()}">
+										<p th:each="err : ${#fields.globalErrors()}">
+											<span th:text="${err}"></span>
+										</p>
+									</div>
+									<div>
+										<br>
+										<span class="match_input_offset"> Nome*:<br></span>
+										<input required type="text" th:field="${cuocoDaRimuovere.nome}">
+										<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+										<span class="match_input_offset_err" th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('nome')}" th:errors="${cuoco.nome}"></span>
+										<br><br>
+										<span class="match_input_offset"> Cognome*:<br></span>
+										<input required type="text" th:field="${cuocoDaRimuovere.cognome}">
+										<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+										<br><br>
+										<span class="match_input_offset"> Data di nascita*:</span>
+										<input required type="date" th:field="${cuocoDaRimuovere.dataNascita}">
+										<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
+										<div><br></div>
+						
+							        <div>
+										<span><button class="submit" type="submit">Conferma</button></span>
+									</div>
+							    </form>
+						</li>
+							
+					</ul>
+                </div>
+            </div>
         </div>
-        <div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-    </form>
+
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
