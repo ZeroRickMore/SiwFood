@@ -98,7 +98,8 @@ public class IngredienteController {
 			
 			if(ingredienteInDB!=null)
 				model.addAttribute("vecchioIngrediente", ingredienteInDB);
-
+			System.out.println(bindingResult.getAllErrors().toString());
+			model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
 			return "formAggiungiIngrediente.html";
 		}
 
@@ -140,7 +141,7 @@ public class IngredienteController {
 			return "/admin/formRimuoviIngrediente.html"; //Ho problemi ma non ingrediente.duplicato, quindi lo user ha toppato
 		}
 		
-
+		
 		model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
 		bindingResult.reject("ingrediente.nonEsiste");
 		return "/admin/formRimuoviIngrediente.html"; //Ha inserito un ingrediente che non esiste

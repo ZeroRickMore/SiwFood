@@ -39,26 +39,28 @@
 							<form th:action="@{/admin/aggiungiCuoco}" method="POST" th:object="${nuovoCuoco}">
 									<div th:if="${#fields.hasGlobalErrors()}">
 										<p th:each="err : ${#fields.globalErrors()}">
-											<span th:text="${err}"></span>
-												<span th:if="${err=='Cuoco già presente nel sistema:'}">
-													<a th:href="@{'/cuoco' + '/' + ${vecchioCuoco.id}}" th:text="' ' + ${vecchioCuoco.nome} + ' ' + ${vecchioCuoco.cognome}"> bho?</a>
+											<span class="match_input_offset_err" th:text="${err}"></span>
+												<span th:if="${err=='Cuoco già esistente:'}">
+													<div><br></div>
+													<a class="match_input_offset_err" th:href="@{'/cuoco' + '/' + ${vecchioCuoco.id}}" th:text="' ' + ${vecchioCuoco.nome} + ' ' + ${vecchioCuoco.cognome}"> bho?</a>
 												</span>
 										</p>
 									</div>
+							
 									<div>
 										<br>
 										<span class="match_input_offset"> Nome*:<br></span>
 										<input required type="text" th:field="${nuovoCuoco.nome}">
-										<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+										<span class="match_input_offset_err" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 										<span class="match_input_offset_err" th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('nome')}" th:errors="${cuoco.nome}"></span>
 										<br><br>
 										<span class="match_input_offset"> Cognome*:<br></span>
 										<input required type="text" th:field="${nuovoCuoco.cognome}">
-										<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+										<span class="match_input_offset_err" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
 										<br><br>
 										<span class="match_input_offset"> Data di nascita*:</span>
 										<input required type="date" th:field="${nuovoCuoco.dataNascita}">
-										<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
+										<span class="match_input_offset_err" th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
 										<br><br>
 										<span class="match_input_offset"> Percorso file immagine*:<br></span>
 										<input type="text" th:field="${nuovoCuoco.fotografia_path}">

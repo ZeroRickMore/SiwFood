@@ -70,7 +70,7 @@
 										<br>
 							        	<span class="match_input_offset"> Nome*:<br></span>
 										<input required type="text" th:field="${nuovoIngrediente.nome}">
-							        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+							        	<span class="match_input_offset_err" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 										<br><br>
 										<span class="match_input_offset">Unità di misura*:</span>
 										<select th:field="${nuovoIngrediente.unitàDiMisura}">

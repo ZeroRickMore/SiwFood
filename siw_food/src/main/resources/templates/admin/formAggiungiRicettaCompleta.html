@@ -49,7 +49,7 @@
 										<br>
 							        	<span class="match_input_offset"> Nome*:<br></span>
 										<input required type="text" th:field="${nuovaRicetta.nomeRicetta}">
-							        	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="*{nomeRicetta}"></span>
+							        	<span class="match_input_offset_err" th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="*{nomeRicetta}"></span>
 										<br><br>
 										<span class="match_input_offset"> Descrizione:<br></span>
 										<input type="text" th:field="${nuovaRicetta.descrizione}">

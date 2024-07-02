@@ -52,7 +52,10 @@
 	            <div class="split_half">     
 	                <div class="text">
 						<div th:if="${allCuochi==null || allCuochi.isEmpty()}">
-						            <ul><li>Non ci sono cuochi nel sistema!</li></ul>
+						            <ul>
+										<li th:if="param.search==null">Non ci sono cuochi nel sistema!</li>
+										<li class="red"th:if="param.search!=null">Nessun cuoco corrisponde alla ricerca!</li>
+									</ul>
 						        </div>
 						        <div th:unless="${allCuochi==null || allCuochi.isEmpty()}">
 						        	<ul>

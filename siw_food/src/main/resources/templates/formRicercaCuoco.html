@@ -57,7 +57,7 @@
 	                <div class="text_form">
 	                    <ul>
 							<li>
-								<form th:action="@{/ricercaPerNomeCuoco}" method="POST" th:object="${cuocoInfos}">
+								<form th:action="@{/ricercaPerNomeCuoco?search=true}" method="POST" th:object="${cuocoInfos}">
 										
 										<div>
 											<h2>Ricerca per Nome</h2>
@@ -74,7 +74,7 @@
 							</li>
 							
 							<li>
-								<form th:action="@{/ricercaPerCognomeCuoco}" method="POST" th:object="${cuocoInfos}">
+								<form th:action="@{/ricercaPerCognomeCuoco?search=true}" method="POST" th:object="${cuocoInfos}">
 									
 									<div>
 										<h2>Ricerca per Cognome</h2>

@@ -174,6 +174,7 @@ public class RicettaController {
 		//Ricerca del cuoco relativo sulla base di nome, cognome e data di nascita, e assegnazione alla ricetta
 		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
 		ricetta.setCuoco(cuocoCorrente);
+		System.out.println(cuocoCorrente.getNome());
 		this.ricettaValidator.validate(ricetta, bindingResult);
 
 		if(bindingResult.hasErrors()) {
@@ -236,9 +237,12 @@ public class RicettaController {
 
 				return "redirect:/elencoRicette"; //Caso funzionante se non aveva messo cuochi
 			}
+			
+			this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
 			return "/admin/formRimuoviRicetta.html"; //Ho problemi ma non ricetta.duplicato, quindi lo user ha toppato
 		}
 
+		this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
 		bindingResult.reject("ricetta.nonEsiste");
 		return "/admin/formRimuoviRicetta.html"; //Ha inserito un ricetta che non esiste
 

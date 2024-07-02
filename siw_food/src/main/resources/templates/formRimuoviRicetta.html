@@ -60,14 +60,14 @@
 								<form th:action="@{/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
 									<div th:if="${#fields.hasGlobalErrors()}">
 												<p th:each="err : ${#fields.globalErrors()}">
-													<span th:text="${err}"></span>
+													<span class="match_input_offset_err" th:text="${err}"></span>
 												</p>
 											</div>
 										<div>
 											<h2>Elimina per Nome</h2>
 								        	<span> Nome*:<br></span>
 											<input class="fix_offset" required type="text" th:field="${ricettaDaRimuovere.nomeRicetta}">
-											<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaDaRimuovere.nomeRicetta}"></span>
+											<div class="red" th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaDaRimuovere.nomeRicetta}"></div>
 											<div><br></div>
 										</div>
 								        <div>

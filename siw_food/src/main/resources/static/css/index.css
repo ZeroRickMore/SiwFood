@@ -402,6 +402,10 @@ select {
 	color: darkred;
 }
 
+.red {
+	color: darkred;
+}
+
 .fix_offset {
 	margin:0;
 	width: 16vw;
