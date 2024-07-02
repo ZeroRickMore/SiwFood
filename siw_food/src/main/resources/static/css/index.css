@@ -99,6 +99,7 @@ nav .text_a a {
     display: flex;
     justify-content: space-around; /* Voglio i menu di scelta equidistanti */
     align-items: center; /* Li voglio centrati nel riquadro del menu_container */
+	overflow: visible;
 }
 
 #menu_container .choice_menu {
@@ -113,7 +114,53 @@ nav .text_a a {
     flex-direction: column;
 }
 
+#menu_container .choice_menu_wide {
+	background-image: url('wood_slight_dark_upscayl.jpg');
+	border-radius: 10px; /* Smussa gli angoli */
+	
+	height: 115%;
+	width: 77vw;
+	overflow: hidden; /* This time it's needed! */
+	display: flex;
+	align-items: space-around;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+#menu_container .choice_menu_wide .image_carousel {
+    display: flex; /* Use flexbox to align images horizontally */
+	overflow:hidden;
+	height:100%;
+    white-space: nowrap; /* Prevent wrapping */
+	align-items: space-around;
+	justify-content: space-around;
+	overflow-x: auto;
+}
+
+#menu_container .choice_menu_wide .image_carousel img {
+	height:100%;
+	width:auto;
+    max-height: 100%; /* Maintain the aspect ratio */
+    max-width: 100%; /* Ensure the images do not overflow their container */
+	
+}
+
 #menu_container .choice_menu .titolo_choice_menu {
+    background-color: #f0e7d4;
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Just in case... */
+    font-size: min(4.3vw, 4.3vh);
+    background-image: url('wood_light_upscay.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#menu_container .choice_menu_wide .titolo_choice_menu_wide {
     background-color: #f0e7d4;
     height: 30%;
     width: 100%;
@@ -133,7 +180,16 @@ nav .text_a a {
 	font-size: min(4.3vw, 4.3vh);
 }
 
+#menu_container .choice_menu_wide .titolo_choice_menu_wide a {
+	color: rgb(58, 35, 22);
+	font-size: min(4.3vw, 4.3vh);
+}
+
 #menu_container .choice_menu .titolo_choice_menu a:hover {
+	text-decoration: none;
+}
+
+#menu_container .choice_menu_wide .titolo_choice_menu_wide a:hover {
 	text-decoration: none;
 }
 
@@ -147,6 +203,18 @@ nav .text_a a {
 	background-repeat: no-repeat;
 }
 
+#menu_container .choice_menu_wide .split_half {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+	background-image: url('wood_slight_dark_upscayl.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+}
+
+
 #menu_container .choice_menu .split_half img {
     width: 100%;
     height: 26.5vh;
@@ -157,7 +225,19 @@ nav .text_a a {
     margin: 2%;
 }
 
+#menu_container .choice_menu_wide .split_half .text {
+    font-size: min(1.2vw, 4vh);
+    margin: 2%;
+}
+
+
 #menu_container .choice_menu .split_half .text ul {
+    margin: 6% 3%;
+    padding: 0;
+    list-style-type: none;
+}
+
+#menu_container .choice_menu_wide .split_half .text ul {
     margin: 6% 3%;
     padding: 0;
     list-style-type: none;
@@ -174,18 +254,35 @@ nav .text_a a {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: min(1.4vw, 4.7vh);
+
     
 }
 
+#menu_container .choice_menu_wide .split_half .text ul li {
+    margin-bottom: 3%;
+    background-image: url('wood_light_upscay.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+    background-color: #f0e7d4;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+	word-wrap: break-word; /* Optional: Ensure text wraps properly */
+
+}
+
+
 a {
-    font-size: min(1.2vw, 4vh);
+    font-size: min(1.5vw, 4.3vh);
 	color: rgb(1, 66, 237);
 	text-decoration: none;
 }
 
 a:hover {
-    font-size: 1.2vw;
+    font-size: min(1.7vw, 4.5vh);
     color: rgb(0, 0, 255);
 	text-decoration: underline;
 }
+

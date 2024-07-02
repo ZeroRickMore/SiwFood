@@ -60,17 +60,15 @@ public class Ricetta {
 
 	
 	
-	
 	/*===============================================================================================*/
 	/*                                      GETTERS AND SETTERS                                      */
 	/*===============================================================================================*/
 	
 	
-	
-	
 	public Cuoco getCuoco() {
 		return cuoco;
 	}
+
 	public void setCuoco(Cuoco cuoco) {
 		this.cuoco = cuoco;
 	}
@@ -156,5 +154,7 @@ public class Ricetta {
 		this.tuttiPathDelleImmaginiString = this.tuttiPathDelleImmaginiString.replace(" ", "");
 		this.setTuttiPathDelleImmagini(Arrays.asList(this.tuttiPathDelleImmaginiString.split(",")));
 	}
+	
+	
 	
 }

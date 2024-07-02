@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html>
-
 <head>
-    <title>SiwVariant - Pagina Editore</title>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-			<link rel="stylesheet" type="text/css" href="/css/index.css">
+    <title>SiwFood</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
-
 <body>
 
     <nav>
@@ -18,44 +15,52 @@
                 <a href="/login">Accedi</a>
             </span>
         </div>
-        <div class="text">
-            Benvenuto, Rick!
-        </div>
+		<span th:if="${userDetails!=null}">
+        	<div class="text_a">
+            	Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+        	</div>
+		</span>
+		<span th:if="${userDetails==null}">
+			<div class="text">
+				Utente ospite
+			</div>
+		</span>
     </nav>
 
     <div id="header"><a th:href="@{/}">Siwfood</a></div>
-    <div>
-        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
-    </div>
+	
     <div th:if="${ricetta}">
-         <h1 th:text="${ricetta.nomeRicetta}">Nome ricetta</h1>
-         <br>
-		 <span th:if="${ricetta.cuoco!=null}">
-		 	<h2 th:href="'/cuoco' + '/' + ${ricetta.cuoco.id}" th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome e cognome cuoco</h2>
-		 </span>
-		 <div>
-			 <span th:text="${ricetta.descrizione}"></span>
-         </div>
-         <br>
-         <div>
-			 Immagini:
-			 <ul>
-			  <li th:each="pathImmagine : ${ricetta.tuttiPathDelleImmagini}">
-			 	 <img th:src="'/' + ${pathImmagine}" width="20%">	 	
-			  </li>
-			 </ul>
-         </div>
-          <div>
-			 Ingredienti:
-			 <ul>
-				 <li th:each="ingrediente : ${listaIngredienti}">
-					 <a th:href="@{'/ingrediente' + '/' + ${ingrediente.id}}"
-					 th:text="${ingrediente.nome} + ' : '">Nome ingrediente Generico</a>
-					 <span th:text="${ricetta.ingrediente2quantity.get(ingrediente)} + ' ' + 
-					 				${ingrediente.unitàDiMisura}">Quantità ingrediente generica</span>		 	
-				 </li>
-			 </ul>
-         </div>
+		
+		<div id="menu_container">
+			<div class="choice_menu_wide">
+		 		<div class="titolo_choice_menu_wide">
+		       		<a th:href="@{'/ricetta/'+ ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Nome ricetta</a>
+		    	</div>
+				<div class="image_carousel">
+		    		<img th:each="pathImmagine : ${ricetta.tuttiPathDelleImmagini}" th:src="'/' + ${pathImmagine}" width="20%"> 
+				</div>
+				
+			<div class="split_half">     
+				<div class="text">
+		    		<ul>
+		        		<li>
+		            		<span class="text" th:text="${ricetta.descrizione}"></span>
+		        		</li>
+						<li>
+							<h1 >Ingredienti:</h1>
+							<li th:each="ingrediente : ${listaIngredienti}" >
+								<a th:href="@{'/ingrediente' + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' : '">Nome ingrediente Generico</a>
+								<span th:text="${ricetta.ingrediente2quantity.get(ingrediente)} + ' ' + ${ingrediente.unitàDiMisura}">Quantità ingrediente generica</span>		 	
+							</li>
+						</li>
+		     	   </ul>
+		    	</div>
+			</div>
+		</div>
+		
+
+		
+		
     </div>
     <div th:unless="${ricetta}">Questa ricetta non è presente nel sistema!</div>
 </body>
