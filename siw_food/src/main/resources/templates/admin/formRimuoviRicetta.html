@@ -1,84 +1,78 @@
 <!DOCTYPE html>
-<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>SiwFood - Ricerca Cuoco</title>
+    <title>SiwFood - Aggiungi ingrediente</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
-    <nav th:if="${userDetails!=null}">
-        <div class="buttons">
-            <span class="button">
-                <a href="/logout">Esci</a>
-            </span>
-        </div>
+	<nav th:if="${userDetails!=null}">
+	
+		<div class="buttons">
+    		<span class="button">
+       	 		<a href="/logout">Esci</a>
+    		</span>
+            	
+		</div>
         
-        <div class="text_a">
-            Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a>!
-        </div>
-    </nav>
-    
-    <nav th:if="${userDetails==null}">
-        <div class="buttons">
-            <span class="button">
-                <a href="/register">Registrati</a>
-            </span>
-            <span class="button">
-                <a href="/login">Accedi</a>
-            </span>
-        </div>
-                
-        <div class="text_a">
-            <a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood!</a>
-        </div>
-    </nav>
-    
-    <div id="header"><a th:href="@{/}">Siwfood</a></div>
-    
-    <div id="menu_container">
+		<div class="text_a">
+    		Bentornato, admin <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+		</div>
+	
+	</nav>
+	
+	<div id="header"><a th:href="@{/}">Siwfood</a></div>
+
+		<div id="menu_container">
         <div class="choice_menu">
+                        
             <div class="titolo_choice_menu">
-                <a th:href="@{'/admin/rimuoviRicetta'}">Rimuovi una ricetta</a>
+                            
+                <a th:href="@{'/admin/rimuoviRicetta/'}">Rimuovi una ricetta</a>
+
             </div>
             <div class="split_half">
-                <img src="/css/libro_ricette_upscayl.jpg" width="20%" alt="Libro Ricette"> 
+                <img src="/css/libro_ricette_upscayl.jpg" width="20%"> 
             </div>
-            
+                        
             <div class="split_half">     
                 <div class="text_form">
                     <ul>
-                        <li>
-                            <form th:action="@{/admin/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
-                                <div th:if="${#fields.hasGlobalErrors()}">
-                                    <p th:each="err : ${#fields.globalErrors()}">
-                                        <span th:text="${err}"></span>
-                                    </p>
-                                </div>
-                                <div>
-                                    <h2>Elimina per Nome</h2>
-                                    <span> Nome*:<br></span>
-                                    <input class="fix_offset" required type="text" th:field="${ricettaDaRimuovere.nomeRicetta}">
-                                    <span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaDaRimuovere.nomeRicetta}"></span>
-                                    <span class="match_input_offset">Cuoco*:</span>
-                                    <select id="small_font" th:field="${cuoco.nome}">
-                                        <option value="Nessun cuoco" text="Nessun cuoco">Nessun cuoco</option>
-                                        <option th:each="line : ${elencoNomeCognomeData}" th:value="${line}" th:text="${line}">Nome - Cognome - DataNascita</option>
-                                    </select>
-                                    <div><br></div>
-                                </div>
-                                <div>
-                                    <span><button class="submit" type="submit">Conferma</button></span>
-                                    <div><br></div>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
+						<li>
+							<form th:action="@{/admin/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
+									<div th:if="${#fields.hasGlobalErrors()}">
+										<p th:each="err : ${#fields.globalErrors()}">
+											<span th:text="${err}"></span>
+										</p>
+									</div>
+									<div>
+										<br>
+							        	<span class="match_input_offset"> Nome*:<br></span>
+										<input required type="text" th:field="${ricettaDaRimuovere.nomeRicetta}">
+							        	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="*{nomeRicetta}"></span>
+										<br><br>
+										
+										<span class="match_input_offset">Cuoco*:</span>
+										
+										<select id="small_font" th:field="${cuoco.nome}">
+											<option id="small_font" value="Nessun cuoco" text="Nessun cuoco">Nessun cuoco</option>
+											<option id="small_font" th:each="line : ${elencoNomeCognomeData}" th:value="${line}" th:text="${line}">Nome - Cognome - DataNascita</option>
+										</select>		
+										<div><br></div>
+									</div>
+						
+							        <div>
+										<span><button class="submit" type="submit">Conferma</button></span>
+									</div>
+							    </form>
+						</li>
+							
+					</ul>
                 </div>
             </div>
         </div>
-    </div>
-    
+
 </body>
+
 </html>
+
