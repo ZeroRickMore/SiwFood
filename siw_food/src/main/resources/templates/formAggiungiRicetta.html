@@ -68,8 +68,8 @@
 										<input required type="text" th:field="${nuovaRicetta.nomeRicetta}">
 							        	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="*{nomeRicetta}"></span>
 										<br><br>
-										<span class="match_input_offset"> Descrizione*:<br></span>
-										<input required type="text" th:field="${nuovaRicetta.descrizione}">
+										<span class="match_input_offset"> Descrizione:<br></span>
+										<input type="text" th:field="${nuovaRicetta.descrizione}">
 										<br><br>
 										<span class="match_input_offset">Percorso dei file immagine,</span>
 										<span class="match_input_offset">separati da una virgola:</span>

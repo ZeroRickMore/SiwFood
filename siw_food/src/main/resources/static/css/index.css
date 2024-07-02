@@ -382,3 +382,6 @@ select {
 	width: 16vw;
 }
 
+#small_font {
+	font-size:80%;
+}
