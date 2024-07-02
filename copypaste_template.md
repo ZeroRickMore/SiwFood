@@ -24,7 +24,6 @@
 		</div>
 	
 	</nav>
-
 	
 	<nav th:if="${userDetails==null}">
 	
@@ -42,7 +41,6 @@
 		</div>
 		        
 	</nav>
-
 	
 	<div id="header"><a th:href="@{/}">Siwfood</a></div>
 	
@@ -51,103 +49,53 @@
 
 
 
-<!DOCTYPE html>
-<head>
-    <title>SiwFood - Aggiungi ricetta</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-</head>
-<body>
 
-	<nav th:if="${userDetails!=null}">
-	
-		<div class="buttons">
-    		<span class="button">
-       	 		<a href="/logout">Esci</a>
-    		</span>
-            	
+
+    <div id="header"><a th:href="@{/}">Siwfood</a></div>
+    <h2>User Registration Form 2</h2>
+    <form th:action="@{/register}" method="POST" th:object="${credentials}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
-        
-		<div class="text_a">
-    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
-		</div>
-	
-	</nav>
-
-	
-	<nav th:if="${userDetails==null}">
-	
-		<div class="buttons">
-			<span class="button">
-				<a href="/register">Registrati</a>
-			</span>
-			<span class="button">
-				<a href="/login">Accedi</a>
-			</span>
-		</div>
-		        
-		<div class="text_a">
-			<a th:href="@{'/register'}" th:text="Benvenuto in SiwFood !"></a>
-		</div>
-		        
-	</nav>
-
-	
-	<div id="header"><a th:href="@{/}">Siwfood</a></div>
-
-
-		<div id="menu_container">
-        <div class="choice_menu">
-                        
-            <div class="titolo_choice_menu">
-                            
-                <a th:href="@{'/aggiungiIngrediente/'}">Aggiungi nuova ricetta</a>
-
-            </div>
-            <div class="split_half">
-                <img src="/css/libro_ricette_upscayl.jpg" width="20%"> 
-            </div>
-                        
-            <div class="split_half">     
-                <div class="text_form">
-                    <ul>
-						<li>
-							<form th:action="@{/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
-									<div th:if="${#fields.hasGlobalErrors()}">
-										<p th:each="err : ${#fields.globalErrors()}">
-											<span th:text="${err}"></span>
-										</p>
-									</div>
-									<div>
-										<br>
-							        	<span class="match_input_offset"> Nome*:<br></span>
-										<input required type="text" th:field="${nuovaRicetta.nomeRicetta}">
-							        	<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="*{nomeRicetta}"></span>
-										<br><br>
-										<span class="match_input_offset"> Descrizione*:<br></span>
-										<input required type="text" th:field="${nuovaRicetta.descrizione}">
-										<br><br>
-										<span class="match_input_offset">Percorso dei file immagine, separati da una virgola:</span>
-										<input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmaginiString}">
-										<div><br></div>
-									</div>
-						
-						
-							        <div>
-										<span><button class="submit" type="submit">Conferma</button></span>
-									</div>
-							    </form>
-						</li>
-							
-					</ul>
-                </div>
-            </div>
-        </div>
-    
-
+        <label>Username*:</label><br>
+        <input type="text" th:field="${credentials.username}" required>
+		<span th:if="${#fields.hasErrors('username')}" th:errors="${credentials.username}"></span>
+		<br><br>
+		
+		
+        <label>Password*:</label><br>
+        <input type="password" th:field="${credentials.password}" required>
+		<span th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></span>
+		<br><br>
+		
+		
+		
+		<label>Nome*:</label><br>
+		<input required type="text" th:field="${cuoco.nome}">
+		<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('nome')}" th:errors="${cuoco.nome}"></span>
+		<br><br>
+		
+		
+		
+		
+		<label>Cognome*:</label><br>
+		<input required type="text" th:field="${cuoco.cognome}">
+		<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('cognome')}" th:errors="${cuoco.cognome}"></span>
+		<br><br>
+		
+		
+		
+		<label>Data di nascita*:</label><br>
+		<input required type="date" th:field="${cuoco.dataNascita}">
+		<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('dataNascita')}" th:errors="${cuoco.dataNascita}"></span>
+		<br><br>
+		
+		
+		
+		<label>Percorso immagine:</label><br> 
+		<input type="text" th:field="${cuoco.fotografia_path}">
+		
+        <input type="submit" value="Register">
+    </form>
 </body>
-
 </html>
-
-
-

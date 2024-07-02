@@ -22,6 +22,7 @@ elencoPerSelezionareRicettaPerModificaIngredienti.html -> FATTO
 
 formAggiungiIngrediente.html -> FATTO
 
+formAggiungiRicetta.html ->  FATTO
 
 Admin
 
