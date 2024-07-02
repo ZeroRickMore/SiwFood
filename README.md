@@ -81,3 +81,17 @@
 ### Known bug:
 
     In modo abbastanza casuale, ogni tanto, al primo Login quando si inseriscono le credenziali, logga senza problemi, ma redirecta su un json status 999, error none...
+
+### Considerazioni sul progetto:
+
+    Un progetto divertente ed impegnativo, in linea con il corso.
+    Spring Boot è uno strumento molto potente, la stretta sintassi aiuta molto nello sviluppo, e Java è un linguaggio che sicuramente rende il tutto più facile e comprensibile.
+
+    La stesura di due progetti, uno individuale ed uno di gruppo introduce ridondanza, tuttavia aiuta a prendere la mano con strumenti come GitHub qualora qualcuno non l'avesse mai utilizzato. 
+    Nel mio caso già lo utilizzavo, ma non ho mai avuto l'occasione di fare un vero progetto con qualcuno, quindi è stato sicuramente istruttivo.
+
+    Dal mio punto di vista, è stato molto interessante ed entusisasmante, dopotutto, una volta che si ha la possibilità di creare un proprio sito web, come resistere alla tentazione di metterci qualcosa di simpatico, e nell'implementare quelle cose simpatiche, imparare ancora?
+
+    Personalmente mi sono trovato estremamente bene con il corso, e non avrei particolari annotazioni di modifiche ad esso.
+
+    

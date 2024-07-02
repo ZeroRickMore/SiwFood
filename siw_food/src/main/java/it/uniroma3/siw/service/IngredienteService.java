@@ -4,6 +4,9 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.repository.IngredienteRepository;
@@ -47,6 +50,9 @@ public class IngredienteService {
 		return this.ingredienteRepository.save(ingrediente);
 	}
 
+	
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+	//Ci sono molte operazioni nel db, meglio renderlo atomico
 	public void delete(Ingrediente ingrediente) {
 		ingrediente = this.ingredienteRepository.findByNome(ingrediente.getNome());
 		

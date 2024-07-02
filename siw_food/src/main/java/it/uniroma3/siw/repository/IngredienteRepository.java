@@ -14,7 +14,7 @@ public interface IngredienteRepository extends CrudRepository<Ingrediente, Long>
 	
 	public Ingrediente findByNome(String nome);
 	
-	@Transactional
+	@Transactional //Probabilmente non serve grazie a quella del service
 	@Modifying
 	@Query(value = "DELETE FROM ricetta_ingrediente2quantità WHERE ingrediente2quantity_key = :idIngrediente", nativeQuery = true)
 	public void deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(@Param("idIngrediente") Long id);

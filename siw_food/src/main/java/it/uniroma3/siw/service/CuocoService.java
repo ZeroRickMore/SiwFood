@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.repository.CuocoRepository;
@@ -48,6 +50,9 @@ public class CuocoService {
 		return this.cuocoRepository.save(cuoco);	
 	}
 
+	@Transactional(isolation=Isolation.SERIALIZABLE) 
+	//Visto che sto cancellando un Cuoco, non posso lasciare che vengano modificati valori nel mentre.
+	//Controllo NullPointer non necessario, visto che entro qui dentro solo se prima ho trovato che il cuoco esisteva
 	public void delete(Cuoco cuoco) {
 		Cuoco del = this.cuocoRepository.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		this.cuocoRepository.delete(del);

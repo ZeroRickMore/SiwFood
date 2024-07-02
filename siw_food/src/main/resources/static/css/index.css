@@ -11,6 +11,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 	font-family: 'Dancing Script', cursive;
+	
 }
 
 nav {
@@ -25,6 +26,8 @@ nav {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+	/*position:sticky;
+	top:0;*/
 }
 
 nav .buttons {
@@ -353,7 +356,7 @@ a {
 }
 
 a:hover {
-    font-size: min(1.4vw, 4.2vh);
+    /*font-size: min(1.4vw, 4.2vh);*/
     color: rgb(0, 0, 255);
 	text-decoration: underline;
 }

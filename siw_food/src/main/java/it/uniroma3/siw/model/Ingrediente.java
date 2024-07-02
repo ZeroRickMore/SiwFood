@@ -26,7 +26,7 @@ public class Ingrediente {
 	/*===============================================================================================*/
 	
 	
-	public static final String[] unitàDiMisuraPossibili = {"grammi", "unità", "cucchiai", "spicchi"};
+	public static final String[] unitàDiMisuraPossibili = {"bicchieri", "cucchiai", "etti", "grammi", "ml", "spicchi", "unità"};
 
 
 	@Id

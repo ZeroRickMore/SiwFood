@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ingrediente;
@@ -52,19 +56,21 @@ public class RicettaService {
 		return this.ricettaRepository.save(ricetta);
 	}
 	
-	
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public void insertRicettaIngredienteIntoRicettaIngrediente2Quantità(Integer quantity, Long ingredienteId, Long ricettaId) {
 		this.ricettaRepository.insertRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId, quantity);
 		
 	}
 	
-	
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
+	//Ci sono molte operazioni nel db, meglio renderlo atomico
 	public void delete(Ricetta ricetta) {
 		Ricetta del = this.ricettaRepository.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
 		this.ricettaRepository.delete(del);
 	}
 
-	
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
+	//Ci sono molte operazioni nel db, meglio renderlo atomico
 	public void deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(Long ingredienteId, Long ricettaId) {
 		this.ricettaRepository.deleteRicettaIngredienteIntoRicettaIngrediente2Quantità(ingredienteId, ricettaId);
 	}
@@ -137,7 +143,9 @@ public class RicettaService {
 		return this.ricettaRepository.findAllByNomeRicetta(nomeRicetta);
 	}
 
-	
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
+	//Tante letture, meglio renderlo un po' più lockato
+	//Si può migliorare con una query joinata
 	public List<Ricetta> findAllByIngrediente(Ingrediente ingredienteInfos) {
 		List<Long> ricetteIDs = this.ricettaRepository.findAllRicettaIDByIngredienteID(ingredienteInfos.getId());
 		List<Ricetta> ricette = new ArrayList<>();
