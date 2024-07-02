@@ -52,8 +52,8 @@
 		       			<a th:href="@{'/cuoco/'+ ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome Cuoco</a>
 
 				</div>
-				<div class="split_half">
-					<span th:if="${cuoco.fotografia_path != null}">
+				<div th:if="${cuoco.fotografia_path != null} class="split_half">
+					<span>
 					<img th:src="'/' + ${cuoco.fotografia_path}" width="20%">
 					</span>
 				</div>

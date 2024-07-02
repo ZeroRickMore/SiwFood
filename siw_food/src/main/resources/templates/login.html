@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <title>Login</title>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-			<link rel="stylesheet" type="text/css" href="/css/index.css">
+    <title>SiwFood - Aggiungi ricetta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
-    <nav>
+    <nav th:if="${userDetails!=null}">
+    
+        <div class="buttons">
+            <span class="button">
+                <a href="/logout">Esci</a>
+            </span>
+                
+        </div>
+        
+        <div class="text_a">
+            Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+        </div>
+    
+    </nav>
+    
+    <nav th:if="${userDetails==null}">
+    
         <div class="buttons">
             <span class="button">
                 <a href="/register">Registrati</a>
@@ -16,24 +31,52 @@
                 <a href="/login">Accedi</a>
             </span>
         </div>
-        <div class="text">
-            Benvenuto, Rick!
+        
+        <div class="text_a">
+            <a th:href="@{'/register'}" text="Benvenuto in SiwFood !"></a>
         </div>
+                
     </nav>
-
+    
     <div id="header"><a th:href="@{/}">Siwfood</a></div>
->
-    <div class="login-container">
-        <h2>Login</h2>
-        <form th:action="@{/login}" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <input type="submit" value="Login">
-        </form>
+
+    <div id="menu_container">
+        <div class="choice_menu">
+                        
+            <div class="titolo_choice_menu">
+                            
+                <a th:if="${param.error==null}" th:href="@{'/login'}">Accedi</a>
+                <a th:if="${param.error!=null}" th:href="@{'/login'}">Credenziali errate</a>
+
+            </div> 
+                        
+            <div class="split_half">     
+                <div class="text_form">
+                    <ul>
+                        <li>
+                            <form id="idk" th:action="@{/login}" method="POST">
+                                    
+                                <div>
+                                    <br>
+                                    <span> Username*:<br></spa>
+                                    <input class="fix_offset" type="text" name="username">
+                                    <br><br>
+                                    <span> Password*:<br></span>
+                                    <input class="fix_offset" type="password" name="password">
+                                    <div><br></div>
+                                </div>
+                    
+                                <div>
+                                    <span><button class="submit" type="submit">Conferma</button></span>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+
 </body>
+
 </html>

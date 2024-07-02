@@ -249,6 +249,7 @@ nav .text_a a {
     margin: 2%;
 }
 
+
 #menu_container .choice_menu_wide .split_half .text {
     font-size: min(1.2vw, 4vh);
     margin: 2%;
@@ -272,6 +273,7 @@ nav .text_a a {
     margin: 6% 3%;
     padding: 0;
     list-style-type: none;
+	
 }
 
 #menu_container .choice_menu .split_half .text ul li {
@@ -285,8 +287,6 @@ nav .text_a a {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    
 }
 
 #menu_container .choice_menu .split_half .text_form ul li {
@@ -299,7 +299,7 @@ nav .text_a a {
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
 }
 
 #menu_container .choice_menu_wide .split_half .text ul li {
@@ -314,6 +314,7 @@ nav .text_a a {
     align-items: center;
     justify-content: center; 
 	word-wrap: break-word;
+	
 }
 
 a .variableSize {
@@ -348,7 +349,7 @@ button {
 
 input {
 	margin-left: 7%;
-	margin-right: 7%;
+	margin-right:7%;
 	width: 16vw;
 }
 
@@ -373,5 +374,10 @@ select {
 .match_input_offset_err {
 	margin-left: 7%;
 	color: darkred;
+}
+
+.fix_offset {
+	margin:0;
+	width: 16vw;
 }
 

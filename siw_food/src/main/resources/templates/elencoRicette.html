@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 <head>
-    <title>SiwFood - Ricette</title>
+    <title>SiwFood - Cuochi</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
-    <nav>
-        <div class="buttons">
-            <span class="button">
-                <a href="/register">Registrati</a>
-            </span>
-            <span class="button">
-                <a href="/login">Accedi</a>
-            </span>
-        </div>
-		<span th:if="${userDetails!=null}">
-        	<div class="text_a">
-            	Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
-        	</div>
-		</span>
-		<span th:if="${userDetails==null}">
-			<div class="text">
-				Utente ospite
-			</div>
-		</span>
-    </nav>
-
-    <div id="header"><a th:href="@{/}">Siwfood</a></div>
+	<nav th:if="${userDetails!=null}">
+	
+		<div class="buttons">
+    		<span class="button">
+       	 		<a href="/logout">Esci</a>
+    		</span>
+            	
+		</div>
+        
+		<div class="text_a">
+    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+		</div>
+	
+	</nav>
+	
+	<nav th:if="${userDetails==null}">
+	
+		<div class="buttons">
+			<span class="button">
+				<a href="/register">Registrati</a>
+			</span>
+			<span class="button">
+				<a href="/login">Accedi</a>
+			</span>
+		</div>
+		        
+		<div class="text_a">
+			<a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
+		</div>
+		        
+	</nav>
+	
+	<div id="header"><a th:href="@{/}">Siwfood</a></div>
 	
     <div id="header_2"><h5>Benvenuto nell'elenco ricette!</h5></div>
 	<div id="menu_container">
 	<div class="choice_menu">
 	            <div class="titolo_choice_menu">
-	                <a th:href="@{/elencoIngredienti}">Ricette</a>
+	                <a th:href="@{/elencoRicette}">Ricette</a>
 	            </div>
 	            <div class="split_half">
 	                <img src="/css/libro_ricette_upscayl.jpg" width="20%"> 
