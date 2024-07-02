@@ -128,6 +128,11 @@ nav .text_a a {
 	color: rgb(58, 35, 22);
 }
 
+#header_2 a {
+	font-size: inherit;
+	color: rgb(58, 35, 22);
+}
+
 #menu_container {
     height: 58vh;
     width: 73vw;

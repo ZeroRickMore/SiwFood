@@ -204,7 +204,7 @@ public class CuocoController {
 		model.addAttribute("allRicetteDisponibili", allRicetteDisponibili);
 		model.addAttribute("cuoco", cuoco);
 
-		return "/admin/modificaIngredientiCuoco.html";
+		return "/admin/modificaRicetteCuoco.html";
 	}
 
 
