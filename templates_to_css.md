@@ -2,7 +2,7 @@ Utente:
 
 index.html -> FATTO
 
-ricetta.html
+ricetta.html -> FATTO
 
 
 Cuoco:

@@ -201,6 +201,7 @@ nav .text_a a {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+	overflow: auto;
 }
 
 #menu_container .choice_menu_wide .split_half {
@@ -211,7 +212,6 @@ nav .text_a a {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-
 }
 
 
