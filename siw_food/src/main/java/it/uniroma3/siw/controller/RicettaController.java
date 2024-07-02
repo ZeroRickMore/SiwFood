@@ -85,7 +85,7 @@ public class RicettaController {
 			//Poteva essere fatto anche sul template, ma qui è più "pulito" a mio avviso
 			model.addAttribute("listaIngredienti", ricetta.getIngrediente2quantity().keySet());
 		}
-		
+
 		model.addAttribute("ricetta", ricetta);
 
 		return "ricetta.html";
@@ -112,27 +112,50 @@ public class RicettaController {
 	public String newRicettaCompleta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult,
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
 
-		this.parseIntoCuocoFields(cuoco);
+		//Poteva essere scritto meglio...
 
-		//Ricerca del cuoco relativo sulla base di nome, cognome e data di nascita, e assegnazione alla ricetta
-		Cuoco cuocoRelativo =  this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
-		ricetta.setCuoco(cuocoRelativo); //Se è null, lo verifica il validate!
+		if(!cuoco.getNome().equals("Nessun cuoco")) {
+			this.parseIntoCuocoFields(cuoco);
 
-		this.ricettaValidator.validate(ricetta, bindingResult);
-		if(bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getAllErrors().toString());
-			//Print del th:href con il link al duplicato, qualora l'errore fosse quello
-			Ricetta ricettaInDB = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
+			//Ricerca del cuoco relativo sulla base di nome, cognome e data di nascita, e assegnazione alla ricetta
+			Cuoco cuocoRelativo =  this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+			ricetta.setCuoco(cuocoRelativo); //Se è null, lo verifica il validate!
 
-			if(ricettaInDB!=null) 
-				model.addAttribute("vecchiaRicetta", ricettaInDB);
+			this.ricettaValidator.validate(ricetta, bindingResult);
 
-			return "/admin/formAggiungiRicettaCompleta.html";
+			if(bindingResult.hasErrors()) {
+
+				Ricetta ricettaInDB = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), ricetta.getCuoco());
+
+				if(ricettaInDB!=null) 
+					model.addAttribute("vecchiaRicetta", ricettaInDB);
+
+				return "/admin/formAggiungiRicettaCompleta.html";
+			}
+
+			else {
+				this.ricettaService.save(ricetta);
+				return "redirect:/ricetta/"+ricetta.getId();
+			}
 		}
+		else { //Il cuoco non è stato inserito
+			
+			ricetta.setCuoco(null);
+			
+			this.ricettaValidator.validateStessoNomeNoCuoco(ricetta, bindingResult);
+			
+			if(bindingResult.hasErrors()) {
 
-		else {
-			this.ricettaService.save(ricetta);
-			return "redirect:/ricetta/"+ricetta.getId();
+				Ricetta ricettaInDB = this.ricettaService.findByNomeRicettaAndCuoco(ricetta.getNomeRicetta(), null);
+
+				if(ricettaInDB!=null) 
+					model.addAttribute("vecchiaRicetta", ricettaInDB);
+
+				return "/admin/formAggiungiRicettaCompleta.html";
+			} else {
+				this.ricettaService.save(ricetta);
+				return "redirect:/ricetta/"+ricetta.getId();
+			}
 		}
 	}
 
@@ -157,7 +180,7 @@ public class RicettaController {
 			return "formAggiungiRicetta.html";
 		}
 		else {
-			
+
 			this.ricettaService.save(ricetta);
 
 			return "redirect:/ricetta/"+ricetta.getId();
@@ -279,7 +302,7 @@ public class RicettaController {
 		model.addAttribute("allRicette", allRicette);
 
 		return "/admin/elencoPerSelezionareRicettaPerModificaIngredienti.html";
-		
+
 	}
 
 	//Per admin

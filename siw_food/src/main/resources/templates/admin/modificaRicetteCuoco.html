@@ -1,43 +1,27 @@
 <!DOCTYPE html>
 <head>
-    <title>SiwFood - Ricerca Cuoco</title>
+    <title>SiwFood - Aggiungi ingrediente</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
-    <nav th:if="${userDetails!=null}">
-
-        <div class="buttons">
-            <span class="button">
-                <a href="/logout">Esci</a>
-            </span>
-        </div>
-
-        <div class="text_a">
-            Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
-        </div>
-
-    </nav>
-
-    <nav th:if="${userDetails==null}">
-
-        <div class="buttons">
-            <span class="button">
-                <a href="/register">Registrati</a>
-            </span>
-            <span class="button">
-                <a href="/login">Accedi</a>
-            </span>
-        </div>
-
-        <div class="text_a">
-            <a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
-        </div>
-
-    </nav>
-
-    <div id="header"><a th:href="@{/}">Siwfood</a></div>
+	<nav th:if="${userDetails!=null}">
+	
+		<div class="buttons">
+    		<span class="button">
+       	 		<a href="/logout">Esci</a>
+    		</span>
+            
+		</div>
+        
+		<div class="text_a">
+    		Bentornato, admin <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+		</div>
+	
+	</nav>
+	
+	<div id="header"><a th:href="@{/}">Siwfood</a></div>
 
 
     <div id="header_2"><a th:href="@{'/cuoco' + '/' + ${cuoco.id}}" th:text="'Ricette di ' + ${cuoco.nome} + ' ' + ${cuoco.cognome}"></a></div>    
