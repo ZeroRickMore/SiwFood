@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html>
-
 <head>
-    <title>SiwFood - Pagina Ingrediente</title>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-			<link rel="stylesheet" type="text/css" href="/css/index.css">
+    <title>SiwFood - Ingrediente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
-
 <body>
 
     <nav>
@@ -18,25 +15,44 @@
                 <a href="/login">Accedi</a>
             </span>
         </div>
-        <div class="text">
-            Benvenuto, Rick!
-        </div>
+        <span th:if="${userDetails!=null}">
+            <div class="text_a">
+                Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+            </div>
+        </span>
+        <span th:if="${userDetails==null}">
+            <div class="text">
+                Utente ospite
+            </div>
+        </span>
     </nav>
 
     <div id="header"><a th:href="@{/}">Siwfood</a></div>
-    <div>
-        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
-    </div>
+
     <div th:if="${ingrediente}">
-         <h1 th:text="${ingrediente.nome}">Nome ingrediente </h1>
-         <br>
-         <div th:if="${ingrediente.image_path}">
-			 <img th:src="'/' + ${ingrediente.image_path}" width="20%">
-         </div>
-		 <h1>Unità di misura:
-			<div th:text="${ingrediente.unitàDiMisura}">Unità di misura</div>
-		 </h1>
-		 
+		<div id="menu_container">
+        <div class="choice_menu">
+                        
+            <div class="titolo_choice_menu">
+                            
+                <a th:href="@{'/ingrediente/'+ ${ingrediente.id}}" th:text="${ingrediente.nome}">Nome Ingrediente</a>
+
+            </div>
+            <div class="split_half">
+                <div th:if="${ingrediente.image_path != null}">
+                    <img th:src="'/' + ${ingrediente.image_path}" width="20%">
+                </div>
+            </div>
+                        
+            <div class="split_half">     
+                <div class="text">
+                    <ul>
+                        <li><h1>Unità di misura:</h1></li>
+                        <li><h3><div th:text="${ingrediente.unitàDiMisura}">Unità di misura</div></h3></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
     <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
 </body>

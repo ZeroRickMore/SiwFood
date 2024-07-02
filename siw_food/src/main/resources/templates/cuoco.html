@@ -30,15 +30,13 @@
     <div id="header"><a th:href="@{/}">Siwfood</a></div>
 
 	<div th:if="${cuoco}">
-		
-		
-		
+
 		<div id="menu_container">
 			<div class="choice_menu">
 				
 		 		<div class="titolo_choice_menu">
 					
-		       			<a th:href="@{'/cuoco/'+ ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome ricetta</a>
+		       			<a th:href="@{'/cuoco/'+ ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome Cuoco</a>
 
 				</div>
 				<div class="split_half">
