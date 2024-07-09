@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,11 @@ public class IngredienteService {
 		catch (NoSuchElementException e) {
 			return null;
 		}
+	}
+
+
+	public List<Ingrediente> findAllByOrderByNome() {
+		return this.ingredienteRepository.findAllByOrderByNome();
 	}
 
 	

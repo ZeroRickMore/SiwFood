@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <head>
-    <title>SiwFood - Elenco Ricetta Per Modifica Ingredienti</title>
+    <title>SiwFood - Elenco Ingrediente</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 
-	<nav th:if="${userDetails!=null && userDetails.username=='Admin'}">
+	<nav>
 
 		<div class="buttons">
 			<span class="button">
 	   	 		<a href="/logout">Esci</a>
 			</span>
-	        
+		        
 		</div>
 	    
 		<div class="text">
@@ -20,38 +20,33 @@
 		</div>
 
 	</nav>
-	
+		
 	<div id="header"><a th:href="@{/}">Siwfood</a></div>
 	
-	
-    <div id="header_2"><h5>Ricette a cui puoi modificare gli ingredienti!</h5></div>
+    <div id="header_2"><h5>Rimuovi un ingrediente</h5></div>
 	<div id="menu_container">
 	<div class="choice_menu">
 	            <div class="titolo_choice_menu">
-	                <a th:href="@{/elencoIngredienti}">Ricette</a>
+	                <a th:href="@{/elencoRimuoviIngrediente}">Ingredienti</a>
 	            </div>
 	            <div class="split_half">
-	                <img src="/css/libro_ricette_upscayl.jpg" width="20%"> 
+	                <img src="/css/fruit_basket_upscayl.jpg" width="20%"> 
 	            </div>
 	            <div class="split_half">     
 	                <div class="text">
-						<div th:if="${allRicette==null || allRicette.isEmpty()}">
-						            <ul><li>Nessuna ricetta nel sistema!</li></ul>
+						<div th:if="${allIngredienti==null || allIngredienti.isEmpty()}">
+						            <ul><li>Non ci sono ingredienti nel sistema!</li></ul>
 						        </div>
-						        <div th:unless="${allRicette==null || allRicette.isEmpty()}">
+						<div th:unless="${allIngredienti==null || allIngredienti.isEmpty()}">
 						        	<ul>
-						            	<li th:each="ricetta : ${allRicette}">
-						                	<a th:href="@{'/admin/modificaIngredientiRicetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Goku Ricetta</a>
+						            	<li th:each="ingrediente : ${allIngredienti}">
+						                	<a th:href="@{'/admin/rimuoviIngrediente' + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Goku Ingrediente</a>
 						            	</li>
 						        	</ul>
 						        </div>
 	                </div>
 	            </div>
-	        </div>
-	
-	
-	
-        
+	        </div>  
         
     </div>
 </body>

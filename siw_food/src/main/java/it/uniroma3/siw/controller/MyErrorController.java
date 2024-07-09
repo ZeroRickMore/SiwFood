@@ -16,7 +16,9 @@ public class MyErrorController implements ErrorController {
 	
     @GetMapping("/error")
     public String useAValidLinkNextTimeLad(HttpServletRequest request) {
-        return "redirect:https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    	Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+    	System.out.println("\tERROR ON REQUEST, EXITED ON STATUSCODE = "+statusCode);
+        return "redirect:https://www.youtube.com/watch?v=dQw4w9WgXcQ&err="+statusCode;
     }
 	
 }

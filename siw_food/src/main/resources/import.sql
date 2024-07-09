@@ -1,4 +1,5 @@
 INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Amore', 'immaginiIngredienti/amore.jpg', 'cucchiai')
+INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Carne Vegetariana', 'immaginiIngredienti/carne_vegetariana_2.jpg', 'unità')
 INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Carote', 'immaginiIngredienti/carote.jpg', 'unità')
 INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Cipolla', 'immaginiIngredienti/cipolla.jpg', 'spicchi')
 INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Farina', 'immaginiIngredienti/farina.jpg', 'grammi')
@@ -13,7 +14,6 @@ INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval(
 INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Prosciutto', 'immaginiIngredienti/prosciutto.jpg', 'etti')
 INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Ricotta', 'immaginiIngredienti/ricotta.jpg', 'grammi')
 INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Sale', 'immaginiIngredienti/sale.jpg', 'cucchiai')
-INSERT INTO ingrediente (id, nome, image_path, unità_di_misura) VALUES(nextval('ingrediente_seq'), 'Carne Vegetariana', 'immaginiIngredienti/carne_vegetariana_2.jpg', 'unità')
 
 
 

@@ -6,19 +6,19 @@
 </head>
 <body>
 
-	<nav th:if="${userDetails!=null}">
-	
+	<nav th:if="${userDetails!=null && userDetails.username=='Admin'}">
+
 		<div class="buttons">
-    		<span class="button">
-       	 		<a href="/logout">Esci</a>
-    		</span>
-            
+			<span class="button">
+	   	 		<a href="/logout">Esci</a>
+			</span>
+	        
 		</div>
-        
-		<div class="text_a">
-    		Bentornato, admin <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+	    
+		<div class="text">
+	 		Bentornato, Admin !
 		</div>
-	
+
 	</nav>
 	
 	<div id="header"><a th:href="@{/}">Siwfood</a></div>

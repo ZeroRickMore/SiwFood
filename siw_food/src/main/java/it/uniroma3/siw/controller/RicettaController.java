@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -194,17 +195,41 @@ public class RicettaController {
 	/*                                         REMOVE METHODS                                        */
 	/*===============================================================================================*/
 
-
+	
+	//INUTILIZZATO PER MIGLIORE SOLUZIONE, MA MI DISPIACEVA TOGLIERLO
 	//Per admin
-	@GetMapping("/admin/rimuoviRicetta")
-	public String showFormRimuoviRicettaAdmin(Model model) {
+	@GetMapping("/admin/rimuoviRicettaByPost")
+	public String showFormRimuoviRicettaAdminByPost(Model model) {
 		model.addAttribute("ricettaDaRimuovere", new Ricetta());
 		model.addAttribute("cuoco", new Cuoco());
 		this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
 
-		return "/admin/formRimuoviRicetta.html";
+		return "/admin/formRimuoviRicettaByPost.html";
 	}
 
+	
+	//Per admin
+	@GetMapping("/admin/rimuoviRicetta")
+	public String showElencoRimuoviRicetta(Model model) {
+		Iterable<Ricetta> allRicette = this.ricettaService.findAllByOrderByNomeRicettaAsc();
+		model.addAttribute("allRicette", allRicette);
+		return "/admin/elencoRimuoviRicetta.html";
+	}
+	
+	@GetMapping("/admin/rimuoviRicetta/{id}")
+	public String rimuoviRicettaById(@ModelAttribute("id") Long idRicetta, Model model) {
+		
+		Ricetta toRemove = this.ricettaService.findById(idRicetta);
+		
+		if(toRemove == null)
+			return "redirect:/ricetta/-1"; //Non modello errori per chi gioca con gli URL
+		
+		this.ricettaService.delete(toRemove);
+		
+		return "redirect:/elencoRicette";
+	}
+	
+	//INUTILIZZATO PER MIGLIORE SOLUZIONE, MA MI DISPIACEVA TOGLIERLO
 	//Per admin
 	@PostMapping("/admin/rimuoviRicetta")
 	public String rimuoviRicettaAdmin(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
@@ -239,12 +264,12 @@ public class RicettaController {
 			}
 			
 			this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
-			return "/admin/formRimuoviRicetta.html"; //Ho problemi ma non ricetta.duplicato, quindi lo user ha toppato
+			return "/admin/formRimuoviRicettaByPost.html"; //Ho problemi ma non ricetta.duplicato, quindi lo user ha toppato
 		}
 
 		this.addStringListOfElencoNomiAndCognomiAndDataNascitaCuochiToModel(model);
 		bindingResult.reject("ricetta.nonEsiste");
-		return "/admin/formRimuoviRicetta.html"; //Ha inserito un ricetta che non esiste
+		return "/admin/formRimuoviRicettaByPost.html"; //Ha inserito un ricetta che non esiste
 
 	}
 
@@ -565,10 +590,19 @@ public class RicettaController {
 
 		List<Ingrediente> allIngredientiMessi = new ArrayList<>(ricetta.getIngrediente2quantity().keySet()); //La lista degli ingredienti presenti nella ricetta
 
-		List<Ingrediente> allIngredientiDisponibili = (List<Ingrediente>) this.ingredienteService.findAll();
+		List<Ingrediente> allIngredientiDisponibili = (List<Ingrediente>) this.ingredienteService.findAllByOrderByNome();
 
 		allIngredientiDisponibili.removeAll(allIngredientiMessi);
+		
+		allIngredientiMessi.sort(new Comparator<Ingrediente>() {
 
+			@Override
+			public int compare(Ingrediente o1, Ingrediente o2) {
+				return o1.getNome().compareTo(o2.getNome());
+			}
+           
+        });
+		
 		model.addAttribute("allIngredientiMessi", allIngredientiMessi);
 		model.addAttribute("allIngredientiDisponibili", allIngredientiDisponibili);
 		model.addAttribute("ricetta", ricetta);

@@ -117,14 +117,38 @@ public class IngredienteController {
 	/*===============================================================================================*/
 	
 	
+	//INUTILIZZATO PER MIGLIORE SOLUZIONE, MA MI DISPIACEVA TOGLIERLO
 	//Per admin -> Cuoco non può cancellare i propri ingrediente da specifiche
-	@GetMapping("/admin/rimuoviIngrediente")
-	public String showFormRimuoviIngrediente(Model model) {
+	@GetMapping("/admin/rimuoviIngredienteByPost")
+	public String showFormRimuoviIngredienteByPost(Model model) {
 		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
 		model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
-		return "/admin/formRimuoviIngrediente.html";
+		return "/admin/formRimuoviIngredienteByPost.html";
+	}
+	
+	//Per admin
+	@GetMapping("/admin/rimuoviIngrediente")
+	public String showElencoRimuoviIngrediente(Model model) {
+		Iterable<Ingrediente> allIngredienti = this.ingredienteService.findAll();
+		model.addAttribute("allIngredienti", allIngredienti);
+		return "/admin/elencoRimuoviIngrediente.html";
+	}
+	
+	//Per admin -> Cuoco non può cancellare i propri ingrediente da specifiche
+	@GetMapping("/admin/rimuoviIngrediente/{id}")
+	public String rimuoviIngredienteById(@ModelAttribute("id") Long idIngrediente, Model model) {
+		
+		Ingrediente toRemove = this.ingredienteService.findById(idIngrediente);
+		
+		if(toRemove == null)
+			return "redirect:/ingrediente/-1"; //Non modello errori per chi gioca con gli URL
+		
+		this.ingredienteService.delete(toRemove);
+		
+		return "redirect:/elencoIngredienti";
 	}
 
+	//INUTILIZZATO PER MIGLIORE SOLUZIONE, MA MI DISPIACEVA TOGLIERLO
 	//Per admin -> Cuoco non può cancellare i propri ingrediente da specifiche
 	@PostMapping("/admin/rimuoviIngrediente")
 	public String rimuoviIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
@@ -138,13 +162,13 @@ public class IngredienteController {
 			}
 
 			model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
-			return "/admin/formRimuoviIngrediente.html"; //Ho problemi ma non ingrediente.duplicato, quindi lo user ha toppato
+			return "/admin/formRimuoviIngredienteByPost.html"; //Ho problemi ma non ingrediente.duplicato, quindi lo user ha toppato
 		}
 		
 		
 		model.addAttribute("elencoUnitàDiMisura", Ingrediente.getUnitàdimisurapossibili());
 		bindingResult.reject("ingrediente.nonEsiste");
-		return "/admin/formRimuoviIngrediente.html"; //Ha inserito un ingrediente che non esiste
+		return "/admin/formRimuoviIngredienteByPost.html"; //Ha inserito un ingrediente che non esiste
 		
 	}
 	

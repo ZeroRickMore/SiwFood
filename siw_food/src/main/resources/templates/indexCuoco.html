@@ -5,39 +5,26 @@
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
+		
+	<nav th:if="${userDetails!=null && userDetails.username!='Admin'}">
 
-	<nav th:if="${userDetails!=null}">
-	
-		<div class="buttons">
-    		<span class="button">
-       	 		<a href="/logout">Esci</a>
-    		</span>
-            	
-		</div>
-        
-		<div class="text_a">
-    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
-		</div>
-	
-	</nav>
-	
-	<nav th:if="${userDetails==null}">
-	
 		<div class="buttons">
 			<span class="button">
-				<a href="/register">Registrati</a>
+		   	 	<a href="/logout">Esci</a>
 			</span>
-			<span class="button">
-				<a href="/login">Accedi</a>
-			</span>
+			        	
 		</div>
-		        
-		<div class="text_a">
-			<a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
-		</div>
-		        
+				
+		<div class="text-center" th:text="'Bentornato, ' + ${userDetails.username} + ' ! '"></div>
+			    
+		<span class="button-right">
+				
+			<a th:href="@{'/showSelf'}">Profilo</a>
+		</span>
+
+		
 	</nav>
-	
+		
 	<div id="header"><a th:href="@{/}">Siwfood</a></div>
 
 	

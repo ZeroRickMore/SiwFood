@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,14 +140,39 @@ public class CuocoController {
 
 
 
+	//INUTILIZZATO PER MIGLIORE SOLUZIONE, MA MI DISPIACEVA TOGLIERLO
+	//Per admin
+	@GetMapping("/admin/rimuoviCuocoByPost")
+	public String showFormRimuoviCuocoByPost(Model model) {
+		model.addAttribute("cuocoDaRimuovere", new Cuoco());
+		return "/admin/formRimuoviCuocoByPost.html";
+	}
 
 	//Per admin
 	@GetMapping("/admin/rimuoviCuoco")
-	public String showFormRimuoviCuoco(Model model) {
-		model.addAttribute("cuocoDaRimuovere", new Cuoco());
-		return "/admin/formRimuoviCuoco.html";
+	public String showElencoRimuoviCuoco(Model model) {
+		Iterable<Cuoco> allCuochi = this.cuocoService.findAll();
+		model.addAttribute("allCuochi", allCuochi);
+		return "/admin/elencoRimuoviCuoco.html";
 	}
-
+	
+	
+	//Per admin
+	@GetMapping("/admin/rimuoviCuoco/{id}")
+	public String rimuoviCuocoById(@ModelAttribute("id") Long idCuoco, Model model) {
+		
+		Cuoco toRemove = this.cuocoService.findById(idCuoco);
+		System.out.println(toRemove);
+		if(toRemove == null)
+			return "redirect:/cuoco/-1"; //Non modello errori per chi gioca con gli URL
+		
+		this.userService.deleteCuocoAssociato(toRemove);
+		this.cuocoService.delete(toRemove);
+		
+		return "redirect:/elencoCuochi";
+	}
+	
+	//INUTILIZZATO PER MIGLIORE SOLUZIONE, MA MI DISPIACEVA TOGLIERLO
 	//Per admin
 	@PostMapping("/admin/rimuoviCuoco")
 	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
@@ -159,11 +185,11 @@ public class CuocoController {
 				this.cuocoService.delete(toDelete);
 				return "redirect:/elencoCuochi"; //Unico caso funzionante!
 			}
-			return "/admin/formRimuoviCuoco.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
+			return "/admin/formRimuoviCuocoByPost.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
 		}
 
 		bindingResult.reject("cuoco.nonEsiste");
-		return "/admin/formRimuoviCuoco.html"; //Ha inserito un cuoco che non esiste
+		return "/admin/formRimuoviCuocoByPost.html"; //Ha inserito un cuoco che non esiste
 
 	}
 
@@ -198,9 +224,19 @@ public class CuocoController {
 
 		List<Ricetta> allRicetteMesse = new ArrayList<>(cuoco.getRicette()); //La lista degli ingredienti presenti nella cuoco
 
-		List<Ricetta> allRicetteDisponibili = (List<Ricetta>) this.ricettaService.findAll();
+		List<Ricetta> allRicetteDisponibili = (List<Ricetta>) this.ricettaService.findAllByOrderByNomeRicettaAsc();
 
 		allRicetteDisponibili.removeAll(allRicetteMesse);
+		
+		allRicetteMesse.sort(new Comparator<Ricetta>() {
+
+			@Override
+			public int compare(Ricetta o1, Ricetta o2) {
+				return o1.getNomeRicetta().compareTo(o2.getNomeRicetta());
+			}
+           
+        });
+		
 
 		model.addAttribute("allRicetteMesse", allRicetteMesse);
 		model.addAttribute("allRicetteDisponibili", allRicetteDisponibili);

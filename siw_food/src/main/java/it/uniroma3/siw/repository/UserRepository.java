@@ -18,6 +18,5 @@ public interface UserRepository extends CrudRepository<User, Long>{
 	void deleteCuocoAssociato(Long id);
 
 	public User findByCuoco(Cuoco c);
-	 
-
+	
 }

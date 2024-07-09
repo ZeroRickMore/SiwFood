@@ -1,5 +1,7 @@
 package it.uniroma3.siw.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,5 +20,7 @@ public interface IngredienteRepository extends CrudRepository<Ingrediente, Long>
 	@Modifying
 	@Query(value = "DELETE FROM ricetta_ingrediente2quantità WHERE ingrediente2quantity_key = :idIngrediente", nativeQuery = true)
 	public void deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(@Param("idIngrediente") Long id);
+
+	public List<Ingrediente> findAllByOrderByNome();
 	
 }

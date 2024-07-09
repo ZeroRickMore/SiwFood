@@ -6,23 +6,42 @@
 </head>
 <body>
 
-	<nav th:if="${userDetails!=null}">
-	
+	<nav th:if="${userDetails!=null && userDetails.username=='Admin'}">
+
 		<div class="buttons">
-    		<span class="button">
-       	 		<a href="/logout">Esci</a>
-    		</span>
-            	
+			<span class="button">
+	   	 		<a href="/logout">Esci</a>
+			</span>
+		        
 		</div>
-        
-		<div class="text_a">
-    		Bentornato, <a th:href="@{'/showSelf'}" th:text="${userDetails.username}"></a> !
+	    
+		<div class="text">
+	 		Bentornato, Admin !
 		</div>
-	
+
 	</nav>
-	
+		
+	<nav th:if="${userDetails!=null && userDetails.username!='Admin'}">
+					
+		<div class="buttons">
+			<span class="button">
+		   	 	<a href="/logout">Esci</a>
+			</span>
+			        	
+		</div>
+				
+		<div class="text-center" th:text="'Bentornato, ' + ${userDetails.username} + ' ! '"></div>
+			    
+		<span class="button-right">
+				
+			<a th:href="@{'/showSelf'}">Profilo</a>
+		</span>
+
+		
+	</nav>
+		
 	<nav th:if="${userDetails==null}">
-	
+		
 		<div class="buttons">
 			<span class="button">
 				<a href="/register">Registrati</a>
@@ -31,15 +50,14 @@
 				<a href="/login">Accedi</a>
 			</span>
 		</div>
-		        
-		<div class="text_a">
-			<a id="a_no_animations" th:href="@{'/register'}">Benvenuto in SiwFood !</a>
+			
+		<div class="text">
+			   Utente ospite
 		</div>
-		        
+			        
 	</nav>
-	
+		
 	<div id="header"><a th:href="@{/}">Siwfood</a></div>
-
     <div id="menu_container">
         <div class="choice_menu">
                         
