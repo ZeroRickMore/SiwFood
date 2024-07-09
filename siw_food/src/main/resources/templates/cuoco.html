@@ -105,6 +105,12 @@
 
 			</div>
 			
+			<div th:if="${userDetails!=null && userDetails.username=='Admin'}" class="footer_choice_menu">
+															                                
+				<a th:href="@{'/admin/modificaRicetteCuoco/'+ ${cuoco.id}}">Modifica Ricette</a>
+
+			</div>
+			
 		</div>
 	</div>
 	<div th:unless="${cuoco}" id="header_2_err"><h5>Questa ricetta non è presente nel sistema!</h5></div>

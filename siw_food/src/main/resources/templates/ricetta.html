@@ -103,6 +103,16 @@
 					<a th:href="@{'/admin/rimuoviRicetta/'+ ${ricetta.id}}">Elimina</a>
 
 				</div>
+				
+				<div><br></div>
+				
+				<div th:if="${userDetails!=null && userDetails.username=='Admin'}" class="footer_choice_menu">
+												                                
+					<a th:href="@{'/admin/modificaIngredientiRicetta/'+ ${ricetta.id}}">Modifica Ingredienti</a>
+
+				</div>
+				
+				
             </div>
         </div>
     </div>
