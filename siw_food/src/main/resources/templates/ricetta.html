@@ -117,8 +117,15 @@
         </div>
     </div>
 	</div>
-	<div th:unless="${ricetta}" id="header_2_err"><h5>Questa ricetta non è presente nel sistema!</h5></div>
-
+	<div th:unless="${ricetta}" id="header_2_err"><h5>Questa ricetta non è presente nel sistema!</h5>
+		
+	</div>
+	
+	<!--	Fixing cryptic css errors...-->
+	<div th:unless="${ricetta}"id="menu_container">
+	<div th:unless="${ricetta}"id="menu_container">
+	<div th:unless="${ricetta}"id="menu_container">
+	
 </body>
 
 </html>

@@ -86,7 +86,7 @@
 								<form th:action="@{'/admin/addIngrediente' + '/' + ${ricettaId} + '/' + ${ingrediente.id}}" method="post">
 									<div><br></div>	
 									<span class="match_input_offset" th:text="${ingrediente.nome}"></span>
-									<input type="number" name="ingredienteQuantity">
+									<input required type="number" name="ingredienteQuantity">
 									<div><br></div>				
 									<button class="smaller" type="submit">Aggiungi alla ricetta</button>
 								</form>

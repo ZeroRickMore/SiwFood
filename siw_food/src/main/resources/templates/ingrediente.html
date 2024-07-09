@@ -97,7 +97,13 @@
         </div>
     </div>
     <div th:unless="${ingrediente}" id="header_2_err"><h5>Questo ingrediente non è presente nel sistema!</h5></div>
- 
+	
+	<!--	Fixing cryptic css errors (background stopping too early)...-->
+	<div th:unless="${ingrediente}"id="menu_container">
+	<div th:unless="${ingrediente}"id="menu_container">
+	<div th:unless="${ingrediente}"id="menu_container">
+	
+	
 </body>
 
 </html>
