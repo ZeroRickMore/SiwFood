@@ -67,7 +67,7 @@
                     <a th:href="@{'/ricetta/'+ ${ricetta.id}}" th:text="${ricetta.nomeRicetta}">Nome ricetta</a>
                 </div>
                 <div class="image_carousel">
-                    <img th:each="pathImmagine : ${ricetta.tuttiPathDelleImmagini}" th:if="${pathImmagine!=null && pathImmagine!=''}" th:src="'/' + ${pathImmagine}" width="20%"> 
+                    <img th:each="pathImmagine : ${ricetta.tuttiPathDelleImmagini}" th:if="${pathImmagine!=null && pathImmagine!=''}" th:src="${pathImmagine}" width="20%"> 
                 </div>
                 
                 <div class="split_half">     
@@ -117,9 +117,19 @@
         </div>
     </div>
 	</div>
-	<div th:unless="${ricetta}" id="header_2_err"><h5>Questa ricetta non è presente nel sistema!</h5>
-		
-	</div>
+	<div th:if="${ricetta==null && param.no_hacks==null}" id="header_2_err"><h5>Questa ricetta non è presente nel sistema!</h5></div>
+	<div th:if="${ricetta==null && param.no_hacks!=null}" id="header_2_err"><h5>Questa ricetta non ti appartiene!</h5></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<!--	Fixing cryptic css errors...-->
 	<div th:unless="${ricetta}"id="menu_container">

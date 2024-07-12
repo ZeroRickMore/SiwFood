@@ -70,7 +70,7 @@
                 </div>
                 <div th:if="${ingrediente.image_path != null && ingrediente.image_path != ''}" class="split_half">
                     <div>
-                        <img th:src="'/' + ${ingrediente.image_path}" width="20%">
+                        <img th:src="${ingrediente.image_path}" width="20%">
                     </div>
                 </div>
                             

@@ -161,4 +161,8 @@ public class RicettaService {
 	public Iterable<Ricetta> findAllByCuocoOrderByNomeRicettaAsc(Cuoco cuoco) {
 		return this.ricettaRepository.findAllByCuocoOrderByNomeRicettaAsc(cuoco);
 	}
+
+	public Iterable<Ricetta> findByCuocoOrderByNomeRicettaAsc(Cuoco cuoco) {
+		return this.ricettaRepository.findByCuocoOrderByNomeRicettaAsc(cuoco);
+	}
 }

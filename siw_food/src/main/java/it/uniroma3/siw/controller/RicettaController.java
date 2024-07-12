@@ -274,11 +274,40 @@ public class RicettaController {
 	}
 
 
-
-
+	
 	//Per cuoco
 	@GetMapping("/rimuoviRicetta")
-	public String showFormRimuoviRicettaCuoco(Model model) {
+	public String showElencoRimuoviRicettaCuoco(Model model) {
+		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
+		Iterable<Ricetta> allRicette = this.ricettaService.findByCuocoOrderByNomeRicettaAsc(cuocoCorrente);
+		model.addAttribute("allRicette", allRicette);
+		return "/elencoRimuoviRicetta.html";
+	}
+	
+	//Per cuoco
+	@GetMapping("/rimuoviRicetta/{id}")
+	public String rimuoviRicettaCuocoById(@ModelAttribute("id") Long idRicetta, Model model) {
+		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
+		
+		Ricetta toRemove = this.ricettaService.findById(idRicetta);
+		
+		if(toRemove == null)
+			return "redirect:/ricetta/-1"; //Non modello errori per chi gioca con gli URL
+		
+		//Controllo se è legittima la richiesta, se non lo è, reindirizzo alla pagina della ricetta col parametro che dice che non è sua
+		if(!toRemove.getCuoco().equals(cuocoCorrente))
+			return "redirect:/ricetta/-1?no_hacks=true";
+		
+		this.ricettaService.delete(toRemove);
+		
+		return "redirect:/elencoRicette";
+	}
+	
+
+	//Per cuoco
+	//Deprecated
+	@GetMapping("/rimuoviRicettaByForm")
+	public String showFormRimuoviRicettaCuocoByForm(Model model) {
 
 		model.addAttribute("ricettaDaRimuovere", new Ricetta());
 
@@ -286,8 +315,9 @@ public class RicettaController {
 	}
 
 	//Per cuoco
-	@PostMapping("/rimuoviRicetta")
-	public String rimuoviRicettaCuoco(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, Model model) {
+	//Deprecated
+	@PostMapping("/rimuoviRicettaByForm")
+	public String rimuoviRicettaCuocoByForm(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, Model model) {
 
 		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
 		ricetta.setCuoco(cuocoCorrente);

@@ -44,5 +44,7 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 	public List<Long> findAllRicettaIDByIngredienteID(@Param("idIngrediente") Long idIngrediente);
 
 	public Iterable<Ricetta> findAllByCuocoOrderByNomeRicettaAsc(Cuoco cuoco);
+
+	public Iterable<Ricetta> findByCuocoOrderByNomeRicettaAsc(Cuoco cuoco);
 	
 }
