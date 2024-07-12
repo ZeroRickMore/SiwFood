@@ -87,7 +87,7 @@ public class CuocoController {
 		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
 		
 		if(cuocoCorrente==null) 
-			return "redirect:/admin/index.html"; //Qui ci possono accedere admin o cuoco, se non è cuoco, è admin che ha fatto qualche test...
+			return "redirect:/"; //Qui ci possono accedere admin o cuoco, se non è cuoco, è admin che ha fatto qualche test...
 		
 		return "redirect:/cuoco/"+cuocoCorrente.getId();
 		
