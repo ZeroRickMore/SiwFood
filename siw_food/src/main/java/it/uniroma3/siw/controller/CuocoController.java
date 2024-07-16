@@ -162,7 +162,7 @@ public class CuocoController {
 	public String rimuoviCuocoById(@ModelAttribute("id") Long idCuoco, Model model) {
 		
 		Cuoco toRemove = this.cuocoService.findById(idCuoco);
-		System.out.println(toRemove);
+		
 		if(toRemove == null)
 			return "redirect:/cuoco/-1"; //Non modello errori per chi gioca con gli URL
 		

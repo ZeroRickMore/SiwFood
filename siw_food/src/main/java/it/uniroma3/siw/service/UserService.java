@@ -61,7 +61,10 @@ public class UserService {
 
 
 	public void deleteCuocoAssociato(Cuoco toDelete) {
-		this.userRepository.deleteCuocoAssociato(toDelete.getId());
+		User utenteCheHaQuelCuoco = this.findByCuoco(toDelete);
+		
+		if(utenteCheHaQuelCuoco != null)
+			this.userRepository.deleteCuocoAssociato(utenteCheHaQuelCuoco.getId());
 	}
 
 
