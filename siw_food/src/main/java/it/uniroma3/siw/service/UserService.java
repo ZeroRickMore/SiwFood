@@ -57,20 +57,26 @@ public class UserService {
 		return this.userRepository.findById(id).get();
 	}
 
-
-
-
-	public void deleteCuocoAssociato(Cuoco toDelete) {
-		User utenteCheHaQuelCuoco = this.findByCuoco(toDelete);
+	
+	public void delete(User user) {
+		this.userRepository.delete(user);
+	}
+	
+	
+	public User findByCuoco(Cuoco c) {
+		try {
+			return this.userRepository.findByCuoco(c);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
+	public void deleteCuocoAssociato(Cuoco associato) {
+		User utenteCheHaQuelCuoco = this.findByCuoco(associato);
 		
 		if(utenteCheHaQuelCuoco != null)
 			this.userRepository.deleteCuocoAssociato(utenteCheHaQuelCuoco.getId());
-	}
-
-
-
-
-	public User findByCuoco(Cuoco c) {
-		return this.userRepository.findByCuoco(c);
 	}
 }

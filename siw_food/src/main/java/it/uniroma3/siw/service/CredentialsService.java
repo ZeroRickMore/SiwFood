@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
 
 @Service
@@ -78,6 +79,22 @@ public class CredentialsService {
 	
 	public Credentials getCredentials(String username) {
 		return this.credentialsRepository.findByUsername(username).get();
+	}
+
+	public void delete(Credentials credentials) {
+		this.credentialsRepository.delete(credentials);
+	}
+
+
+
+
+	public Credentials findByUser(User userAssociato) {
+		try {
+			return this.credentialsRepository.findByUser(userAssociato);
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 	
 

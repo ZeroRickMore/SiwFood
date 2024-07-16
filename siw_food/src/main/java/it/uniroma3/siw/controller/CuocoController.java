@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.CuocoValidator;
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.RicettaService;
 import it.uniroma3.siw.service.UserService;
@@ -47,6 +50,9 @@ public class CuocoController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CredentialsService credentialsService;
 
 
 	//=======================================================================================================\\
@@ -166,34 +172,26 @@ public class CuocoController {
 		if(toRemove == null)
 			return "redirect:/cuoco/-1"; //Non modello errori per chi gioca con gli URL
 		
-		this.userService.deleteCuocoAssociato(toRemove);
-		this.cuocoService.delete(toRemove);
+		User userAssociato = this.userService.findByCuoco(toRemove);
 		
-		return "redirect:/elencoCuochi";
-	}
-	
-	//INUTILIZZATO PER MIGLIORE SOLUZIONE, MA MI DISPIACEVA TOGLIERLO
-	//Per admin
-	@PostMapping("/admin/rimuoviCuoco")
-	public String rimuoviCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
-		this.cuocoValidator.validate(cuoco, bindingResult);
-
-		if(bindingResult.hasErrors()) { //Significa che cuoco esiste oppure ci sono altri errori
-			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) { 
-				Cuoco toDelete = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
-				this.userService.deleteCuocoAssociato(toDelete);
-				this.cuocoService.delete(toDelete);
-				return "redirect:/elencoCuochi"; //Unico caso funzionante!
-			}
-			return "/admin/formRimuoviCuocoByPost.html"; //Ho problemi ma non cuoco.duplicato, quindi lo user ha toppato
+		if(userAssociato == null) { //Nessuno user associato, elimino il cuoco e basta
+			this.cuocoService.delete(toRemove);
+			return "redirect:/elencoCuochi";
 		}
+		
+		//Per costruzione è impossibile che sia null
+        Credentials credentialsAssociate = this.credentialsService.findByUser(userAssociato);
+        
+        if(credentialsAssociate.getRole().equals(Credentials.ADMIN_ROLE)) {
+        	this.userService.deleteCuocoAssociato(toRemove); //Cancello la reference al cuoco dell'utente dell'admin
+			this.cuocoService.delete(toRemove); //Cancello il cuoco
+			return "redirect:/elencoCuochi";
+        }
 
-		bindingResult.reject("cuoco.nonEsiste");
-		return "/admin/formRimuoviCuocoByPost.html"; //Ha inserito un cuoco che non esiste
+    	this.credentialsService.delete(credentialsAssociate);
+    	return "redirect:/elencoCuochi";
 
 	}
-
-
 
 
 	/*===============================================================================================*/

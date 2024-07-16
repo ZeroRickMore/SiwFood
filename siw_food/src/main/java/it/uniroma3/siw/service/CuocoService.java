@@ -57,7 +57,7 @@ public class CuocoService {
 		Cuoco del = this.cuocoRepository.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		this.cuocoRepository.delete(del);
 	}
-
+	
 	
 	
 	
