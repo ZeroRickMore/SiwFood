@@ -559,28 +559,39 @@ public class RicettaController {
 
 		return "redirect:/ricetta/-1"; //Un modo carino per sfruttare il template della ricetta per una ricetta che non esiste
 	}
+	
+	@PostMapping("/ricercaPerInizialiRicetta")
+	public String showRicetteConStesseInizialiNome(@Valid @ModelAttribute("ricettaInfos") Ricetta ricetta,
+			BindingResult bindingResult, Model model) {
+
+		if(bindingResult.hasFieldErrors("nomeRicetta")) {
+			System.out.println(ricetta.getNomeRicetta());
+			return "redirect:/ricetta/-1"; //Un modo carino per sfruttare il template della ricetta per una ricetta che non esiste
+		}
+
+		List<Ricetta> allRicette = (List<Ricetta>) this.ricettaService.findByNomeRicettaContainingOrderByNomeRicettaAsc(ricetta.getNomeRicetta());
+
+		model.addAttribute("allRicette", allRicette);
+		return "elencoRicette.html";
+
+	}
 
 	@PostMapping("/ricercaPerIngredienteRicetta")
 	public String showRicetteConStessoIngrediente(@Valid @ModelAttribute("ingredienteInfos") Ingrediente ingredienteInfos,
 			BindingResult bindingResult, Model model) {
-
-		if(bindingResult.hasFieldErrors("ingredienteInfos")) {
-			return "redirect:/ingrediente/-1"; //Un modo carino per sfruttare il template dell'ingrediente per una dell'ingrediente che non esiste
-		}
-
+		
 		ingredienteInfos = this.ingredienteService.findByNome(ingredienteInfos.getNome());
-
+		
 		if(ingredienteInfos==null) {
 			return "redirect:/ingrediente/-1"; //Un modo carino per sfruttare il template dell'ingrediente per una dell'ingrediente che non esiste
 		}
-
+		
 		List<Ricetta> allRicette = (List<Ricetta>) this.ricettaService.findAllByIngrediente(ingredienteInfos);
-
+		
 		model.addAttribute("allRicette", allRicette);
 		return "elencoRicette.html";
+		
 	}
-
-
 
 
 	/*===============================================================================================*/
