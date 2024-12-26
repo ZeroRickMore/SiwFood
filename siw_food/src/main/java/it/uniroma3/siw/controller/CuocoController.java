@@ -83,16 +83,17 @@ public class CuocoController {
 	public String showCuoco(@PathVariable("id") Long id, Model model) {
 		Cuoco cuoco = this.cuocoService.findById(id);
 		model.addAttribute("cuoco", cuoco);
+		model.addAttribute("quanteRicette", (Integer) this.ricettaService.countByCuoco(cuoco));
 		return "cuoco.html";
 	}
 
-	
+
 	//Per cuoco
 	@GetMapping("/showSelf")
 	public String showSelfCuoco(Model model) {
 		Cuoco cuocoCorrente = this.authenticationController.getCuocoSessioneCorrente();
 		
-		if(cuocoCorrente==null) 
+		if(cuocoCorrente==null)
 			return "redirect:/"; //Qui ci possono accedere admin o cuoco, se non è cuoco, è admin che ha fatto qualche test...
 		
 		return "redirect:/cuoco/"+cuocoCorrente.getId();
