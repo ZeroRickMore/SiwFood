@@ -109,6 +109,24 @@
 								</form>
 							</li>
 							
+							<li>
+								<form th:action="@{/ricercaPerInizialiRicetta}" method="POST" th:object="${ricettaInfos}">
+																	
+									<div>
+										<h2>Ricerca per Nome Figo</h2>
+										<span> Nome*:<br></span>
+										<input class="fix_offset" required type="text" th:field="${ricettaInfos.nomeRicetta}">
+										<span th:if="${#fields.hasErrors('nomeRicetta')}" th:errors="${ricettaInfos.nomeRicetta}"></span>
+										<div><br></div>
+									</div>
+									<div>
+										<span><button class="submit" type="submit">Conferma</button></span>
+										<div><br></div>
+									</div>
+								</form>
+							</li>
+							
+							
 						</ul>
 	                </div>
 	            </div>
