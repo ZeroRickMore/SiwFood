@@ -26,7 +26,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Ricetta {
-
+	
 	
 	/*===============================================================================================*/
 	/*                                           VARIABLES                                           */
