@@ -165,4 +165,16 @@ public class RicettaService {
 	public Iterable<Ricetta> findByCuocoOrderByNomeRicettaAsc(Cuoco cuoco) {
 		return this.ricettaRepository.findByCuocoOrderByNomeRicettaAsc(cuoco);
 	}
+
+	public List<Ricetta> findByNomeRicettaContaining(String nomeRicetta) {
+		return this.ricettaRepository.findByNomeRicettaContainingCustom(nomeRicetta);
+	}
+	
+	public List<Ricetta> findByNomeRicettaContainingOrderByNomeRicettaAsc(String nomeRicetta){
+		return this.ricettaRepository.findByNomeRicettaContainingOrderByNomeRicettaDesc(nomeRicetta);
+	}
+
+	public Integer countByCuoco(Cuoco cuoco) {
+		return this.ricettaRepository.countByCuoco(cuoco);
+	}
 }
